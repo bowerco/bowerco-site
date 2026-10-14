@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>bower · your brand, coded in.</title>
+  <meta name="description" content="bower codes your brand's rules in once, then checks every piece against them before it goes out. A person on your team still signs off.">
+  <link rel="icon" type="image/png" href="assets/bird.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Droid+Serif:wght@400;700&family=Lora:ital@1&display=swap" rel="stylesheet">
+  <style>
+    /* Brand rules: brand-bower/brand/rules.yaml */
+    :root {
+      --blue: #7284b7;        /* primary */
+      --light-blue: #c2d5f5;  /* secondary */
+      --cream: #fffcf4;       /* background */
+      --ink: #2b3350;         /* text: deep shade of brand blue, for readable body copy */
+      --serif: "Droid Serif", Georgia, serif;
+      --accent: "Lora", Georgia, serif;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font: 400 18px/1.6 var(--serif);
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-weight: 700; line-height: 1.2; }
+    .tagline { font-family: var(--accent); font-style: italic; color: var(--blue); }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header { padding: 18px 0; }
+    header img { height: 34px; width: auto; display: block; }
+
+    .btn {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--cream);
+      font: 700 19px/1 var(--serif);
+      padding: 18px 28px;
+      border: 0;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--ink); }
+
+    /* Signup */
+    .signup { background: var(--blue); color: var(--cream); padding: 120px 0; min-height: calc(100vh - 146px); display: flex; align-items: center; }
+    .signup .wrap { max-width: 680px; text-align: center; width: 100%; }
+    .signup h2 { font-size: clamp(34px, 5vw, 52px); margin-bottom: 20px; }
+    .signup p { font-size: 24px; line-height: 1.5; margin-bottom: 40px; }
+    .signup form { display: flex; gap: 12px; }
+    .signup input[type="email"] {
+      flex: 1;
+      min-width: 0;
+      font: 400 18px var(--serif);
+      color: var(--ink);
+      background: var(--cream);
+      border: 2px solid var(--cream);
+      border-radius: 4px;
+      padding: 16px 18px;
+    }
+    .signup input[type="email"]:focus { outline: none; border-color: var(--light-blue); }
+    .signup .btn { background: var(--light-blue); color: var(--ink); }
+    .signup .btn:hover { background: var(--cream); }
+    .signup .accent { font-family: var(--accent); font-style: italic; white-space: nowrap; }
+    .signup .consent { font-size: 15px; margin: 16px 0 0; opacity: 0.9; }
+    .signup .msg { margin: 12px 0 0; min-height: 1.6em; font-size: 18px; }
+    .hp { position: absolute; left: -5000px; }
+
+    /* Footer */
+    footer { padding: 20px 0; }
+    footer .wrap { display: flex; align-items: center; gap: 16px; }
+    footer img { height: 36px; width: auto; }
+    footer .tagline { font-size: 18px; }
+
+    @media (max-width: 820px) {
+      .signup { padding: 72px 0; min-height: 0; }
+      .signup p { font-size: 21px; }
+    }
+    @media (max-width: 520px) {
+      .wrap { padding: 0 16px; }
+      .signup form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap">
+      <a href="/"><img src="assets/wordmark-blue.png" alt="bower" width="150" height="40"></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="signup" id="early-access">
+      <div class="wrap">
+        <h2>Get early access.</h2>
+        <p>bower builds the system behind your brand's content, so everything you put out stays consistent. It's <span class="accent">your brand, coded in.</span></p>
+
+        <!-- Signups go to the "bower waitlist" Google Sheet through an Apps Script web app
+             (code in apps-script/Code.gs). Paste the web app URL into data-endpoint. -->
+        <form id="signup-form" data-endpoint="https://script.google.com/macros/s/AKfycbwRQuviVaf9C7uYrOdquQYgExdBY_5mkeAZFM9YWt5Uhsil3NbdQVrPUGLlrFjqkWcu3A/exec" novalidate>
+          <label for="email" class="hp">Email address</label>
+          <input type="email" name="email" id="email" placeholder="you@yourbrand.com" autocomplete="email" required>
+          <div class="hp" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off" value=""></div>
+          <button class="btn" type="submit">Get early access</button>
+        </form>
+        <p class="consent">You'll get emails from bower about early access. Unsubscribe anytime.</p>
+        <p class="msg" id="signup-msg" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/bird.png" alt="" width="45" height="36">
+      <span class="tagline">your brand, coded in.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Posts the email to the Apps Script web app, which adds a row to the waitlist sheet.
+    (function () {
+      var form = document.getElementById('signup-form');
+      var msg = document.getElementById('signup-msg');
+      var button = form.querySelector('button');
+      var endpoint = form.getAttribute('data-endpoint');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = form.email.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          msg.textContent = 'That email doesn\'t look right. Try again?';
+          return;
+        }
+        if (!/^https:\/\/script\.google\.com\//.test(endpoint)) {
+          msg.textContent = 'Signups aren\'t open yet.';
+          return;
+        }
+        button.disabled = true;
+        msg.textContent = 'Sending...';
+        fetch(endpoint, {
+          method: 'POST',
+          body: new URLSearchParams({ email: email, company: form.company.value })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            if (res.result === 'success') {
+              form.reset();
+              msg.textContent = 'You\'re on the list. We\'ll be in touch.';
+            } else if (res.result === 'exists') {
+              msg.textContent = 'You\'re already on the list.';
+            } else {
+              msg.textContent = 'That email doesn\'t look right. Try again?';
+            }
+          })
+          .catch(function () {
+            msg.textContent = 'Something went wrong. Try again in a minute.';
+          })
+          .then(function () { button.disabled = false; });
+      });
+    })();
+  </script>
+</body>
+</html>
