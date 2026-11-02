@@ -379,6 +379,51 @@
     .bar i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); background: var(--pc); border-radius: 100px; }
     .bar b { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
 
+
+    /* Guided tour */
+    .hero-ctas { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .hero-alt { color: var(--blue); font-size: 17px; text-decoration: none; border-bottom: 1px solid var(--light-blue); }
+    .hero-alt:hover { color: var(--ink); }
+    .stepnav .wrap { display: flex; align-items: center; gap: 12px; }
+    .stepnav ol { flex: 1; min-width: 0; }
+    .tour-btn { flex: none; border: 1.5px solid var(--blue); background: transparent; color: var(--blue); border-radius: 100px; padding: 8px 14px 8px 30px; font: 500 14px/1 var(--ui); position: relative; white-space: nowrap; }
+    .tour-btn::before { content: ""; position: absolute; left: 13px; top: 50%; margin-top: -5px; border: 5px solid transparent; border-left: 8px solid currentColor; border-right: 0; }
+    .tour-btn:hover { background: var(--blue); color: var(--cream); }
+    .touring .tour-btn { visibility: hidden; }
+    #tour-spot { position: fixed; z-index: 40; pointer-events: none; border-radius: 16px; box-shadow: 0 0 0 3px var(--light-blue), 0 0 0 200vmax rgba(24, 29, 48, .46); transition: top .35s ease, left .35s ease, width .35s ease, height .35s ease; }
+    #tour-bubble { position: fixed; z-index: 41; width: 320px; background: var(--ink); color: var(--cream); border-radius: 16px; padding: 16px 18px 14px; font: 400 15px/1.5 var(--ui); box-shadow: 0 18px 40px -12px rgba(0,0,0,.45); transition: top .35s ease, left .35s ease; }
+    #tour-bubble.pop { animation: pop .3s ease both; }
+    @keyframes pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+    .tour-arrow { position: absolute; width: 14px; height: 14px; background: var(--ink); transform: rotate(45deg); border-radius: 2px; }
+    #tour-bubble[data-place="right"] .tour-arrow { left: -6px; }
+    #tour-bubble[data-place="left"] .tour-arrow { right: -6px; }
+    #tour-bubble[data-place="bottom"] .tour-arrow { top: -6px; }
+    #tour-bubble[data-place="top"] .tour-arrow { bottom: -6px; }
+    #tour-bubble[data-place="inside"] .tour-arrow, #tour-bubble[data-place="sheet"] .tour-arrow { display: none; }
+    .tour-top { display: flex; justify-content: space-between; font: 500 11px/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--light-blue); margin-bottom: 8px; }
+    #tour-count { font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+    .tour-bar { height: 3px; background: rgba(194, 213, 245, .2); border-radius: 3px; overflow: hidden; margin-bottom: 12px; }
+    .tour-bar i { display: block; height: 100%; background: var(--light-blue); transition: width .3s ease; }
+    #tour-text { margin-bottom: 14px; }
+    #tour-text b { font-weight: 600; }
+    #tour-text em { font: italic 17px/1.3 var(--accent); color: var(--light-blue); }
+    .tour-acts { display: flex; align-items: center; gap: 8px; }
+    .tour-acts button { border: 0; border-radius: 100px; font: 500 13px/1 var(--ui); padding: 9px 14px; }
+    .tour-skip { background: transparent; color: rgba(255, 252, 244, .65); padding-left: 0 !important; margin-right: auto; }
+    .tour-skip:hover { color: var(--cream); }
+    .tour-hint { font-size: 11px; color: rgba(255, 252, 244, .5); }
+    .tour-back { background: rgba(194, 213, 245, .14); color: var(--cream); }
+    .tour-back:hover { background: rgba(194, 213, 245, .26); }
+    .tour-back:disabled { opacity: .35; cursor: default; }
+    .tour-next { background: var(--light-blue); color: var(--ink); }
+    .tour-next:hover { background: var(--cream); }
+    @media (max-width: 760px) {
+      #tour-bubble { width: auto; left: 12px !important; right: 12px; top: auto !important; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+      .tour-hint { display: none; }
+      .tour-btn { padding: 8px 12px 8px 26px; font-size: 13px; }
+      .tour-btn::before { left: 11px; }
+    }
+
     /* Signup */
     .signup { background: var(--blue); color: var(--cream); padding: 96px 0; }
     .signup .wrap { max-width: 680px; text-align: center; }
@@ -437,7 +482,7 @@
       .signup p { font-size: 20px; }
       .signup form { flex-direction: column; }
     }
-    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+    @media (prefers-reduced-motion: reduce) { *, #tour-spot, #tour-bubble { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
   </style>
 </head>
 <body>
@@ -493,7 +538,7 @@
         <p class="eyebrow">See how it works</p>
         <h1>One launch, start to finish.</h1>
         <p>Meet Asanagi, a small coffee roaster we made up. Follow its winter launch through bower, from a folder of files to a launch that sold 120 bags in a week. It's <span class="accent">your brand, coded in.</span></p>
-        <a class="btn" href="#step-1" data-go="1">Start the demo</a>
+        <div class="hero-ctas"><a class="btn" href="#step-1" data-tour-start>Start the guided demo</a><a class="hero-alt" href="#step-1" data-go="1">or explore on your own</a></div>
         <p class="note">Demo brand. All content and numbers are sample data.</p>
       </div>
     </section>
@@ -509,6 +554,7 @@
           <li><button type="button" data-go="6"><span class="n">6</span>Schedule</button></li>
           <li><button type="button" data-go="7"><span class="n">7</span>Results</button></li>
         </ol>
+        <button type="button" class="tour-btn" id="tour-btn" data-tour-start>Guided tour</button>
       </div>
     </nav>
 
@@ -992,6 +1038,20 @@
     </div>
   </footer>
 
+  <div id="tour-spot" hidden></div>
+  <div id="tour-bubble" role="dialog" aria-label="Guided tour" hidden>
+    <span class="tour-arrow" aria-hidden="true"></span>
+    <div class="tour-top"><span id="tour-where"></span><span id="tour-count"></span></div>
+    <div class="tour-bar" aria-hidden="true"><i id="tour-prog"></i></div>
+    <p id="tour-text" aria-live="polite"></p>
+    <div class="tour-acts">
+      <button type="button" class="tour-skip" id="tour-skip">Skip tour</button>
+      <span class="tour-hint">Press Enter</span>
+      <button type="button" class="tour-back" id="tour-back">Back</button>
+      <button type="button" class="tour-next" id="tour-next">Next</button>
+    </div>
+  </div>
+
   <script>
     // Step-by-step demo. Without JavaScript, every step shows in order.
     (function () {
@@ -1000,6 +1060,7 @@
       var navBtns = [].slice.call(document.querySelectorAll('.stepnav button'));
       var nav = document.querySelector('.stepnav');
       var seen = {};
+      var tour = { on: false, i: -1 };
 
       function show(n, scroll) {
         n = Math.max(1, Math.min(7, n));
@@ -1021,7 +1082,9 @@
 
       document.addEventListener('click', function (e) {
         var go = e.target.closest('[data-go]');
-        if (go) { e.preventDefault(); show(+go.dataset.go, true); }
+        var ts = e.target.closest('[data-tour-start]');
+        if (ts) { e.preventDefault(); startTour(); return; }
+        if (go) { e.preventDefault(); if (tour.on && !e.target.closest('#tour-bubble')) endTour(); show(+go.dataset.go, true); }
       });
 
       var m = /^#step-([1-7])$/.exec(location.hash);
@@ -1172,6 +1235,129 @@
         document.getElementById('idea-fresh').hidden = false;
         show(3, true);
       });
+
+      // Guided tour: one bubble at a time. Enter or the right arrow moves forward.
+      var names = ['Assets', 'Brand', 'Ideas', 'Create', 'Approve', 'Schedule', 'Results'];
+      function clickAll(sel, gap) {
+        [].slice.call(document.querySelectorAll(sel)).forEach(function (b, i) {
+          setTimeout(function () { if (b.isConnected) b.click(); }, i * gap);
+        });
+      }
+      function tab(f) { selectTab(document.querySelector('[data-fmt="' + f + '"]')); }
+      var stops = [
+        { step: 1, at: '.drop', text: 'Start with what you already have. Drop in photos, videos, logos, fonts and your brand book.' },
+        { step: 1, at: '#newtag', text: 'bower tags every new file and suggests where it goes. You confirm with one click.', act: function () { clickAll('#newtag [data-confirm]:not(.done)', 350); } },
+        { step: 1, at: '.cats', text: 'Everything has its place: logos, fonts, brand colours, photos and videos.', act: function () { filter('all'); } },
+        { step: 1, at: '.shelf[data-shelf="photos"]', text: 'Photos and videos are sorted by what they show, so the right shot is one click away.', act: function () { filter('photos'); } },
+        { step: 2, at: '#s2 > .card:first-child', text: 'bower reads your brand book, your site and your best posts.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
+        { step: 2, at: '.rules', text: 'Out come the rules: voice, banned words, products and prices. <em>If it isn\'t in here, bower won\'t say it.</em>' },
+        { step: 3, at: '.focus', text: 'Tell bower what you\'re working toward. For Asanagi, it\'s the launch of Yuki, a winter roast.' },
+        { step: 3, at: '#ideas', text: 'bower finds ideas in trends, in brands like yours and in files you haven\'t used yet.' },
+        { step: 3, at: '.campaign', text: 'Then it lays out the whole campaign, in order.' },
+        { step: 4, at: '.stage', text: 'It writes and designs the newsletter from your template, in your voice.', act: function () { tab('nl'); } },
+        { step: 4, at: '#passes', text: 'Every piece is checked against your rules before you ever see it.', act: function () { tab('nl'); } },
+        { step: 4, at: '.stage', text: 'The same story becomes a six slide carousel. No starting over.', act: function () { tab('car'); } },
+        { step: 4, at: '.stage', text: 'And three teaser stories. One of them broke a rule: <b>"bold"</b> is on Asanagi\'s never say list.', act: function () { tab('st'); } },
+        { step: 5, at: '.piece[data-piece="st"]', text: 'Nothing goes out without a yes. bower flags the problem and suggests the fix.' },
+        { step: 5, at: '.piece[data-piece="st"]', text: 'One click and it\'s fixed. Still on brand, still in your voice.', act: function () { var f = document.getElementById('fix-it'); if (f) f.click(); } },
+        { step: 5, at: '#col-done', text: 'Approve, and it\'s scheduled.', act: function () { clickAll('#col-wait [data-approve]', 300); } },
+        { step: 6, at: '.cal', text: 'Everything lands on one calendar, colour coded by pillar. Launch week is ready to go.' },
+        { step: 6, at: '.side6', text: 'See what needs you, the balance of your content and the open slots, at a glance.' },
+        { step: 7, at: '.lessons', text: 'After each send, bower turns the numbers into lessons.' },
+        { step: 7, at: '#close-loop', text: 'Each lesson shapes the next idea, and the loop starts again. <em>Sharper every week.</em>' },
+        { step: 0, at: '#early-access .wrap', text: 'That\'s bower. Want it for your brand? Get early access and we\'ll set it up with your assets, your rules and your voice.', label: 'Your turn' }
+      ];
+      var spot = document.getElementById('tour-spot'), bub = document.getElementById('tour-bubble');
+      var arrow = bub.querySelector('.tour-arrow');
+      var nextBtn = document.getElementById('tour-next'), backBtn = document.getElementById('tour-back');
+      var timers = [];
+      function navH() { return nav.getBoundingClientRect().bottom > 0 ? nav.offsetHeight : 0; }
+      function target() { return document.querySelector(stops[tour.i].at); }
+      function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+      function place() {
+        if (!tour.on) return;
+        var el = target(); if (!el) return;
+        var r = el.getBoundingClientRect(), pad = 8, vw = document.documentElement.clientWidth, vh = window.innerHeight;
+        spot.style.top = (r.top - pad) + 'px'; spot.style.left = (r.left - pad) + 'px';
+        spot.style.width = (r.width + pad * 2) + 'px'; spot.style.height = (r.height + pad * 2) + 'px';
+        if (vw <= 760) { bub.dataset.place = 'sheet'; return; }
+        var bw = bub.offsetWidth, bh = bub.offsetHeight, g = 20, top = navH() + 12;
+        var visTop = Math.max(r.top, top), visBot = Math.min(r.bottom, vh - 12);
+        var cy = (visTop + visBot) / 2, cx = r.left + r.width / 2;
+        var x, y, where = 'inside';
+        if (r.right + g + bw < vw - 16) { where = 'right'; x = r.right + g; }
+        else if (r.left - g - bw > 16) { where = 'left'; x = r.left - g - bw; }
+        else if (r.bottom + g + bh < vh - 12) { where = 'bottom'; y = r.bottom + g; }
+        else if (r.top - g - bh > top) { where = 'top'; y = r.top - g - bh; }
+        if (where === 'right' || where === 'left') {
+          y = clamp(cy - bh / 2, top, vh - bh - 12);
+          arrow.style.top = clamp(cy - y - 7, 14, bh - 28) + 'px'; arrow.style.left = '';
+        } else if (where === 'top' || where === 'bottom') {
+          x = clamp(cx - bw / 2, 16, vw - bw - 16);
+          arrow.style.left = clamp(cx - x - 7, 18, bw - 32) + 'px'; arrow.style.top = '';
+        } else {
+          x = clamp(r.right - bw - 16, 16, vw - bw - 16); y = clamp(visBot - bh - 16, top, vh - bh - 12);
+        }
+        bub.dataset.place = where;
+        bub.style.left = x + 'px'; bub.style.top = y + 'px';
+      }
+      function reveal() {
+        var el = target(); if (!el) return;
+        var r = el.getBoundingClientRect(), vh = window.innerHeight, top = nav.offsetHeight + 24;
+        var room = vw() <= 760 ? vh - bub.offsetHeight - 36 : vh - 24;
+        if (r.top < top || r.bottom > room) {
+          var dy = r.height < room - top ? r.top - top - Math.max(0, (room - top - r.height) / 3) : r.top - top;
+          window.scrollTo({ top: window.pageYOffset + dy, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        }
+      }
+      function vw() { return document.documentElement.clientWidth; }
+      function goTo(i) {
+        if (i < 0) return;
+        if (i >= stops.length) { endTour(); tour.i = -1; updateTourBtn(); return; }
+        tour.i = i;
+        var s = stops[i];
+        if (s.step) show(s.step, false);
+        if (s.act) s.act();
+        document.getElementById('tour-where').textContent = s.label || ('Step ' + s.step + ' · ' + names[s.step - 1]);
+        document.getElementById('tour-count').textContent = (i + 1) + ' of ' + stops.length;
+        document.getElementById('tour-prog').style.width = ((i + 1) / stops.length * 100) + '%';
+        document.getElementById('tour-text').innerHTML = s.text;
+        backBtn.disabled = i === 0;
+        nextBtn.textContent = i === stops.length - 1 ? 'Finish' : 'Next';
+        spot.hidden = false; bub.hidden = false;
+        bub.classList.remove('pop'); void bub.offsetWidth; bub.classList.add('pop');
+        timers.forEach(clearTimeout);
+        place();
+        timers = [60, 420].map(function (ms) { return setTimeout(function () { reveal(); place(); }, ms); })
+          .concat([800, 1300, 2400].map(function (ms) { return setTimeout(place, ms); }));
+        nextBtn.focus({ preventScroll: true });
+      }
+      function startTour() {
+        tour.on = true; document.body.classList.add('touring');
+        goTo(tour.i > 0 ? tour.i : 0);
+      }
+      function endTour() {
+        tour.on = false; timers.forEach(clearTimeout);
+        spot.hidden = true; bub.hidden = true; document.body.classList.remove('touring');
+        updateTourBtn();
+      }
+      function updateTourBtn() {
+        document.getElementById('tour-btn').textContent = tour.i > 0 ? 'Resume tour' : 'Guided tour';
+      }
+      nextBtn.addEventListener('click', function () { goTo(tour.i + 1); });
+      backBtn.addEventListener('click', function () { goTo(tour.i - 1); });
+      document.getElementById('tour-skip').addEventListener('click', endTour);
+      document.addEventListener('keydown', function (e) {
+        if (!tour.on || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+        if (e.key === 'Enter' || e.key === 'ArrowRight') { e.preventDefault(); goTo(tour.i + 1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(tour.i - 1); }
+        else if (e.key === 'Escape') { endTour(); }
+      });
+      var raf = 0;
+      function onMove() { if (!tour.on || raf) return; raf = requestAnimationFrame(function () { raf = 0; place(); }); }
+      window.addEventListener('scroll', onMove, { passive: true });
+      window.addEventListener('resize', onMove);
     })();
 
     // Waitlist signup (same as the homepage)
