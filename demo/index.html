@@ -1,0 +1,1388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>See how it works · bower</title>
+  <meta name="description" content="Follow one coffee launch through bower, from a folder of files to a newsletter that sold. Seven steps, start to finish.">
+  <link rel="icon" type="image/png" href="../assets/bird.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Droid+Serif:wght@400;700&family=Lora:ital@1&family=Inter:wght@400;500;600&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* bower brand rules: brand-bower/brand/rules.yaml (same as the homepage) */
+    :root {
+      --blue: #7284b7;
+      --light-blue: #c2d5f5;
+      --cream: #fffcf4;
+      --ink: #2b3350;
+      --serif: "Droid Serif", Georgia, serif;
+      --accent: "Lora", Georgia, serif;
+
+      /* bower app interface (from the dashboard concept) */
+      --ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --ui-bg: #e9eef8;
+      --ui-card: #ffffff;
+      --ui-soft: #eef2fa;
+      --ui-ink: #3d4766;
+      --ui-muted: #6c7593;
+      --ui-line: #dfe5f1;
+      --ui-dark: #444f6d;
+
+      /* Asanagi, the made-up demo brand */
+      --washi: #f3efe6;
+      --sumi: #262422;
+      --hinoki: #c9a77c;
+      --kaki: #b5694a;
+      --moss: #3f6a24;   /* tile green */
+      --crema: #c7863a;  /* espresso crema */
+      --mincho: "Shippori Mincho", "Hiragino Mincho ProN", Georgia, serif;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--ink); font: 400 18px/1.6 var(--serif); -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-weight: 700; line-height: 1.2; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .tagline { font-family: var(--accent); font-style: italic; color: var(--blue); }
+
+    /* Header */
+    header { padding: 18px 0; }
+    header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    header img { height: 34px; width: auto; display: block; }
+    .navlink { color: var(--blue); font-size: 17px; text-decoration: none; border-bottom: 1px solid var(--light-blue); }
+    .navlink:hover { color: var(--ink); }
+
+    .btn { display: inline-block; background: var(--blue); color: var(--cream); font: 700 18px/1 var(--serif); padding: 17px 26px; border: 0; border-radius: 4px; text-decoration: none; }
+    .btn:hover { background: var(--ink); }
+    .btn.ghost { background: transparent; color: var(--blue); box-shadow: inset 0 0 0 2px var(--light-blue); }
+    .btn.ghost:hover { color: var(--ink); box-shadow: inset 0 0 0 2px var(--blue); }
+
+    /* Hero */
+    .hero { padding: 56px 0 40px; }
+    .eyebrow { font: 500 13px/1.4 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(38px, 5.4vw, 64px); max-width: 820px; margin-bottom: 22px; }
+    .hero p { font-size: 22px; max-width: 700px; margin-bottom: 30px; }
+    .hero p .accent { font-family: var(--accent); font-style: italic; color: var(--blue); }
+    .hero .note { font: 400 14px/1.5 var(--ui); color: var(--ui-muted); margin: 18px 0 0; }
+
+    /* Step nav */
+    .stepnav { position: sticky; top: 0; z-index: 20; background: rgba(255, 252, 244, .94); backdrop-filter: blur(8px); border-bottom: 1px solid #ece6d6; }
+    .stepnav ol { list-style: none; padding: 12px 0; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+    .stepnav ol::-webkit-scrollbar { display: none; }
+    .stepnav button { display: flex; align-items: center; gap: 8px; white-space: nowrap; background: transparent; border: 0; border-radius: 100px; padding: 9px 16px 9px 10px; font: 500 15px/1 var(--ui); color: var(--ui-muted); }
+    .stepnav button .n { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--ui-soft); color: var(--blue); font-size: 12px; font-weight: 600; }
+    .stepnav button:hover { color: var(--ink); }
+    .stepnav button[aria-current="step"] { background: var(--light-blue); color: var(--ink); }
+    .stepnav button[aria-current="step"] .n { background: var(--cream); }
+    .stepnav button.done .n { background: var(--blue); color: var(--cream); }
+
+    /* Steps */
+    .demo { padding: 44px 0 72px; }
+    .step { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 48px; align-items: start; padding: 28px 0 56px; scroll-margin-top: 80px; }
+    .js .step { display: none; }
+    .js .step.active { display: grid; animation: rise .35s ease both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .step-copy { position: sticky; top: 96px; }
+    .step-copy h2 { font-size: clamp(30px, 3.4vw, 42px); margin-bottom: 18px; }
+    .step-copy > p { font-size: 18px; margin-bottom: 18px; }
+    .step-copy .try { font: 500 15px/1.5 var(--ui); color: var(--blue); background: var(--ui-soft); border-radius: 10px; padding: 12px 14px; margin: 22px 0 26px; }
+    .step-copy .try::before { content: "Try it. "; font-weight: 600; }
+    .step-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+    .step-controls .btn { font-size: 16px; padding: 14px 20px; }
+
+    /* App frame */
+    .app { background: var(--ui-bg); border-radius: 22px; padding: 18px; font: 400 14px/1.45 var(--ui); color: var(--ui-ink); box-shadow: 0 1px 0 #dfe5f1, 0 24px 60px -30px rgba(68, 79, 109, .35); min-width: 0; }
+    .app-top { display: flex; align-items: center; gap: 12px; padding: 4px 6px 16px; }
+    .app-top .wm { font: 400 22px/1 var(--serif); color: var(--blue); }
+    .app-top .brandchip { font-size: 12px; background: var(--ui-card); border-radius: 100px; padding: 6px 12px; color: var(--ui-muted); }
+    .app-top .brandchip b { color: var(--ui-ink); font-weight: 600; }
+    .app-top .status { margin-left: auto; font-size: 13px; background: var(--ui-card); border-radius: 100px; padding: 7px 14px; transition: background .3s; }
+    .app-title { font: 600 24px/1.2 var(--ui); color: var(--ui-dark); padding: 0 6px 14px; letter-spacing: -.01em; }
+    .card { background: var(--ui-card); border-radius: 16px; padding: 18px; min-width: 0; }
+    .card h3 { font: 600 16px/1.3 var(--ui); color: var(--ui-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .grid { display: grid; gap: 14px; }
+    .label { font: 500 11px/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--ui-muted); }
+    .pill { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; background: var(--ui-soft); color: var(--ui-ink); border-radius: 100px; padding: 4px 10px; white-space: nowrap; }
+    .pill.blue { background: var(--light-blue); }
+    .pill.flag { background: #f6e4dc; color: #8a3f22; }
+    .ubtn { border: 1.5px solid var(--blue); background: transparent; color: var(--ui-dark); border-radius: 100px; padding: 8px 16px; font: 500 13px/1 var(--ui); white-space: nowrap; transition: background .2s, color .2s; }
+    .ubtn:hover { background: var(--ui-soft); }
+    .ubtn.solid { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .ubtn.solid:hover { background: var(--ui-dark); border-color: var(--ui-dark); }
+    .ubtn.done { background: var(--ui-soft); border-color: transparent; color: var(--ui-muted); cursor: default; }
+    .ubtn:disabled { cursor: default; }
+    .check { color: var(--blue); font-weight: 600; }
+    .muted { color: var(--ui-muted); }
+    .row { display: flex; align-items: center; gap: 12px; }
+    .row.split { justify-content: space-between; }
+    .list > * + * { border-top: 1px solid var(--ui-line); }
+
+    /* Asanagi art */
+    .art { display: grid; place-items: center; border-radius: 10px; overflow: hidden; position: relative; }
+    .art svg { width: 62%; height: auto; }
+    .tone-washi { background: var(--washi); }
+    .tone-hinoki { background: #e7d8c1; }
+    .tone-sumi { background: var(--sumi); }
+    .tone-moss { background: var(--moss); color: var(--washi); }
+    .tone-kaki { background: #ead2c4; }
+    .art.ph img, .slide.ph img, .story.ph img, .ad-img.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .ph { position: relative; overflow: hidden; }
+    .ph > :not(img) { position: relative; }
+    .slide.ph, .story.ph, .ad-img.ph { color: #fbf7ee; }
+    .slide.ph::before, .story.ph::before, .ad-img.ph::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(20,18,16,.45), rgba(20,18,16,0) 40%, rgba(20,18,16,.55)); }
+    .slide.ph > :not(img), .story.ph > :not(img), .ad-img.ph > :not(img) { z-index: 2; }
+    .slide.ph .n { color: #fbf7ee; opacity: .8; }
+    .story.ph .bars i { background: rgba(251,247,238,.35); } .story.ph .bars i.on { background: #fbf7ee; }
+    .ad-img.ph p { color: #fbf7ee; }
+    .asa-wm { font: 500 30px/1 var(--mincho); color: var(--sumi); letter-spacing: .04em; text-align: center; }
+    .asa-wm small { display: block; font-size: 12px; letter-spacing: .5em; margin-top: 8px; color: var(--moss); }
+
+    /* Step 1: Assets */
+    .s1 { grid-template-columns: 1.35fr 1fr; }
+    .drop { border: 1.5px dashed #b7c3de; background: var(--ui-soft); display: flex; gap: 16px; align-items: center; }
+    .drop .icon { width: 46px; height: 46px; flex: none; border-radius: 50%; background: #fff; display: grid; place-items: center; color: var(--blue); }
+    .drop b { font: 600 16px/1.3 var(--ui); color: var(--ui-dark); display: block; margin-bottom: 4px; }
+    .newtag .item { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+    .newtag .thumb { width: 40px; height: 40px; flex: none; border-radius: 8px; }
+    .newtag .item div { flex: 1; min-width: 0; }
+    .newtag .item b { display: block; font-weight: 600; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .newtag .item span { font-size: 12px; color: var(--ui-muted); }
+    .tiles { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .tile .art { aspect-ratio: 4 / 3; margin-bottom: 8px; }
+    .tile b { display: block; font-weight: 600; font-size: 13px; }
+    .tile span { font-size: 12px; color: var(--ui-muted); }
+    .tile.video .art { background: var(--sumi); color: #ddd5c6; place-items: end start; padding: 10px; font-size: 12px; }
+    .tile.video .art::after { content: "0:38"; position: absolute; right: 10px; bottom: 10px; color: #fbf7ee; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
+    .tile.video .art svg { position: absolute; inset: 0; margin: auto; width: 34%; }
+    .tile.font .art { font: 500 44px/1 var(--mincho); color: var(--sumi); }
+    .tile.is-new .art { box-shadow: inset 0 0 0 2px var(--blue); }
+
+    /* Step 2: Brand */
+    .s2 { grid-template-columns: 1fr 1.7fr; }
+    .source { display: flex; gap: 12px; align-items: center; padding: 11px 0; }
+    .source .ic { width: 36px; height: 36px; flex: none; border-radius: 8px; background: var(--ui-soft); display: grid; place-items: center; color: var(--blue); font-size: 11px; font-weight: 600; }
+    .source b { display: block; font-size: 13px; font-weight: 600; }
+    .source span { font-size: 12px; color: var(--ui-muted); }
+    .rules { grid-template-columns: 1fr 1fr; }
+    .rule-card { position: relative; min-height: 172px; }
+    .rule-card .fill { transition: opacity .5s; }
+    .rule-card .skel { position: absolute; inset: 52px 18px 18px; display: grid; gap: 10px; align-content: start; transition: opacity .3s; }
+    .rule-card .skel i { display: block; height: 10px; border-radius: 6px; background: var(--ui-soft); }
+    .rule-card .skel i:nth-child(2) { width: 80%; } .rule-card .skel i:nth-child(3) { width: 60%; }
+    .coding .rule-card .skel i { animation: shimmer 1s ease-in-out infinite alternate; }
+    @keyframes shimmer { to { background: #dbe3f3; } }
+    .rule-card:not(.on) .fill { opacity: 0; }
+    .rule-card.on .skel { opacity: 0; }
+    .rule-card .status-tag { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--ui-muted); }
+    .rule-card.on .status-tag { color: var(--blue); }
+    .voice-line { font: italic 17px/1.35 var(--accent); color: var(--ui-dark); margin: 8px 0 10px; }
+    .banned { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12px; }
+    .banned s { border: 1px solid var(--ui-line); border-radius: 100px; padding: 2px 10px; color: var(--ui-muted); }
+    .kv { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; font-size: 13px; }
+    .kv b { font-weight: 600; }
+    ul.ticks { list-style: none; padding: 0; display: grid; gap: 6px; font-size: 13px; }
+    ul.ticks li.nob::before { content: none; }
+    ul.ticks li::before { content: "✓"; color: var(--blue); font-weight: 600; margin-right: 8px; }
+    .s2-foot { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--ui-dark); color: #fff; }
+    .s2-foot p { font-size: 14px; }
+    .s2-foot b { font-weight: 600; }
+
+    /* Step 3: Ideas */
+    .s3 { grid-template-columns: 1.6fr 1fr; }
+    .focus { grid-column: 1 / -1; }
+    .focus .field { border: 1.5px solid var(--light-blue); border-radius: 100px; padding: 12px 20px; font-weight: 500; color: var(--ui-dark); margin: 4px 0 12px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips .pill { background: transparent; box-shadow: inset 0 0 0 1px #b7c3de; padding: 6px 12px; }
+    .chips .pill.blue { background: var(--light-blue); box-shadow: none; }
+    .idea { display: grid; grid-template-columns: 92px 1fr auto; gap: 14px; align-items: center; padding: 12px 0; }
+    .idea .src { font: 500 10px/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--ui-muted); }
+    .idea b { display: block; font-weight: 600; color: var(--ui-dark); }
+    .idea span { font-size: 13px; color: var(--ui-muted); }
+    .idea .acts { display: flex; align-items: center; gap: 8px; }
+    .idea.fresh { background: var(--ui-soft); margin: 0 -10px; padding: 12px 10px; border-radius: 10px; border-top: 0; }
+    .idea.fresh + .idea { border-top: 0; }
+    .campaign { background: var(--ui-dark); color: #fff; display: flex; flex-direction: column; }
+    .campaign h3 { color: #fff; margin-bottom: 4px; }
+    .campaign > p { font-size: 13px; opacity: .8; margin-bottom: 14px; }
+    .campaign ol { list-style: none; padding: 0; display: grid; gap: 10px; font-size: 13px; margin-bottom: 16px; }
+    .campaign li { display: flex; justify-content: space-between; gap: 10px; }
+    .campaign li span { opacity: .75; text-align: right; }
+    .campaign em { font: italic 15px/1.4 var(--accent); opacity: .9; margin-bottom: 18px; }
+    .campaign .ubtn { margin-top: auto; background: #fff; color: var(--ui-dark); border-color: #fff; padding: 12px; }
+
+    /* Step 4: Create */
+    .s4 { grid-template-columns: 1fr 250px; }
+    .tabs { display: inline-flex; background: var(--ui-soft); border-radius: 100px; padding: 4px; gap: 2px; flex-wrap: wrap; }
+    .tabs button { border: 0; background: transparent; border-radius: 100px; padding: 7px 14px; font: 500 13px/1 var(--ui); color: var(--ui-muted); }
+    .tabs button[aria-selected="true"] { background: #fff; color: var(--ui-dark); box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+    .prompt { font-size: 13px; color: var(--ui-muted); background: var(--ui-soft); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
+    .prompt b { color: var(--ui-dark); font-weight: 600; }
+    .stage { background: var(--washi); border-radius: 12px; padding: 22px; min-height: 470px; display: grid; place-items: center; }
+    .stage > [role="tabpanel"] { width: 100%; }
+    .stage > [hidden] { display: none; }
+    .stage-note { font-size: 12px; color: var(--ui-muted); text-align: center; margin-top: 10px; }
+
+    /* Asanagi newsletter */
+    .nl { background: #fbf9f4; max-width: 420px; margin: 0 auto; color: var(--sumi); font: 400 14px/1.7 Georgia, serif; box-shadow: 0 1px 2px rgba(38,36,34,.08); }
+    .nl-head { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 22px; border-bottom: 1px solid #e6dfd1; font: 500 15px/1 var(--mincho); letter-spacing: .06em; }
+    .nl-head small { font-size: 11px; color: var(--moss); letter-spacing: .3em; }
+    .nl .hero-art { aspect-ratio: 16 / 10; border-radius: 0; }
+    .nl .hero-art svg { width: 34%; }
+    .nl-body { padding: 24px 26px 28px; }
+    .nl-body h4 { font: 700 30px/1.2 var(--mincho); margin-bottom: 14px; }
+    .nl-body p { margin-bottom: 12px; }
+    .nl-recipe { display: flex; justify-content: space-between; border-top: 1px solid #e6dfd1; border-bottom: 1px solid #e6dfd1; padding: 10px 0; margin: 16px 0 20px; font: 500 12px/1.3 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--moss); }
+    .nl-recipe b { display: block; font: 500 17px/1.3 var(--mincho); color: var(--sumi); letter-spacing: 0; text-transform: none; }
+    .nl-cta { display: inline-block; background: var(--sumi); color: var(--washi); font: 500 13px/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; padding: 13px 22px; }
+
+    /* Asanagi carousel / stories / ad */
+    .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .slide { aspect-ratio: 1; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; color: var(--sumi); font: 500 12px/1.4 var(--ui); position: relative; overflow: hidden; }
+    .slide .n { font-size: 10px; letter-spacing: .14em; color: var(--moss); }
+    .slide h5 { font: 700 17px/1.25 var(--mincho); }
+    .slide p { font: 400 12px/1.4 Georgia, serif; }
+    .slide svg { position: absolute; right: 8px; bottom: 8px; width: 42%; opacity: .9; }
+    .slide.dark { background: var(--sumi); color: var(--washi); }
+    .slide.dark .n { color: var(--hinoki); }
+    .stories { display: grid; grid-template-columns: repeat(3, minmax(0, 170px)); gap: 12px; justify-content: center; }
+    .story { aspect-ratio: 9 / 16; padding: 16px 14px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; color: var(--sumi); }
+    .story .bars { display: flex; gap: 3px; }
+    .story .bars i { flex: 1; height: 2px; background: rgba(38,36,34,.2); }
+    .story .bars i.on { background: var(--sumi); }
+    .story.dark { background: var(--sumi); color: var(--washi); }
+    .story.dark .bars i { background: rgba(243,239,230,.25); } .story.dark .bars i.on { background: var(--washi); }
+    .story h5 { font: 700 18px/1.3 var(--mincho); }
+    .story small { font: 500 10px/1.3 var(--ui); letter-spacing: .16em; text-transform: uppercase; opacity: .7; }
+    .story svg { width: 64%; align-self: center; }
+    .story.ph { justify-content: space-between; }
+    .story .hl { background: #f2c9b8; color: #7a2f14; padding: 0 3px; border-radius: 3px; transition: background .3s; }
+    .story .hl.fixed { background: transparent; color: inherit; padding: 0; }
+    .ad { max-width: 330px; margin: 0 auto; background: #fff; box-shadow: 0 1px 2px rgba(38,36,34,.08); font: 400 12px/1.4 var(--ui); color: var(--sumi); }
+    .ad-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px; font-weight: 600; }
+    .ad-head i { width: 26px; height: 26px; border-radius: 50%; background: var(--sumi); display: grid; place-items: center; color: var(--washi); font: 500 12px/1 var(--mincho); font-style: normal; }
+    .ad-head span { font-weight: 400; color: #888; margin-left: auto; }
+    .ad-img { aspect-ratio: 4 / 5; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; }
+    .ad-img h5 { font: 700 34px/1.15 var(--mincho); }
+    .ad-img svg { width: 58%; align-self: center; }
+    .ad-img p { font: 500 12px/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--moss); }
+    .ad-foot { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: var(--washi); font-weight: 600; }
+    .ad-foot span { background: var(--sumi); color: var(--washi); padding: 7px 12px; font-size: 11px; letter-spacing: .08em; }
+
+    .side .passes { background: var(--ui-soft); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+    .side .passes b { display: block; font-weight: 600; color: var(--ui-dark); margin-bottom: 8px; }
+    .side .passes.warn { background: #f8ebe5; }
+    .side .passes.warn b { color: #8a3f22; }
+    .side .kv { padding: 5px 0; font-size: 12px; }
+    .side .stack { display: grid; gap: 8px; margin-top: 16px; }
+    .side .stack .ubtn { padding: 11px; }
+
+    /* Step 5: Approve */
+    .s5 { grid-template-columns: repeat(3, 1fr); }
+    .col { background: var(--ui-card); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-height: 300px; }
+    .col h3 { margin: 4px 4px 4px; }
+    .col h3 .count { margin-left: auto; font-size: 12px; background: var(--ui-soft); border-radius: 100px; padding: 2px 9px; }
+    .piece { background: var(--ui-soft); border-radius: 12px; padding: 12px; display: grid; grid-template-columns: 48px 1fr; gap: 12px; animation: rise .3s ease both; }
+    .piece .art { width: 48px; height: 60px; border-radius: 6px; }
+    .piece .art svg { width: 70%; }
+    .piece b { display: block; font-weight: 600; color: var(--ui-dark); font-size: 14px; line-height: 1.3; margin: 2px 0 3px; }
+    .piece .meta { font-size: 12px; color: var(--ui-muted); }
+    .piece .acts { grid-column: 1 / -1; display: flex; gap: 6px; }
+    .piece .acts .ubtn { flex: 1; padding: 9px 10px; }
+    .piece .flagline { grid-column: 1 / -1; background: #fff; border-radius: 8px; padding: 10px; font-size: 12px; }
+    .piece .flagline q { display: block; font: 600 13px/1.4 var(--mincho); color: var(--sumi); margin-top: 4px; quotes: none; }
+    .week { grid-column: 1 / -1; }
+    .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+    .day { background: var(--ui-soft); border-radius: 10px; padding: 8px; min-height: 92px; display: flex; flex-direction: column; gap: 5px; }
+    .day .d { font-size: 12px; font-weight: 600; color: var(--ui-dark); }
+    .day .d span { font-weight: 400; color: var(--ui-muted); }
+    .chipx { font-size: 11px; font-weight: 500; border-radius: 6px; padding: 4px 6px; background: var(--light-blue); color: var(--ui-dark); transition: background .3s, color .3s; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .chipx.sched { background: var(--ui-dark); color: #fff; }
+    .chipx.wait { background: #fff; box-shadow: inset 0 0 0 1px #b7c3de; }
+    .legend { display: flex; gap: 14px; font-size: 12px; color: var(--ui-muted); }
+    .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+
+    /* Step 6: Results */
+    .s6 { grid-template-columns: repeat(4, 1fr); }
+    .kpi .label { text-transform: none; letter-spacing: 0; font-size: 13px; }
+    .kpi .big { font: 600 34px/1.1 var(--ui); color: var(--ui-dark); margin: 8px 0 4px; letter-spacing: -.02em; }
+    .kpi .sub { font-size: 12px; color: var(--ui-muted); }
+    .lessons { grid-column: 1 / -1; }
+    .lessons .grid { grid-template-columns: repeat(3, 1fr); }
+    .lesson { background: var(--ui-soft); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; }
+    .lesson .big { font: 600 30px/1.1 var(--ui); color: var(--ui-dark); }
+    .lesson .big span { font-size: 15px; font-weight: 400; margin-left: 4px; }
+    .lesson h4 { font: italic 20px/1.3 var(--accent); color: var(--ui-dark); margin: 10px 0 6px; font-weight: 400; }
+    .lesson p { font-size: 13px; color: var(--ui-muted); margin-bottom: 14px; }
+    .lesson .next { margin-top: auto; font-weight: 600; font-size: 13px; color: var(--ui-dark); }
+    .loop { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+
+    /* Step 1 library */
+    .lib { display: grid; grid-template-columns: 180px 1fr; gap: 20px; }
+    .cats { display: flex; flex-direction: column; gap: 2px; }
+    .cat { display: flex; justify-content: space-between; align-items: center; border: 0; background: transparent; border-radius: 10px; padding: 9px 12px; font: 500 13px/1.2 var(--ui); color: var(--ui-ink); text-align: left; }
+    .cat span { font-weight: 400; color: var(--ui-muted); font-variant-numeric: tabular-nums; }
+    .cat:hover { background: var(--ui-soft); }
+    .cat.on { background: var(--light-blue); color: var(--ui-dark); }
+    .cat.on span { color: var(--ui-dark); }
+    .shelves { display: grid; gap: 22px; min-width: 0; }
+    .shelf-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    .shelf-head h4 { font: 600 15px/1.2 var(--ui); color: var(--ui-dark); }
+    .shelf-head span { font-size: 12px; color: var(--ui-muted); }
+    .lib .tiles { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 12px; }
+    .tile .tag { position: absolute; left: 8px; top: 8px; z-index: 2; font: 500 11px/1 var(--ui); background: rgba(251,247,238,.92); color: var(--sumi); border-radius: 100px; padding: 5px 9px; }
+    .tile.video .art::after { content: none; }
+    .tile .dur { position: absolute; right: 8px; bottom: 8px; z-index: 2; color: #fbf7ee; font-size: 11px; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+    .tile .seal { width: 52px; height: 52px; display: grid; place-items: center; background: var(--kaki); color: var(--washi); font: 700 26px/1 var(--mincho); border-radius: 6px; }
+    .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 12px; }
+    .swatch i { display: block; height: 64px; border-radius: 10px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06); margin-bottom: 8px; }
+    .swatch b { display: block; font-weight: 600; font-size: 13px; }
+    .swatch span { font-size: 11px; color: var(--ui-muted); font-variant-numeric: tabular-nums; }
+    .subtags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .doclist { list-style: none; padding: 0; display: grid; gap: 8px; }
+    .doclist li { display: flex; justify-content: space-between; gap: 10px; background: var(--ui-soft); border-radius: 10px; padding: 10px 12px; font-size: 13px; }
+    .doclist li span { color: var(--ui-muted); }
+    .shelf[hidden] { display: none; }
+
+    /* Step 6 schedule */
+    .s6c { grid-template-columns: 1fr; }
+    .side6 { display: grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
+    .count-pill { margin-left: auto; font-size: 12px; background: var(--light-blue); border-radius: 100px; padding: 2px 9px; }
+    .cal-scroll { overflow-x: auto; }
+    .cal { display: grid; grid-template-columns: repeat(7, minmax(84px, 1fr)); gap: 6px; }
+    .dow { font-size: 12px; color: var(--ui-muted); padding: 0 4px 2px; }
+    .cday { background: var(--ui-soft); border-radius: 10px; padding: 7px; min-height: 92px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .cday.launch { background: #e3e9f6; }
+    .cday.today { box-shadow: inset 0 0 0 2px var(--blue); }
+    .cd { font-size: 12px; font-weight: 600; color: var(--ui-dark); }
+    .cd em { font-style: normal; font-weight: 500; font-size: 10px; color: var(--blue); margin-left: 2px; }
+    .cday .chipx { display: block; position: relative; padding: 4px 6px 4px 14px; font-size: 10.5px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cday .chipx b { font-weight: 600; display: block; }
+    .cday .chipx::before { content: ""; position: absolute; left: 5px; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--pc); }
+    .chipx[data-pillar="ritual"] { --pc: var(--moss); }
+    .chipx[data-pillar="origin"] { --pc: var(--hinoki); }
+    .chipx[data-pillar="launch"] { --pc: var(--crema); }
+    .chipx[data-pillar="craft"] { --pc: var(--kaki); }
+    .chipx.sched::before { box-shadow: 0 0 0 1.5px #fff; }
+    .chipx.posted { background: transparent; color: var(--ui-muted); box-shadow: inset 0 0 0 1px var(--ui-line); }
+    .chipx.draft { background: #fff; box-shadow: inset 0 0 0 1px #b7c3de; }
+    .open-slot { border: 1.5px dashed #b7c3de; background: #fff; border-radius: 6px; padding: 5px 6px; font: 500 10.5px/1.25 var(--ui); color: var(--blue); text-align: left; text-decoration: underline; }
+    .lg-posted { box-shadow: inset 0 0 0 1px var(--ui-line); background: transparent; }
+    .lg-sched { background: var(--ui-dark); }
+    .lg-need { background: var(--light-blue); }
+    .lg-draft { background: #fff; box-shadow: inset 0 0 0 1px #b7c3de; }
+    .bars { display: grid; gap: 10px; }
+    .bar { display: grid; grid-template-columns: 62px 1fr 22px; gap: 8px; align-items: center; font-size: 12px; }
+    .bar i { height: 8px; border-radius: 100px; background: var(--ui-soft); position: relative; overflow: hidden; }
+    .bar i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); background: var(--pc); border-radius: 100px; }
+    .bar b { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+
+    /* Guided tour */
+    .hero-ctas { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .hero-alt { color: var(--blue); font-size: 17px; text-decoration: none; border-bottom: 1px solid var(--light-blue); }
+    .hero-alt:hover { color: var(--ink); }
+    .stepnav .wrap { display: flex; align-items: center; gap: 12px; }
+    .stepnav ol { flex: 1; min-width: 0; }
+    .tour-btn { flex: none; border: 1.5px solid var(--blue); background: transparent; color: var(--blue); border-radius: 100px; padding: 8px 14px 8px 30px; font: 500 14px/1 var(--ui); position: relative; white-space: nowrap; }
+    .tour-btn::before { content: ""; position: absolute; left: 13px; top: 50%; margin-top: -5px; border: 5px solid transparent; border-left: 8px solid currentColor; border-right: 0; }
+    .tour-btn:hover { background: var(--blue); color: var(--cream); }
+    .touring .tour-btn { visibility: hidden; }
+    #tour-spot { position: fixed; z-index: 40; pointer-events: none; border-radius: 16px; box-shadow: 0 0 0 3px var(--light-blue), 0 0 0 200vmax rgba(24, 29, 48, .46); transition: top .35s ease, left .35s ease, width .35s ease, height .35s ease; }
+    #tour-bubble { position: fixed; z-index: 41; width: 320px; background: var(--ink); color: var(--cream); border-radius: 16px; padding: 16px 18px 14px; font: 400 15px/1.5 var(--ui); box-shadow: 0 18px 40px -12px rgba(0,0,0,.45); transition: top .35s ease, left .35s ease; }
+    #tour-bubble.pop { animation: pop .3s ease both; }
+    @keyframes pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+    .tour-arrow { position: absolute; width: 14px; height: 14px; background: var(--ink); transform: rotate(45deg); border-radius: 2px; }
+    #tour-bubble[data-place="right"] .tour-arrow { left: -6px; }
+    #tour-bubble[data-place="left"] .tour-arrow { right: -6px; }
+    #tour-bubble[data-place="bottom"] .tour-arrow { top: -6px; }
+    #tour-bubble[data-place="top"] .tour-arrow { bottom: -6px; }
+    #tour-bubble[data-place="inside"] .tour-arrow, #tour-bubble[data-place="sheet"] .tour-arrow { display: none; }
+    .tour-top { display: flex; justify-content: space-between; font: 500 11px/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--light-blue); margin-bottom: 8px; }
+    #tour-count { font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+    .tour-bar { height: 3px; background: rgba(194, 213, 245, .2); border-radius: 3px; overflow: hidden; margin-bottom: 12px; }
+    .tour-bar i { display: block; height: 100%; background: var(--light-blue); transition: width .3s ease; }
+    #tour-text { margin-bottom: 14px; }
+    #tour-text b { font-weight: 600; }
+    #tour-text em { font: italic 17px/1.3 var(--accent); color: var(--light-blue); }
+    .tour-acts { display: flex; align-items: center; gap: 8px; }
+    .tour-acts button { border: 0; border-radius: 100px; font: 500 13px/1 var(--ui); padding: 9px 14px; }
+    .tour-skip { background: transparent; color: rgba(255, 252, 244, .65); padding-left: 0 !important; margin-right: auto; }
+    .tour-skip:hover { color: var(--cream); }
+    .tour-hint { font-size: 11px; color: rgba(255, 252, 244, .5); }
+    .tour-back { background: rgba(194, 213, 245, .14); color: var(--cream); }
+    .tour-back:hover { background: rgba(194, 213, 245, .26); }
+    .tour-back:disabled { opacity: .35; cursor: default; }
+    .tour-next { background: var(--light-blue); color: var(--ink); }
+    .tour-next:hover { background: var(--cream); }
+    @media (max-width: 760px) {
+      #tour-bubble { width: auto; left: 12px !important; right: 12px; top: auto !important; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+      .tour-hint { display: none; }
+      .tour-btn { padding: 8px 12px 8px 26px; font-size: 13px; }
+      .tour-btn::before { left: 11px; }
+    }
+
+    /* Signup */
+    .signup { background: var(--blue); color: var(--cream); padding: 96px 0; }
+    .signup .wrap { max-width: 680px; text-align: center; }
+    .signup h2 { font-size: clamp(34px, 5vw, 50px); margin-bottom: 18px; }
+    .signup p { font-size: 22px; line-height: 1.5; margin-bottom: 36px; }
+    .signup form { display: flex; gap: 12px; }
+    .signup input[type="email"] { flex: 1; min-width: 0; font: 400 18px var(--serif); color: var(--ink); background: var(--cream); border: 2px solid var(--cream); border-radius: 4px; padding: 16px 18px; }
+    .signup input[type="email"]:focus { outline: none; border-color: var(--light-blue); }
+    .signup .btn { background: var(--light-blue); color: var(--ink); }
+    .signup .btn:hover { background: var(--cream); }
+    .signup .accent { font-family: var(--accent); font-style: italic; white-space: nowrap; }
+    .signup .consent { font-size: 15px; margin: 16px 0 0; opacity: .9; }
+    .signup .msg { margin: 12px 0 0; min-height: 1.6em; font-size: 18px; }
+    .hp { position: absolute; left: -5000px; }
+
+    footer { padding: 20px 0; }
+    footer .wrap { display: flex; align-items: center; gap: 16px; }
+    footer img { height: 36px; width: auto; }
+    footer .tagline { font-size: 18px; }
+
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+    @media (max-width: 760px) { .side6 { grid-template-columns: 1fr; } }
+    @media (max-width: 1080px) {
+      .step { grid-template-columns: 1fr; gap: 24px; }
+      .step-copy { position: static; max-width: 680px; }
+      .step-copy .try { margin: 16px 0 0; }
+      .step-controls { display: none; }
+      .step-controls.bottom { display: flex; }
+    }
+    .step-controls.bottom { display: none; margin-top: 18px; }
+    @media (max-width: 1080px) { .step-controls.bottom { display: flex; } }
+    @media (max-width: 760px) {
+      .wrap { padding: 0 16px; }
+      .hero { padding: 32px 0 28px; }
+      .hero p { font-size: 19px; }
+      .app { padding: 12px; border-radius: 16px; }
+      .app-top .status { display: none; }
+      .s1, .s2, .s3, .s4, .s5, .s6c, .lib { grid-template-columns: 1fr; }
+      .cats { flex-direction: row; overflow-x: auto; gap: 6px; scrollbar-width: none; }
+      .cat { white-space: nowrap; gap: 6px; background: var(--ui-soft); border-radius: 100px; }
+      .lib .tiles { grid-template-columns: 1fr 1fr; }
+      .s6 { grid-template-columns: 1fr 1fr; }
+      .rules, .lessons .grid { grid-template-columns: 1fr; }
+      .tiles { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .idea { grid-template-columns: 1fr auto; }
+      .idea .src { grid-column: 1 / -1; }
+      .idea .acts .pill { display: none; }
+      .days { grid-template-columns: repeat(7, minmax(64px, 1fr)); overflow-x: auto; }
+      .stage { padding: 14px; min-height: 0; }
+      .stories { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .story h5 { font-size: 14px; }
+      .strip { grid-template-columns: repeat(2, 1fr); }
+      .loop, .s2-foot { flex-direction: column; align-items: flex-start; }
+      .signup { padding: 64px 0; }
+      .signup p { font-size: 20px; }
+      .signup form { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, #tour-spot, #tour-bubble { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+
+  <!-- Line drawings for the Asanagi demo brand -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-bag" viewBox="0 0 100 120">
+      <path d="M26 18h48l4 92H22z" fill="#fbf9f4" stroke="#262422" stroke-width="1.6"/>
+      <path d="M26 18l6-8h36l6 8" fill="none" stroke="#262422" stroke-width="1.6"/>
+      <path d="M30 30h40" stroke="#262422" stroke-width="1" opacity=".5"/>
+      <rect x="36" y="48" width="28" height="38" fill="none" stroke="#262422" stroke-width="1"/>
+      <text x="50" y="74" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="18" fill="#262422">雪</text>
+      <path d="M38 98h24" stroke="#b5694a" stroke-width="2"/>
+    </symbol>
+    <symbol id="i-dripper" viewBox="0 0 100 120">
+      <path d="M44 6c-4 6 4 9 0 15M54 4c-4 6 4 9 0 15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".6"/>
+      <path d="M22 30h56l-14 30H36z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M18 30h64" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M40 60h20v6H40z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M30 66h40c0 0 6 10 6 24s-8 22-26 22-26-8-26-22 6-24 6-24z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M28 92c8 3 36 3 44 0" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+    </symbol>
+    <symbol id="i-cup" viewBox="0 0 100 100">
+      <path d="M40 14c-4 6 4 9 0 15M52 10c-4 6 4 9 0 15M64 14c-4 6 4 9 0 15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".6"/>
+      <path d="M20 42h60c0 22-12 38-30 38S20 64 20 42z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M14 86h72" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-beans" viewBox="0 0 100 100">
+      <g fill="none" stroke="currentColor" stroke-width="1.7">
+        <ellipse cx="38" cy="44" rx="15" ry="21" transform="rotate(-28 38 44)"/>
+        <path d="M30 28c10 8 6 24 16 32" transform="rotate(-6 38 44)"/>
+        <ellipse cx="64" cy="62" rx="13" ry="18" transform="rotate(24 64 62)"/>
+        <path d="M58 46c8 6 4 22 12 30"/>
+      </g>
+    </symbol>
+    <symbol id="i-wave" viewBox="0 0 100 40">
+      <path d="M0 24c12 0 12-8 25-8s13 8 25 8 12-8 25-8 13 8 25 8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M0 34c12 0 12-6 25-6s13 6 25 6 12-6 25-6 13 6 25 6" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+    </symbol>
+    <symbol id="i-play" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16 13l11 7-11 7z" fill="currentColor"/></symbol>
+  </svg>
+
+  <header>
+    <div class="wrap">
+      <a href="../"><img src="../assets/wordmark-blue.png" alt="bower" width="150" height="40"></a>
+      <a class="navlink" href="#early-access">Get early access</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">See how it works</p>
+        <h1>One launch, start to finish.</h1>
+        <p>Meet Asanagi, a small coffee roaster we made up. Follow its winter launch through bower, from a folder of files to a launch that sold 120 bags in a week. It's <span class="accent">your brand, coded in.</span></p>
+        <div class="hero-ctas"><a class="btn" href="#step-1" data-tour-start>Start the guided demo</a><a class="hero-alt" href="#step-1" data-go="1">or explore on your own</a></div>
+        <p class="note">Demo brand. All content and numbers are sample data.</p>
+      </div>
+    </section>
+
+    <nav class="stepnav" aria-label="Demo steps">
+      <div class="wrap">
+        <ol>
+          <li><button type="button" data-go="1"><span class="n">1</span>Assets</button></li>
+          <li><button type="button" data-go="2"><span class="n">2</span>Brand</button></li>
+          <li><button type="button" data-go="3"><span class="n">3</span>Ideas</button></li>
+          <li><button type="button" data-go="4"><span class="n">4</span>Create</button></li>
+          <li><button type="button" data-go="5"><span class="n">5</span>Approve</button></li>
+          <li><button type="button" data-go="6"><span class="n">6</span>Schedule</button></li>
+          <li><button type="button" data-go="7"><span class="n">7</span>Results</button></li>
+        </ol>
+        <button type="button" class="tour-btn" id="tour-btn" data-tour-start>Guided tour</button>
+      </div>
+    </nav>
+
+    <div class="demo">
+      <div class="wrap">
+
+        <!-- STEP 1: ASSETS -->
+        <section class="step" id="step-1" data-step="1" aria-labelledby="h-1">
+          <div class="step-copy">
+            <p class="eyebrow">Step 1 of 7 · Assets</p>
+            <h2 id="h-1">Drop it all in. bower sorts it.</h2>
+            <p>Photos, video, logos, fonts and documents go in one place. bower sorts them into categories, tags what each one shows and gives it a rule for how it can be used. You just confirm.</p>
+            <p class="try">Confirm the three new files, then browse by category.</p>
+            <div class="step-controls"><button class="btn" type="button" data-go="2">Next: Brand</button></div>
+          </div>
+          <div class="app" role="group" aria-label="bower Assets screen, demo">
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s1-status">212 sorted. 3 new to tag.</span></div>
+            <div class="app-title">Your assets, sorted.</div>
+            <div class="grid s1">
+              <div class="card drop">
+                <span class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg></span>
+                <div><b>Drop new assets here.</b><span class="muted">Or connect a Google Drive folder. bower tags each file and files it in the right place.</span></div>
+              </div>
+              <div class="card newtag">
+                <h3>New to tag</h3>
+                <div class="list" id="newtag">
+                  <div class="item"><span class="thumb art ph"><img src="../assets/demo/espresso-steel.jpg" alt="" loading="lazy" style="object-position:center 85%"></span><div><b>espresso-on-steel.jpg</b><span>Suggested: Photo, Moody, Recipe</span></div><button class="ubtn" type="button" data-confirm="photos">Confirm</button></div>
+                  <div class="item"><span class="thumb art ph"><img src="../assets/demo/stacked-mugs.jpg" alt="" loading="lazy" style="object-position:center"></span><div><b>stacked-mugs.jpg</b><span>Suggested: Photo, Product, Ad</span></div><button class="ubtn" type="button" data-confirm="photos">Confirm</button></div>
+                  <div class="item"><span class="thumb art tone-washi" style="font:500 11px var(--ui);color:#7a7f63">PDF</span><div><b>yuki-cupping-notes.pdf</b><span>Suggested: Document, Yuki</span></div><button class="ubtn" type="button" data-confirm="docs">Confirm</button></div>
+                </div>
+              </div>
+              <div class="card lib" style="grid-column:1/-1">
+                <nav class="cats" aria-label="Asset categories">
+                  <button type="button" class="cat on" data-cat="all">All assets <span data-count="all">212</span></button>
+                  <button type="button" class="cat" data-cat="logos">Logos <span data-count="logos">3</span></button>
+                  <button type="button" class="cat" data-cat="fonts">Fonts <span data-count="fonts">2</span></button>
+                  <button type="button" class="cat" data-cat="colours">Brand colours <span data-count="colours">5</span></button>
+                  <button type="button" class="cat" data-cat="photos">Photos <span data-count="photos">146</span></button>
+                  <button type="button" class="cat" data-cat="videos">Videos <span data-count="videos">22</span></button>
+                  <button type="button" class="cat" data-cat="docs">Documents <span data-count="docs">29</span></button>
+                  <button type="button" class="cat" data-cat="templates">Templates <span data-count="templates">5</span></button>
+                </nav>
+                <div class="shelves">
+                  <section class="shelf" data-shelf="logos">
+                    <div class="shelf-head"><h4>Logos</h4><span>Use as supplied. Never recoloured.</span></div>
+                    <div class="grid tiles">
+                      <div class="tile"><div class="art tone-washi"><div class="asa-wm">asanagi<small>朝凪</small></div></div><b>Wordmark</b><span>On washi or white.</span></div>
+                      <div class="tile"><div class="art tone-sumi"><div class="asa-wm" style="color:var(--washi)">asanagi<small style="color:var(--hinoki)">朝凪</small></div></div><b>Wordmark, reversed</b><span>On sumi black or photos.</span></div>
+                      <div class="tile"><div class="art tone-washi"><span class="seal">朝</span></div><b>Seal mark</b><span>Small sizes and avatars.</span></div>
+                    </div>
+                  </section>
+                  <section class="shelf" data-shelf="fonts">
+                    <div class="shelf-head"><h4>Fonts</h4><span>Two faces, two jobs.</span></div>
+                    <div class="grid tiles">
+                      <div class="tile font"><div class="art tone-washi">Aa</div><b>Shippori Mincho</b><span>Headlines only.</span></div>
+                      <div class="tile font"><div class="art tone-washi" style="font-family:var(--ui);font-weight:500">Aa</div><b>Inter</b><span>Labels, prices and recipes.</span></div>
+                    </div>
+                  </section>
+                  <section class="shelf" data-shelf="colours">
+                    <div class="shelf-head"><h4>Brand colours</h4><span>Washi and sumi lead. Green and crema are accents.</span></div>
+                    <div class="swatches">
+                      <div class="swatch"><i style="background:#f3efe6"></i><b>Washi</b><span>#F3EFE6 · Backgrounds</span></div>
+                      <div class="swatch"><i style="background:#262422"></i><b>Sumi</b><span>#262422 · Text and buttons</span></div>
+                      <div class="swatch"><i style="background:#3f6a24"></i><b>Tile green</b><span>#3F6A24 · Accent</span></div>
+                      <div class="swatch"><i style="background:#c9a77c"></i><b>Hinoki</b><span>#C9A77C · Warm accent</span></div>
+                      <div class="swatch"><i style="background:#c7863a"></i><b>Crema</b><span>#C7863A · Launches only</span></div>
+                    </div>
+                  </section>
+                  <section class="shelf" data-shelf="photos">
+                    <div class="shelf-head"><h4>Photos</h4><span>Sorted by what they show.</span></div>
+                    <div class="subtags"><span class="pill blue">All 146</span><span class="pill">Ritual 52</span><span class="pill">Roastery 38</span><span class="pill">Product 31</span><span class="pill">Moody 25</span></div>
+                    <div class="grid tiles">
+                      <div class="tile"><div class="art ph"><img src="../assets/demo/morning-notes.jpg" alt="" loading="lazy" style="object-position:center"><span class="tag">Ritual</span></div><b>morning-notes.jpg</b><span>Newsletter heroes.</span></div>
+                      <div class="tile"><div class="art ph"><img src="../assets/demo/the-stir.jpg" alt="" loading="lazy" style="object-position:center 70%"><span class="tag">Ritual</span></div><b>the-stir.jpg</b><span>Ritual posts.</span></div>
+                      <div class="tile"><div class="art ph"><img src="../assets/demo/stacked-mugs.jpg" alt="" loading="lazy" style="object-position:center"><span class="tag">Product</span></div><b>stacked-mugs.jpg</b><span>Ads and covers.</span></div>
+                      <div class="tile"><div class="art tone-hinoki"><svg viewBox="0 0 100 120" style="width:34%"><use href="#i-bag"/></svg><span class="tag">Product</span></div><b>yuki-bag-front.png</b><span>Product heroes.</span></div>
+                    </div>
+                  </section>
+                  <section class="shelf" data-shelf="videos">
+                    <div class="shelf-head"><h4>Videos</h4><span>Sorted by what they show.</span></div>
+                    <div class="subtags"><span class="pill blue">All 22</span><span class="pill">Ritual 9</span><span class="pill">Roastery 8</span><span class="pill">Founder 5</span></div>
+                    <div class="grid tiles">
+                      <div class="tile video"><div class="art ph"><img src="../assets/demo/the-stir.jpg" alt="" loading="lazy" style="object-position:center 70%"><svg viewBox="0 0 40 40" style="color:#fbf7ee"><use href="#i-play"/></svg><span class="tag">Ritual</span><span class="dur">0:38</span></div><b>the-stir.mp4</b><span>Never posted. Reels.</span></div>
+                      <div class="tile video"><div class="art ph"><img src="../assets/demo/espresso-steel.jpg" alt="" loading="lazy" style="object-position:center 85%"><svg viewBox="0 0 40 40" style="color:#fbf7ee"><use href="#i-play"/></svg><span class="tag">Roastery</span><span class="dur">1:12</span></div><b>espresso-pull.mp4</b><span>Stories, cut to 15s.</span></div>
+                      <div class="tile video"><div class="art ph"><img src="../assets/demo/stacked-mugs.jpg" alt="" loading="lazy" style="object-position:center 40%"><svg viewBox="0 0 40 40" style="color:#fbf7ee"><use href="#i-play"/></svg><span class="tag">Ritual</span><span class="dur">0:21</span></div><b>morning-light.mp4</b><span>Ad backgrounds.</span></div>
+                    </div>
+                  </section>
+                  <section class="shelf" data-shelf="docs" data-hidden-in-all>
+                    <div class="shelf-head"><h4>Documents</h4><span>Read by bower, not posted.</span></div>
+                    <ul class="doclist"><li><b>asanagi-brand-book.pdf</b><span>Brand book, 14 pages</span></li><li><b>yuki-cupping-notes.pdf</b><span>Tasting notes, Yuki</span></li><li><b>founder-notes.docx</b><span>Story and origin</span></li></ul>
+                  </section>
+                  <section class="shelf" data-shelf="templates" data-hidden-in-all>
+                    <div class="shelf-head"><h4>Templates</h4><span>Every piece starts from one.</span></div>
+                    <ul class="doclist"><li><b>Master newsletter</b><span>Your default</span></li><li><b>Six slide carousel</b><span>Saved from a post</span></li><li><b>Countdown stories</b><span>Three frames</span></li><li><b>Feed ad, 4:5</b><span>One photo, one line</span></li></ul>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="step-controls bottom"><button class="btn" type="button" data-go="2">Next: Brand</button></div>
+        </section>
+
+        <!-- STEP 2: BRAND -->
+        <section class="step" id="step-2" data-step="2" aria-labelledby="h-2">
+          <div class="step-copy">
+            <p class="eyebrow">Step 2 of 7 · Brand</p>
+            <h2 id="h-2">Your brand, coded in.</h2>
+            <p>bower reads your brand book, your site and your best posts, then turns them into rules: voice, banned words, products, prices and facts. If it isn't in here, bower won't say it.</p>
+            <p class="try">Press "Code it in" and watch the rules fill.</p>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="1">Back</button><button class="btn" type="button" data-go="3">Next: Ideas</button></div>
+          </div>
+          <div class="app" role="group" aria-label="bower Brand screen, demo">
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s2-status">4 sources ready.</span></div>
+            <div class="app-title">Your brand, on record.</div>
+            <div class="grid s2" id="s2">
+              <div class="card">
+                <h3>What bower read</h3>
+                <div class="list">
+                  <div class="source"><span class="ic">PDF</span><div><b>asanagi-brand-book.pdf</b><span>14 pages</span></div></div>
+                  <div class="source"><span class="ic">WEB</span><div><b>asanagi.co</b><span>Shop, about, journal</span></div></div>
+                  <div class="source"><span class="ic">IG</span><div><b>Last 40 Instagram posts</b><span>Captions and results</span></div></div>
+                  <div class="source"><span class="ic">DOC</span><div><b>founder-notes.docx</b><span>Story and origin</span></div></div>
+                </div>
+                <button class="ubtn solid" type="button" id="code-it" style="width:100%;margin-top:14px;padding:12px">Code it in</button>
+              </div>
+              <div class="grid rules">
+                <div class="card rule-card">
+                  <h3>Voice <span class="status-tag">Waiting</span></h3>
+                  <div class="skel"><i></i><i></i><i></i></div>
+                  <div class="fill">
+                    <div style="font-size:13px">Quiet. Precise. Unhurried. Few words, chosen carefully.</div>
+                    <div class="voice-line">"Slow is the point."</div>
+                    <div class="banned">Never say: <s>bold</s><s>fuel</s><s>hustle</s><s>exotic</s></div>
+                  </div>
+                </div>
+                <div class="card rule-card">
+                  <h3>Products <span class="status-tag">Waiting</span></h3>
+                  <div class="skel"><i></i><i></i><i></i></div>
+                  <div class="fill list">
+                    <div class="kv"><span><b>Yuki</b> winter roast, 250 g</span><b>$26</b></div>
+                    <div class="kv"><span><b>House Blend</b>, 250 g</span><b>$24</b></div>
+                    <div class="kv"><span><b>Drip Bags</b>, box of 10</span><b>$19</b></div>
+                    <div class="kv muted"><span>Yuki is limited to 200 bags.</span></div>
+                  </div>
+                </div>
+                <div class="card rule-card">
+                  <h3>Writing rules <span class="status-tag">Waiting</span></h3>
+                  <div class="skel"><i></i><i></i><i></i></div>
+                  <ul class="fill ticks">
+                    <li>No exclamation marks.</li>
+                    <li>Headlines end with a period.</li>
+                    <li>Brew recipes in grams and minutes.</li>
+                    <li>Explain a Japanese word the first time.</li>
+                  </ul>
+                </div>
+                <div class="card rule-card">
+                  <h3>Brand facts <span class="status-tag">Waiting</span></h3>
+                  <div class="skel"><i></i><i></i><i></i></div>
+                  <ul class="fill ticks">
+                    <li>Founded 2023 in Montreal.</li>
+                    <li>Roasted in 12 kg batches.</li>
+                    <li>Asanagi (朝凪) means morning calm.</li>
+                    <li>Never claim "best" or "authentic."</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card s2-foot">
+                <p id="s2-foot">Rules appear here once bower reads your sources.</p>
+                <span class="pill blue" id="s2-pill" hidden>Every piece is checked against these</span>
+              </div>
+            </div>
+          </div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="1">Back</button><button class="btn" type="button" data-go="3">Next: Ideas</button></div>
+        </section>
+
+        <!-- STEP 3: IDEAS -->
+        <section class="step" id="step-3" data-step="3" aria-labelledby="h-3">
+          <div class="step-copy">
+            <p class="eyebrow">Step 3 of 7 · Ideas</p>
+            <h2 id="h-3">Ideas worth making.</h2>
+            <p>Tell bower what you're working toward. It pulls ideas from trends, brands like yours and the assets you already have, then lays out the whole campaign in order.</p>
+            <p class="try">Press "Build this campaign."</p>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="2">Back</button><button class="btn" type="button" data-go="4">Next: Create</button></div>
+          </div>
+          <div class="app" role="group" aria-label="bower Ideas screen, demo">
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status">5 new ideas</span></div>
+            <div class="app-title">Ideas worth making.</div>
+            <div class="grid s3">
+              <div class="card focus">
+                <div class="label">What are you working toward?</div>
+                <div class="field">Launching a new product: Yuki, our winter roast</div>
+                <div class="chips"><span class="pill blue">✓ Product launch</span><span class="pill">Seasonal moment</span><span class="pill">Sale or offer</span><span class="pill">New retailer</span><span class="pill">Always on</span></div>
+              </div>
+              <div class="card">
+                <h3>Ideas for this focus <span class="pill blue">5 new</span></h3>
+                <div class="list" id="ideas">
+                  <div class="idea fresh" id="idea-fresh" hidden><span class="src">From your results</span><div><b>A carousel on brewing Yuki over ice.</b><span>Recipes get saved. Brewing beats product shots.</span></div><div class="acts"><span class="pill">Carousel</span><button class="ubtn" type="button" data-make>Make this</button></div></div>
+                  <div class="idea"><span class="src">Trend</span><div><b>Countdown stories get replies before launch day.</b><span>Three teaser stories, one detail a day.</span></div><div class="acts"><span class="pill">Stories</span><button class="ubtn" type="button" data-make>Make this</button></div></div>
+                  <div class="idea"><span class="src">Trend</span><div><b>"How it's made" carousels are the most saved launch posts.</b><span>The Yuki story in six slides.</span></div><div class="acts"><span class="pill">Carousel</span><button class="ubtn" type="button" data-make>Make this</button></div></div>
+                  <div class="idea"><span class="src">Trend</span><div><b>Early access for subscribers drives launch day sales.</b><span>A newsletter that opens Yuki a day early.</span></div><div class="acts"><span class="pill">Newsletter</span><button class="ubtn" type="button" data-make>Make this</button></div></div>
+                  <div class="idea"><span class="src">Brands like you</span><div><b>Small roasters pair winter blends with a recipe.</b><span>End every piece with the pour.</span></div><div class="acts"><span class="pill">Ad</span><button class="ubtn" type="button" data-make>Make this</button></div></div>
+                  <div class="idea"><span class="src">Your library</span><div><b>the-stir.mp4 has never been posted.</b><span>Cut it into a 15 second reel.</span></div><div class="acts"><span class="pill">Reel</span><button class="ubtn" type="button" data-make>Make this</button></div></div>
+                </div>
+              </div>
+              <div class="card campaign">
+                <h3>Suggested launch campaign</h3>
+                <p>Five pieces, one story, in order.</p>
+                <ol>
+                  <li>1. Teaser stories <span>Mon 16 to Wed 18</span></li>
+                  <li>2. Early access newsletter <span>Wed 18, 8:00</span></li>
+                  <li>3. How it's made carousel <span>Thu 19</span></li>
+                  <li>4. Launch ad <span>Thu 19 to Sun 22</span></li>
+                  <li>5. The stir reel <span>Sat 21</span></li>
+                </ol>
+                <em>From your last season: short, quiet headlines win.</em>
+                <button class="ubtn" type="button" data-go="4" id="build-campaign">Build this campaign</button>
+              </div>
+            </div>
+          </div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="2">Back</button><button class="btn" type="button" data-go="4">Next: Create</button></div>
+        </section>
+
+        <!-- STEP 4: CREATE -->
+        <section class="step" id="step-4" data-step="4" aria-labelledby="h-4">
+          <div class="step-copy">
+            <p class="eyebrow">Step 4 of 7 · Create</p>
+            <h2 id="h-4">One idea. Every format.</h2>
+            <p>bower writes and designs from your rules and templates, then checks every piece before you see it. The newsletter becomes a carousel, stories and an ad without starting over.</p>
+            <p class="try">Switch between the four formats.</p>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="3">Back</button><button class="btn" type="button" data-go="5">Next: Approve</button></div>
+          </div>
+          <div class="app" role="group" aria-label="bower Create screen, demo">
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status">Yuki launch. 4 drafts.</span></div>
+            <div class="app-title">Create, on brand.</div>
+            <div class="grid s4">
+              <div class="card">
+                <div class="prompt"><b>Making:</b> the Yuki launch campaign. Early access newsletter first, then the rest.</div>
+                <div class="tabs" role="tablist" aria-label="Formats">
+                  <button role="tab" type="button" aria-selected="true" aria-controls="f-nl" id="t-nl" data-fmt="nl">Newsletter</button>
+                  <button role="tab" type="button" aria-selected="false" aria-controls="f-car" id="t-car" data-fmt="car">Carousel</button>
+                  <button role="tab" type="button" aria-selected="false" aria-controls="f-st" id="t-st" data-fmt="st">Stories</button>
+                  <button role="tab" type="button" aria-selected="false" aria-controls="f-ad" id="t-ad" data-fmt="ad">Ad</button>
+                </div>
+                <div class="stage" style="margin-top:14px">
+                  <div role="tabpanel" id="f-nl" aria-labelledby="t-nl">
+                    <div class="nl">
+                      <div class="nl-head">asanagi <small>朝凪</small></div>
+                      <div class="art hero-art ph" style="aspect-ratio:4/3"><img src="../assets/demo/morning-notes.jpg" alt="" loading="lazy" style="object-position:center 30%"></div>
+                      <div class="nl-body">
+                        <h4>Yuki is here.</h4>
+                        <p>Yuki (雪) means snow. We roast it for the quiet weeks: dark chocolate, roasted chestnut, a little orange peel.</p>
+                        <p>Subscribers get it a day early. Tomorrow at 8:00, it opens to everyone. Two hundred bags, then it's gone until next winter.</p>
+                        <div class="nl-recipe"><div>Coffee<b>15 g</b></div><div>Water<b>250 g</b></div><div>Time<b>3 min</b></div></div>
+                        <span class="nl-cta">Order Yuki</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div role="tabpanel" id="f-car" aria-labelledby="t-car" hidden>
+                    <div class="strip">
+                      <div class="slide ph"><img src="../assets/demo/stacked-mugs.jpg" alt="" loading="lazy" style="object-position:center"><span class="n">01 / 06</span><h5>How Yuki is made.</h5></div>
+                      <div class="slide tone-hinoki"><span class="n">02 / 06</span><div><h5>The beans.</h5><p>Huila, Colombia and Sidama, Ethiopia.</p></div><svg viewBox="0 0 100 100" style="color:#262422;width:34%"><use href="#i-beans"/></svg></div>
+                      <div class="slide tone-washi"><span class="n">03 / 06</span><div><h5>The roast.</h5><p>Twelve minutes, taken slow.</p></div></div>
+                      <div class="slide tone-moss" style="color:var(--washi)"><span class="n" style="color:var(--hinoki)">04 / 06</span><div><h5>The rest.</h5><p>Five days before it ships.</p></div></div>
+                      <div class="slide ph"><img src="../assets/demo/espresso-steel.jpg" alt="" loading="lazy" style="object-position:center 85%"><span class="n">05 / 06</span><div><h5>The pour.</h5><p>15 g coffee. 250 g water. 3 minutes.</p></div></div>
+                      <div class="slide dark"><span class="n">06 / 06</span><div><h5>Two hundred bags.</h5><p>Then it's gone until next winter.</p></div></div>
+                    </div>
+                  </div>
+                  <div role="tabpanel" id="f-st" aria-labelledby="t-st" hidden>
+                    <div class="stories">
+                      <div class="story ph"><img src="../assets/demo/morning-notes.jpg" alt="" loading="lazy" style="object-position:30% center"><div class="bars"><i class="on"></i><i></i><i></i></div><div><small>Asanagi</small><h5>Something quiet is coming.</h5></div></div>
+                      <div class="story ph"><img src="../assets/demo/the-stir.jpg" alt="" loading="lazy" style="object-position:center"><div class="bars"><i class="on"></i><i class="on"></i><i></i></div><div><small>Asanagi</small><h5><span class="hl" data-fixme>Bold</span> and warm, gone by spring.</h5></div></div>
+                      <div class="story ph"><img src="../assets/demo/espresso-steel.jpg" alt="" loading="lazy" style="object-position:55% center"><div class="bars"><i class="on"></i><i class="on"></i><i class="on"></i></div><div><small>Asanagi</small><h5>Wednesday, 8:00. Subscribers first.</h5></div></div>
+                    </div>
+                  </div>
+                  <div role="tabpanel" id="f-ad" aria-labelledby="t-ad" hidden>
+                    <div class="ad">
+                      <div class="ad-head"><i>朝</i>asanagi.co<span>Sponsored</span></div>
+                      <div class="ad-img ph"><img src="../assets/demo/stacked-mugs.jpg" alt="" loading="lazy" style="object-position:center"><h5>Snow,<br>roasted.</h5><p>Yuki winter roast · 200 bags</p></div>
+                      <div class="ad-foot">Yuki, $26<span>SHOP NOW</span></div>
+                    </div>
+                  </div>
+                </div>
+                <p class="stage-note" id="stage-note">Draft 1. Built from your Master newsletter template.</p>
+              </div>
+              <div class="card side">
+                <div class="passes" id="passes"><b>✓ Passes 9 of 9 rules</b><ul class="ticks" id="passes-list"><li>No banned words.</li><li>Headline ends with a period.</li><li>Recipe in grams and minutes.</li><li>Only approved facts and prices.</li></ul></div>
+                <div class="kv"><span class="muted">Pillar</span><b id="m-pillar">Product launch</b></div>
+                <div class="kv"><span class="muted">Template</span><b id="m-tpl">Master newsletter</b></div>
+                <div class="kv"><span class="muted">Voice</span><b>Quiet, precise</b></div>
+                <div class="kv"><span class="muted">Goes out</span><b id="m-when">Wed 18, 8:00</b></div>
+                <div class="stack">
+                  <button class="ubtn solid" type="button" data-go="5">Send for approval</button>
+                  <button class="ubtn" type="button" disabled>Tell bower what to change</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="3">Back</button><button class="btn" type="button" data-go="5">Next: Approve</button></div>
+        </section>
+
+        <!-- STEP 5: APPROVE -->
+        <section class="step" id="step-5" data-step="5" aria-labelledby="h-5">
+          <div class="step-copy">
+            <p class="eyebrow">Step 5 of 7 · Approve</p>
+            <h2 id="h-5">Nothing goes out without a yes.</h2>
+            <p>Every piece waits for a person on your team. When something breaks a rule, bower flags it and suggests the fix. Approved pieces go straight onto the content calendar.</p>
+            <p class="try">Fix the flagged story, then approve all three.</p>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="4">Back</button><button class="btn" type="button" data-go="6">Next: Schedule</button></div>
+          </div>
+          <div class="app" role="group" aria-label="bower Approve screen, demo">
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s5-status">3 waiting on you.</span></div>
+            <div class="app-title">Nothing goes out without a yes.</div>
+            <div class="grid s5">
+              <div class="col" id="col-wait">
+                <h3>Needs your approval <span class="count" id="c-wait">3</span></h3>
+                <div class="piece" data-piece="nl" data-chip="nl">
+                  <span class="art ph"><img src="../assets/demo/morning-notes.jpg" alt="" loading="lazy" style="object-position:center"></span>
+                  <div><span class="label">Newsletter · Wed 18, 8:00</span><b>Yuki is here.</b><span class="meta"><span class="check">✓</span> Passes all brand rules</span></div>
+                  <div class="acts"><button class="ubtn solid" type="button" data-approve>Approve</button></div>
+                </div>
+                <div class="piece" data-piece="car" data-chip="car">
+                  <span class="art ph"><img src="../assets/demo/stacked-mugs.jpg" alt="" loading="lazy" style="object-position:center"></span>
+                  <div><span class="label">Carousel · Thu 19</span><b>How Yuki is made.</b><span class="meta"><span class="check">✓</span> Passes all brand rules</span></div>
+                  <div class="acts"><button class="ubtn solid" type="button" data-approve>Approve</button></div>
+                </div>
+                <div class="piece" data-piece="st" data-chip="st">
+                  <span class="art ph"><img src="../assets/demo/the-stir.jpg" alt="" loading="lazy" style="object-position:center"></span>
+                  <div><span class="label">Stories · Mon 16 to Wed 18</span><b>Something quiet is coming.</b><span class="meta" id="st-meta" style="color:#8a3f22">1 rule flagged</span></div>
+                  <div class="flagline" id="flagline">"Bold" is on your never say list. Story 2 reads:<q id="st-line">Bold and warm, gone by spring.</q></div>
+                  <div class="acts"><button class="ubtn solid" type="button" id="fix-it">Use the fix: "Quiet and warm"</button></div>
+                </div>
+              </div>
+              <div class="col">
+                <h3>Changes requested <span class="count">1</span></h3>
+                <div class="piece">
+                  <span class="art ph"><img src="../assets/demo/stacked-mugs.jpg" alt="" loading="lazy" style="object-position:center 40%"></span>
+                  <div><span class="label">Ad · Thu 19 to Sun 22</span><b>Snow, roasted.</b><span class="meta"><i style="font-family:var(--accent)">"Make the price easier to see."</i> Draft 2 in progress.</span></div>
+                </div>
+              </div>
+              <div class="col" id="col-done">
+                <h3>Approved and scheduled <span class="count" id="c-done">1</span></h3>
+                <div class="piece">
+                  <span class="art ph"><img src="../assets/demo/the-stir.jpg" alt="" loading="lazy" style="object-position:center 30%"></span>
+                  <div><span class="label">Reel · Sat 21</span><b>The stir.</b><span class="meta"><span class="check">✓</span> Approved by Mika, founder</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="4">Back</button><button class="btn" type="button" data-go="6">Next: Schedule</button></div>
+        </section>
+
+        <!-- STEP 6: SCHEDULE -->
+        <section class="step" id="step-6" data-step="6" aria-labelledby="h-6">
+          <div class="step-copy">
+            <p class="eyebrow">Step 6 of 7 · Schedule</p>
+            <h2 id="h-6">The month ahead, at a glance.</h2>
+            <p>Every piece lands on one calendar, colour coded by pillar, so you can see the balance before your audience does. Open slots come with ideas ready to fill them.</p>
+            <p class="try">Approve pieces in step 5 and watch them turn dark here.</p>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="5">Back</button><button class="btn" type="button" data-go="7">Next: Results</button></div>
+          </div>
+          <div class="app" role="group" aria-label="bower Schedule screen, demo">
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s6-status">November</span></div>
+            <div class="app-title">The month ahead.</div>
+            <div class="grid s6c">
+              <div class="card cal-card">
+                <div class="row split" style="margin-bottom:12px;flex-wrap:wrap;gap:8px"><h3 style="margin:0">November <span class="muted" style="font-weight:400;font-size:13px">Nov 2 to Nov 29</span></h3>
+                  <div class="legend"><span><i class="lg-posted"></i>Posted</span><span><i class="lg-sched"></i>Scheduled</span><span><i class="lg-need"></i>Needs you</span><span><i class="lg-draft"></i>Draft</span></div></div>
+                <div class="cal-scroll">
+                  <div class="cal">
+                    <span class="dow">Mon</span><span class="dow">Tue</span><span class="dow">Wed</span><span class="dow">Thu</span><span class="dow">Fri</span><span class="dow">Sat</span><span class="dow">Sun</span>
+                    <div class="cday past"><span class="cd">2</span><span class="chipx posted" data-pillar="ritual"><b>Carousel</b> The 3 minute pour</span></div>
+                    <div class="cday past"><span class="cd">3</span><span class="chipx posted" data-pillar="craft"><b>Newsletter</b> November at Asanagi</span></div>
+                    <div class="cday past"><span class="cd">4</span></div>
+                    <div class="cday past"><span class="cd">5</span><span class="chipx posted" data-pillar="craft"><b>Stories</b> Roast day</span></div>
+                    <div class="cday past"><span class="cd">6</span></div>
+                    <div class="cday past"><span class="cd">7</span><span class="chipx posted" data-pillar="ritual"><b>Reel</b> Steam, slowed down</span></div>
+                    <div class="cday past"><span class="cd">8</span></div>
+                    <div class="cday today"><span class="cd">9 <em>Today</em></span><span class="chipx sched" data-pillar="origin"><b>Carousel</b> Where Huila grows</span></div>
+                    <div class="cday"><span class="cd">10</span><span class="chipx sched" data-pillar="ritual"><b>Newsletter</b> Slow mornings</span></div>
+                    <div class="cday"><span class="cd">11</span></div>
+                    <div class="cday"><span class="cd">12</span><span class="chipx sched" data-pillar="craft"><b>Stories</b> Roast day</span></div>
+                    <div class="cday"><span class="cd">13</span></div>
+                    <div class="cday"><span class="cd">14</span><button class="open-slot" type="button" data-go="3">Open. Pick an idea</button></div>
+                    <div class="cday"><span class="cd">15</span></div>
+                    <div class="cday launch"><span class="cd">16</span><span class="chipx " data-pillar="launch" data-chipof="st"><b>Stories</b> Story 1</span></div>
+                    <div class="cday launch"><span class="cd">17</span><span class="chipx " data-pillar="launch" data-chipof="st"><b>Stories</b> Story 2</span></div>
+                    <div class="cday launch"><span class="cd">18</span><span class="chipx " data-pillar="launch" data-chipof="nl"><b>Newsletter</b> Yuki is here.</span><span class="chipx " data-pillar="launch" data-chipof="st"><b>Stories</b> Story 3</span></div>
+                    <div class="cday launch"><span class="cd">19</span><span class="chipx " data-pillar="launch" data-chipof="car"><b>Carousel</b> How Yuki is made.</span><span class="chipx draft" data-pillar="launch"><b>Ad</b> Snow, roasted.</span></div>
+                    <div class="cday launch"><span class="cd">20</span><span class="chipx draft" data-pillar="launch"><b>Ad</b> Snow, roasted.</span></div>
+                    <div class="cday launch"><span class="cd">21</span><span class="chipx sched" data-pillar="ritual"><b>Reel</b> The stir.</span><span class="chipx draft" data-pillar="launch"><b>Ad</b> Snow, roasted.</span></div>
+                    <div class="cday launch"><span class="cd">22</span><span class="chipx draft" data-pillar="launch"><b>Ad</b> Snow, roasted.</span></div>
+                    <div class="cday"><span class="cd">23</span><span class="chipx draft" data-pillar="origin"><b>Carousel</b> Cupping Yuki</span></div>
+                    <div class="cday"><span class="cd">24</span><span class="chipx draft" data-pillar="launch"><b>Newsletter</b> Last call for Yuki</span></div>
+                    <div class="cday"><span class="cd">25</span></div>
+                    <div class="cday"><span class="cd">26</span><button class="open-slot" type="button" data-go="3">Open. Pick an idea</button></div>
+                    <div class="cday"><span class="cd">27</span></div>
+                    <div class="cday"><span class="cd">28</span><button class="open-slot" type="button" data-go="3">Open. Pick an idea</button></div>
+                    <div class="cday"><span class="cd">29</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="side6">
+                <div class="card">
+                  <h3>Needs you <span class="count-pill" id="need-count">0</span></h3>
+                  <p class="muted" style="font-size:13px;margin-bottom:12px" id="need-text">Launch week pieces waiting for approval.</p>
+                  <button class="ubtn solid" type="button" data-go="5" style="width:100%;padding:11px">Go to approvals</button>
+                </div>
+                <div class="card">
+                  <h3>Pillar balance</h3>
+                  <div class="bars" id="pillar-bars"></div>
+                </div>
+                <div class="card">
+                  <h3>Open slots <span class="count-pill" id="open-count">0</span></h3>
+                  <p class="muted" style="font-size:13px;margin-bottom:12px">bower has an idea ready for each one.</p>
+                  <button class="ubtn" type="button" data-go="3" style="width:100%;padding:11px">See ideas</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="5">Back</button><button class="btn" type="button" data-go="7">Next: Results</button></div>
+        </section>
+
+        <!-- STEP 7: RESULTS -->
+        <section class="step" id="step-7" data-step="7" aria-labelledby="h-7">
+          <div class="step-copy">
+            <p class="eyebrow">Step 7 of 7 · Results</p>
+            <h2 id="h-7">What worked. What comes next.</h2>
+            <p>After every send, bower reads the numbers and turns them into lessons. Each lesson shapes the next idea and the next draft, so the system gets sharper every week.</p>
+            <p class="try">Press "See the next ideas" to close the loop.</p>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="6">Back</button><a class="btn" href="#early-access">Get early access</a></div>
+          </div>
+          <div class="app" role="group" aria-label="bower Results screen, demo">
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status">Yuki launch week</span></div>
+            <div class="app-title">What worked. What comes next.</div>
+            <div class="grid s6">
+              <div class="card kpi"><div class="label">Newsletter open rate</div><div class="big">52%</div><div class="sub">Up from 41% on the last send.</div></div>
+              <div class="card kpi"><div class="label">Newsletter click rate</div><div class="big">7.4%</div><div class="sub">Up from 5.1% on the last send.</div></div>
+              <div class="card kpi"><div class="label">Yuki sales, launch week</div><div class="big">$3,120</div><div class="sub">120 of 200 bags sold.</div></div>
+              <div class="card kpi"><div class="label">Carousel saves</div><div class="big">418</div><div class="sub">Your most saved post so far.</div></div>
+              <div class="card lessons">
+                <h3>What bower learned <span class="muted" style="font-weight:400;font-size:13px">Three lessons. Each one shapes the next piece.</span></h3>
+                <div class="grid">
+                  <div class="lesson"><div class="big">52%<span>against 41%</span></div><h4>Three words beat ten.</h4><p>"Yuki is here." out-opened the longer subject line from your last launch.</p><div class="next">Next: subject lines stay under four words.</div></div>
+                  <div class="lesson"><div class="big">2x<span>the clicks</span></div><h4>Rituals beat products.</h4><p>Brewing pieces earned twice the clicks of product shots.</p><div class="next">Next: one brewing piece every week.</div></div>
+                  <div class="lesson"><div class="big">418<span>saves</span></div><h4>Recipes get saved.</h4><p>"The pour." was the most saved slide in the carousel.</p><div class="next">Next: end every carousel with a recipe.</div></div>
+                </div>
+              </div>
+              <div class="card loop">
+                <p>These lessons are now part of how bower writes for Asanagi.</p>
+                <button class="ubtn solid" type="button" id="close-loop">See the next ideas</button>
+              </div>
+            </div>
+          </div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="6">Back</button><a class="btn" href="#early-access">Get early access</a></div>
+        </section>
+
+      </div>
+    </div>
+
+    <section class="signup" id="early-access">
+      <div class="wrap">
+        <h2>Want this for your brand?</h2>
+        <p>We're taking a small group of founding brands. Get early access and we'll set bower up with your assets, your rules and your voice. It's <span class="accent">your brand, coded in.</span></p>
+        <!-- Same waitlist as the homepage: Apps Script web app in apps-script/Code.gs -->
+        <form id="signup-form" data-endpoint="https://script.google.com/macros/s/AKfycbwRQuviVaf9C7uYrOdquQYgExdBY_5mkeAZFM9YWt5Uhsil3NbdQVrPUGLlrFjqkWcu3A/exec" novalidate>
+          <label for="email" class="hp">Email address</label>
+          <input type="email" name="email" id="email" placeholder="you@yourbrand.com" autocomplete="email" required>
+          <div class="hp" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off" value=""></div>
+          <button class="btn" type="submit">Get early access</button>
+        </form>
+        <p class="consent">You'll get emails from bower about early access. Unsubscribe anytime.</p>
+        <p class="msg" id="signup-msg" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <img src="../assets/bird.png" alt="" width="45" height="36">
+      <span class="tagline">your brand, coded in.</span>
+    </div>
+  </footer>
+
+  <div id="tour-spot" hidden></div>
+  <div id="tour-bubble" role="dialog" aria-label="Guided tour" hidden>
+    <span class="tour-arrow" aria-hidden="true"></span>
+    <div class="tour-top"><span id="tour-where"></span><span id="tour-count"></span></div>
+    <div class="tour-bar" aria-hidden="true"><i id="tour-prog"></i></div>
+    <p id="tour-text" aria-live="polite"></p>
+    <div class="tour-acts">
+      <button type="button" class="tour-skip" id="tour-skip">Skip tour</button>
+      <span class="tour-hint">Press Enter</span>
+      <button type="button" class="tour-back" id="tour-back">Back</button>
+      <button type="button" class="tour-next" id="tour-next">Next</button>
+    </div>
+  </div>
+
+  <script>
+    // Step-by-step demo. Without JavaScript, every step shows in order.
+    (function () {
+      document.documentElement.classList.add('js');
+      var steps = [].slice.call(document.querySelectorAll('.step'));
+      var navBtns = [].slice.call(document.querySelectorAll('.stepnav button'));
+      var nav = document.querySelector('.stepnav');
+      var seen = {};
+      var tour = { on: false, i: -1 };
+
+      function show(n, scroll) {
+        n = Math.max(1, Math.min(7, n));
+        steps.forEach(function (s) { s.classList.toggle('active', +s.dataset.step === n); });
+        seen[n] = true;
+        navBtns.forEach(function (b) {
+          var k = +b.dataset.go;
+          if (k === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+          b.classList.toggle('done', !!seen[k] && k !== n);
+        });
+        var cur = navBtns[n - 1];
+        if (cur && cur.scrollIntoView) cur.parentNode.parentNode.scrollLeft = cur.offsetLeft - 16;
+        if (history.replaceState) history.replaceState(null, '', '#step-' + n);
+        if (scroll) {
+          var top = document.querySelector('.demo').getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      }
+
+      document.addEventListener('click', function (e) {
+        var go = e.target.closest('[data-go]');
+        var ts = e.target.closest('[data-tour-start]');
+        if (ts) { e.preventDefault(); startTour(); return; }
+        if (go) { e.preventDefault(); if (tour.on && !e.target.closest('#tour-bubble')) endTour(); show(+go.dataset.go, true); }
+      });
+
+      var m = /^#step-([1-7])$/.exec(location.hash);
+      show(m ? +m[1] : 1, false);
+
+      // Step 1: confirm new files, browse categories
+      var left = 3;
+      function bump(cat) {
+        ['all', cat].forEach(function (c) { var el = document.querySelector('[data-count="' + c + '"]'); el.textContent = +el.textContent + 1; });
+      }
+      document.querySelectorAll('[data-confirm]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (b.classList.contains('done')) return;
+          b.classList.add('done'); b.textContent = '✓ Filed';
+          left--; bump(b.dataset.confirm);
+          var total = document.querySelector('[data-count="all"]').textContent;
+          document.getElementById('s1-status').textContent = left ? total + ' sorted. ' + left + ' new to tag.' : total + ' sorted. All tagged.';
+        });
+      });
+      var shelves = [].slice.call(document.querySelectorAll('.shelf'));
+      function filter(cat) {
+        shelves.forEach(function (s) { s.hidden = cat === 'all' ? s.hasAttribute('data-hidden-in-all') : s.dataset.shelf !== cat; });
+        document.querySelectorAll('.cat').forEach(function (c) { c.classList.toggle('on', c.dataset.cat === cat); });
+      }
+      document.querySelectorAll('.cat').forEach(function (c) { c.addEventListener('click', function () { filter(c.dataset.cat); }); });
+      filter('all');
+
+      // Step 2: code it in
+      var codeBtn = document.getElementById('code-it');
+      codeBtn.addEventListener('click', function () {
+        if (codeBtn.disabled) return;
+        codeBtn.disabled = true; codeBtn.textContent = 'Reading 4 sources...';
+        var wrap = document.getElementById('s2'); wrap.classList.add('coding');
+        var cards = [].slice.call(wrap.querySelectorAll('.rule-card'));
+        cards.forEach(function (c, i) {
+          setTimeout(function () {
+            c.classList.add('on'); c.querySelector('.status-tag').textContent = '✓ Coded in';
+            if (i === cards.length - 1) {
+              wrap.classList.remove('coding');
+              codeBtn.textContent = '✓ Coded in'; codeBtn.classList.remove('solid'); codeBtn.classList.add('done');
+              document.getElementById('s2-status').textContent = '16 rules coded in.';
+              document.getElementById('s2-foot').innerHTML = '<b>16 rules coded in.</b> If it isn\'t in here, bower won\'t say it.';
+              document.getElementById('s2-pill').hidden = false;
+            }
+          }, 600 + i * 550);
+        });
+      });
+
+      // Step 3: make this
+      document.querySelectorAll('[data-make]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          b.classList.add('done'); b.textContent = '✓ Added';
+        });
+      });
+
+      // Step 4: format tabs
+      var meta = {
+        nl:  { note: 'Draft 1. Built from your Master newsletter template.', pillar: 'Product launch', tpl: 'Master newsletter', when: 'Wed 18, 8:00', ok: true },
+        car: { note: 'Six slides, made from the newsletter. Same story, same facts.', pillar: 'Craft', tpl: 'Six slide carousel', when: 'Thu 19', ok: true },
+        st:  { note: 'Three teaser stories, one detail a day.', pillar: 'Product launch', tpl: 'Countdown stories', when: 'Mon 16 to Wed 18', ok: false },
+        ad:  { note: 'One ad for launch week, sized for the feed.', pillar: 'Product launch', tpl: 'Feed ad, 4:5', when: 'Thu 19 to Sun 22', ok: true }
+      };
+      var fixed = false;
+      var tabs = [].slice.call(document.querySelectorAll('[role="tab"]'));
+      function renderPasses(fmt) {
+        var p = document.getElementById('passes');
+        var bad = fmt === 'st' && !fixed;
+        p.classList.toggle('warn', bad);
+        p.querySelector('b').textContent = bad ? '1 rule flagged' : '✓ Passes 9 of 9 rules';
+        document.getElementById('passes-list').innerHTML = bad
+          ? '<li class="nob">"Bold" is on your never say list. Fix it in Approve.</li>'
+          : '<li>No banned words.</li><li>Headline ends with a period.</li><li>' + (fmt === 'st' ? 'Three frames, one detail each.' : 'Recipe in grams and minutes.') + '</li><li>Only approved facts and prices.</li>';
+      }
+      function selectTab(t) {
+        tabs.forEach(function (x) {
+          var on = x === t;
+          x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1;
+          document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+        });
+        var d = meta[t.dataset.fmt];
+        document.getElementById('stage-note').textContent = d.note;
+        document.getElementById('m-pillar').textContent = d.pillar;
+        document.getElementById('m-tpl').textContent = d.tpl;
+        document.getElementById('m-when').textContent = d.when;
+        renderPasses(t.dataset.fmt);
+      }
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { selectTab(t); });
+        t.addEventListener('keydown', function (e) {
+          var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+          if (!k) return;
+          var nt = tabs[(i + k + tabs.length) % tabs.length]; selectTab(nt); nt.focus();
+        });
+      });
+
+      // Step 6: schedule summary
+      var pillarNames = { ritual: 'Ritual', origin: 'Origin', launch: 'Launch', craft: 'Craft' };
+      function refreshCal() {
+        var chips = [].slice.call(document.querySelectorAll('.cal .chipx'));
+        var need = chips.filter(function (c) { return !/(posted|sched|draft)/.test(c.className); }).length;
+        document.getElementById('need-count').textContent = need;
+        document.getElementById('need-text').textContent = need ? 'Launch week pieces waiting for approval.' : 'Nothing waiting. Launch week is set.';
+        document.getElementById('open-count').textContent = document.querySelectorAll('.cal .open-slot').length;
+        var counts = {}, max = 0;
+        chips.forEach(function (c) { var p = c.dataset.pillar; counts[p] = (counts[p] || 0) + 1; max = Math.max(max, counts[p]); });
+        document.getElementById('pillar-bars').innerHTML = Object.keys(pillarNames).map(function (p) {
+          return '<div class="bar chipx-free" style="--pc:' + getComputedStyle(document.querySelector('.chipx[data-pillar="' + p + '"]')).getPropertyValue('--pc') + ';--w:' + Math.round((counts[p] || 0) / max * 100) + '%"><span>' + pillarNames[p] + '</span><i></i><b>' + (counts[p] || 0) + '</b></div>';
+        }).join('');
+        document.getElementById('s6-status').textContent = chips.length + ' pieces in November';
+      }
+      refreshCal();
+
+      // Step 5: fix and approve
+      var waiting = 3, done = 1;
+      function counts() {
+        document.getElementById('c-wait').textContent = waiting;
+        document.getElementById('c-done').textContent = done;
+        document.getElementById('s5-status').textContent = waiting ? waiting + ' waiting on you.' : 'Launch week is scheduled.';
+      }
+      function approve(piece) {
+        var key = piece.dataset.chip;
+        var acts = piece.querySelector('.acts'); if (acts) acts.remove();
+        var fl = piece.querySelector('.flagline'); if (fl) fl.remove();
+        piece.querySelector('.meta').innerHTML = '<span class="check">✓</span> Approved by you';
+        piece.querySelector('.meta').style.color = '';
+        document.getElementById('col-done').appendChild(piece);
+        document.querySelectorAll('[data-chipof="' + key + '"]').forEach(function (c) { c.classList.add('sched'); });
+        waiting--; done++; counts(); refreshCal();
+      }
+      document.querySelectorAll('[data-approve]').forEach(function (b) {
+        b.addEventListener('click', function () { approve(b.closest('.piece')); });
+      });
+      document.getElementById('fix-it').addEventListener('click', function () {
+        var b = this;
+        fixed = true;
+        document.getElementById('st-line').textContent = 'Quiet and warm, gone by spring.';
+        document.getElementById('flagline').firstChild.textContent = 'Fixed. Story 2 now reads:';
+        var meta5 = document.getElementById('st-meta');
+        meta5.innerHTML = '<span class="check">✓</span> Passes all brand rules'; meta5.style.color = '';
+        var hl = document.querySelector('[data-fixme]'); hl.textContent = 'Quiet'; hl.classList.add('fixed');
+        b.textContent = 'Approve'; b.id = ''; b.setAttribute('data-approve', '');
+        b.addEventListener('click', function () { approve(b.closest('.piece')); }, { once: true });
+        var sel = document.querySelector('[role="tab"][aria-selected="true"]'); if (sel) renderPasses(sel.dataset.fmt);
+      }, { once: true });
+
+      // Step 6: close the loop
+      document.getElementById('close-loop').addEventListener('click', function () {
+        document.getElementById('idea-fresh').hidden = false;
+        show(3, true);
+      });
+
+      // Guided tour: one bubble at a time. Enter or the right arrow moves forward.
+      var names = ['Assets', 'Brand', 'Ideas', 'Create', 'Approve', 'Schedule', 'Results'];
+      function clickAll(sel, gap) {
+        [].slice.call(document.querySelectorAll(sel)).forEach(function (b, i) {
+          setTimeout(function () { if (b.isConnected) b.click(); }, i * gap);
+        });
+      }
+      function tab(f) { selectTab(document.querySelector('[data-fmt="' + f + '"]')); }
+      var stops = [
+        { step: 1, at: '.drop', text: 'Start with what you already have. Drop in photos, videos, logos, fonts and your brand book.' },
+        { step: 1, at: '#newtag', text: 'bower tags every new file and suggests where it goes. You confirm with one click.', act: function () { clickAll('#newtag [data-confirm]:not(.done)', 350); } },
+        { step: 1, at: '.cats', text: 'Everything has its place: logos, fonts, brand colours, photos and videos.', act: function () { filter('all'); } },
+        { step: 1, at: '.shelf[data-shelf="photos"]', text: 'Photos and videos are sorted by what they show, so the right shot is one click away.', act: function () { filter('photos'); } },
+        { step: 2, at: '#s2 > .card:first-child', text: 'bower reads your brand book, your site and your best posts.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
+        { step: 2, at: '.rules', text: 'Out come the rules: voice, banned words, products and prices. <em>If it isn\'t in here, bower won\'t say it.</em>' },
+        { step: 3, at: '.focus', text: 'Tell bower what you\'re working toward. For Asanagi, it\'s the launch of Yuki, a winter roast.' },
+        { step: 3, at: '#ideas', text: 'bower finds ideas in trends, in brands like yours and in files you haven\'t used yet.' },
+        { step: 3, at: '.campaign', text: 'Then it lays out the whole campaign, in order.' },
+        { step: 4, at: '.stage', text: 'It writes and designs the newsletter from your template, in your voice.', act: function () { tab('nl'); } },
+        { step: 4, at: '#passes', text: 'Every piece is checked against your rules before you ever see it.', act: function () { tab('nl'); } },
+        { step: 4, at: '.stage', text: 'The same story becomes a six slide carousel. No starting over.', act: function () { tab('car'); } },
+        { step: 4, at: '.stage', text: 'And three teaser stories. One of them broke a rule: <b>"bold"</b> is on Asanagi\'s never say list.', act: function () { tab('st'); } },
+        { step: 5, at: '.piece[data-piece="st"]', text: 'Nothing goes out without a yes. bower flags the problem and suggests the fix.' },
+        { step: 5, at: '.piece[data-piece="st"]', text: 'One click and it\'s fixed. Still on brand, still in your voice.', act: function () { var f = document.getElementById('fix-it'); if (f) f.click(); } },
+        { step: 5, at: '#col-done', text: 'Approve, and it\'s scheduled.', act: function () { clickAll('#col-wait [data-approve]', 300); } },
+        { step: 6, at: '.cal', text: 'Everything lands on one calendar, colour coded by pillar. Launch week is ready to go.' },
+        { step: 6, at: '.side6', text: 'See what needs you, the balance of your content and the open slots, at a glance.' },
+        { step: 7, at: '.lessons', text: 'After each send, bower turns the numbers into lessons.' },
+        { step: 7, at: '#close-loop', text: 'Each lesson shapes the next idea, and the loop starts again. <em>Sharper every week.</em>' },
+        { step: 0, at: '#early-access .wrap', text: 'That\'s bower. Want it for your brand? Get early access and we\'ll set it up with your assets, your rules and your voice.', label: 'Your turn' }
+      ];
+      var spot = document.getElementById('tour-spot'), bub = document.getElementById('tour-bubble');
+      var arrow = bub.querySelector('.tour-arrow');
+      var nextBtn = document.getElementById('tour-next'), backBtn = document.getElementById('tour-back');
+      var timers = [];
+      function navH() { return nav.getBoundingClientRect().bottom > 0 ? nav.offsetHeight : 0; }
+      function target() { return document.querySelector(stops[tour.i].at); }
+      function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+      function place() {
+        if (!tour.on) return;
+        var el = target(); if (!el) return;
+        var r = el.getBoundingClientRect(), pad = 8, vw = document.documentElement.clientWidth, vh = window.innerHeight;
+        spot.style.top = (r.top - pad) + 'px'; spot.style.left = (r.left - pad) + 'px';
+        spot.style.width = (r.width + pad * 2) + 'px'; spot.style.height = (r.height + pad * 2) + 'px';
+        if (vw <= 760) { bub.dataset.place = 'sheet'; return; }
+        var bw = bub.offsetWidth, bh = bub.offsetHeight, g = 20, top = navH() + 12;
+        var visTop = Math.max(r.top, top), visBot = Math.min(r.bottom, vh - 12);
+        var cy = (visTop + visBot) / 2, cx = r.left + r.width / 2;
+        var x, y, where = 'inside';
+        if (r.right + g + bw < vw - 16) { where = 'right'; x = r.right + g; }
+        else if (r.left - g - bw > 16) { where = 'left'; x = r.left - g - bw; }
+        else if (r.bottom + g + bh < vh - 12) { where = 'bottom'; y = r.bottom + g; }
+        else if (r.top - g - bh > top) { where = 'top'; y = r.top - g - bh; }
+        if (where === 'right' || where === 'left') {
+          y = clamp(cy - bh / 2, top, vh - bh - 12);
+          arrow.style.top = clamp(cy - y - 7, 14, bh - 28) + 'px'; arrow.style.left = '';
+        } else if (where === 'top' || where === 'bottom') {
+          x = clamp(cx - bw / 2, 16, vw - bw - 16);
+          arrow.style.left = clamp(cx - x - 7, 18, bw - 32) + 'px'; arrow.style.top = '';
+        } else {
+          x = clamp(r.right - bw - 16, 16, vw - bw - 16); y = clamp(visBot - bh - 16, top, vh - bh - 12);
+        }
+        bub.dataset.place = where;
+        bub.style.left = x + 'px'; bub.style.top = y + 'px';
+      }
+      function reveal() {
+        var el = target(); if (!el) return;
+        var r = el.getBoundingClientRect(), vh = window.innerHeight, top = nav.offsetHeight + 24;
+        var room = vw() <= 760 ? vh - bub.offsetHeight - 36 : vh - 24;
+        if (r.top < top || r.bottom > room) {
+          var dy = r.height < room - top ? r.top - top - Math.max(0, (room - top - r.height) / 3) : r.top - top;
+          window.scrollTo({ top: window.pageYOffset + dy, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        }
+      }
+      function vw() { return document.documentElement.clientWidth; }
+      function goTo(i) {
+        if (i < 0) return;
+        if (i >= stops.length) { endTour(); tour.i = -1; updateTourBtn(); return; }
+        tour.i = i;
+        var s = stops[i];
+        if (s.step) show(s.step, false);
+        if (s.act) s.act();
+        document.getElementById('tour-where').textContent = s.label || ('Step ' + s.step + ' · ' + names[s.step - 1]);
+        document.getElementById('tour-count').textContent = (i + 1) + ' of ' + stops.length;
+        document.getElementById('tour-prog').style.width = ((i + 1) / stops.length * 100) + '%';
+        document.getElementById('tour-text').innerHTML = s.text;
+        backBtn.disabled = i === 0;
+        nextBtn.textContent = i === stops.length - 1 ? 'Finish' : 'Next';
+        spot.hidden = false; bub.hidden = false;
+        bub.classList.remove('pop'); void bub.offsetWidth; bub.classList.add('pop');
+        timers.forEach(clearTimeout);
+        place();
+        timers = [60, 420].map(function (ms) { return setTimeout(function () { reveal(); place(); }, ms); })
+          .concat([800, 1300, 2400].map(function (ms) { return setTimeout(place, ms); }));
+        nextBtn.focus({ preventScroll: true });
+      }
+      function startTour() {
+        tour.on = true; document.body.classList.add('touring');
+        goTo(tour.i > 0 ? tour.i : 0);
+      }
+      function endTour() {
+        tour.on = false; timers.forEach(clearTimeout);
+        spot.hidden = true; bub.hidden = true; document.body.classList.remove('touring');
+        updateTourBtn();
+      }
+      function updateTourBtn() {
+        document.getElementById('tour-btn').textContent = tour.i > 0 ? 'Resume tour' : 'Guided tour';
+      }
+      nextBtn.addEventListener('click', function () { goTo(tour.i + 1); });
+      backBtn.addEventListener('click', function () { goTo(tour.i - 1); });
+      document.getElementById('tour-skip').addEventListener('click', endTour);
+      document.addEventListener('keydown', function (e) {
+        if (!tour.on || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+        if (e.key === 'Enter' || e.key === 'ArrowRight') { e.preventDefault(); goTo(tour.i + 1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(tour.i - 1); }
+        else if (e.key === 'Escape') { endTour(); }
+      });
+      var raf = 0;
+      function onMove() { if (!tour.on || raf) return; raf = requestAnimationFrame(function () { raf = 0; place(); }); }
+      window.addEventListener('scroll', onMove, { passive: true });
+      window.addEventListener('resize', onMove);
+    })();
+
+    // Waitlist signup (same as the homepage)
+    (function () {
+      var form = document.getElementById('signup-form');
+      var msg = document.getElementById('signup-msg');
+      var button = form.querySelector('button');
+      var endpoint = form.getAttribute('data-endpoint');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = form.email.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = 'That email doesn\'t look right. Try again?'; return; }
+        if (!/^https:\/\/script\.google\.com\//.test(endpoint)) { msg.textContent = 'Signups aren\'t open yet.'; return; }
+        button.disabled = true; msg.textContent = 'Sending...';
+        fetch(endpoint, { method: 'POST', body: new URLSearchParams({ email: email, company: form.company.value }) })
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            if (res.result === 'success') { form.reset(); msg.textContent = 'You\'re on the list. We\'ll be in touch.'; }
+            else if (res.result === 'exists') { msg.textContent = 'You\'re already on the list.'; }
+            else { msg.textContent = 'That email doesn\'t look right. Try again?'; }
+          })
+          .catch(function () { msg.textContent = 'Something went wrong. Try again in a minute.'; })
+          .then(function () { button.disabled = false; });
+      });
+    })();
+  </script>
+</body>
+</html>
