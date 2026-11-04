@@ -488,7 +488,14 @@
     .stepnav ol { flex: 1; min-width: 0; }
     .stepnav .tour-btn { flex: none; border: 1.5px solid var(--blue); background: transparent; color: var(--blue); border-radius: 100px; padding: 8px 14px 8px 30px; font: 500 14px/1 var(--ui); position: relative; white-space: nowrap; }
     .tour-btn::before { content: ""; position: absolute; left: 13px; top: 50%; margin-top: -5px; border: 5px solid transparent; border-left: 8px solid currentColor; border-right: 0; }
-    .stepnav .tour-btn:hover { background: var(--blue); color: var(--cream); }
+    .stepnav .tour-btn { background: var(--ink); border-color: var(--ink); color: var(--cream); font-weight: 600; animation: nudge 1.8s ease-in-out infinite; }
+    .stepnav .tour-btn:hover { background: var(--blue); border-color: var(--blue); color: var(--cream); }
+    .tour-started .stepnav .tour-btn { animation: none; }
+    .btn.tour-start { position: relative; padding-left: 46px !important; background: var(--ink); }
+    .btn.tour-start::before { content: ""; position: absolute; left: 20px; top: 50%; margin-top: -7px; border: 7px solid transparent; border-left: 11px solid currentColor; border-right: 0; }
+    .btn.tour-start:hover { background: var(--blue); }
+    .tour-started .btn.tour-start { display: none; }
+    @media (prefers-reduced-motion: reduce) { .stepnav .tour-btn { animation: none; } }
     .touring .tour-btn { visibility: hidden; }
     #tour-spot { position: fixed; z-index: 40; pointer-events: none; border-radius: 16px; box-shadow: 0 0 0 3px var(--light-blue), 0 0 0 200vmax rgba(24, 29, 48, .46); transition: top .35s ease, left .35s ease, width .35s ease, height .35s ease; }
     #tour-bubble { position: fixed; z-index: 41; width: 320px; background: var(--ink); color: var(--cream); border-radius: 16px; padding: 16px 18px 14px; font: 400 15px/1.5 var(--ui); box-shadow: 0 18px 40px -12px rgba(0,0,0,.45); transition: top .35s ease, left .35s ease; }
@@ -658,7 +665,7 @@
             <p class="eyebrow">Step 1 of 7 · Assets</p>
             <h2 id="h-1">Drop in all your assets.<br>bower sorts them.</h2>
             <p>Your brand's photos, videos, logos and fonts go in one place, sorted and tagged, each with a rule for how it can be used. Save the templates you love, like your newsletter or an Instagram carousel, and bower codes them so every piece keeps the same look. You just confirm.</p>
-            <div class="step-controls"><button class="btn" type="button" data-go="2">Next: Brand</button></div>
+            <div class="step-controls"><button class="btn tour-start" type="button" data-tour-start>Take the 2-minute guided tour</button><button class="btn ghost" type="button" data-go="2">Or explore on your own</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Assets screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/assets</span></div>
@@ -1188,7 +1195,7 @@
       document.addEventListener('click', function (e) {
         var go = e.target.closest('[data-go]');
         var ts = e.target.closest('[data-tour-start]');
-        if (ts) { e.preventDefault(); startTour(); return; }
+        if (ts) { e.preventDefault(); document.documentElement.classList.add('tour-started'); startTour(); return; }
         if (go) { e.preventDefault(); if (tour.on && !e.target.closest('#tour-bubble')) endTour(); show(+go.dataset.go, true); }
       });
 
