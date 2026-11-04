@@ -142,6 +142,14 @@
     .fit li { padding-left: 28px; position: relative; }
     .fit li::before { content: "✓"; position: absolute; left: 0; color: var(--blue); font-family: var(--serif); font-weight: 600; }
 
+    /* Bowerbird */
+    .bowerbird { padding: 104px 0; }
+    .bowerbird .wrap { display: grid; grid-template-columns: 160px minmax(0, 720px); gap: 48px; align-items: center; justify-content: center; }
+    .bowerbird img { width: 160px; height: auto; }
+    .bowerbird h2 { font-size: clamp(32px, 4vw, 46px); margin-bottom: 18px; }
+    .bowerbird h2 .accent { font-weight: 400; }
+    @media (max-width: 720px) { .bowerbird { padding: 64px 0; } .bowerbird .wrap { grid-template-columns: 1fr; gap: 20px; } .bowerbird img { width: 96px; } }
+
     /* Signup */
     .signup { background: var(--blue); color: var(--cream); padding: 112px 0; }
     .signup .wrap { max-width: 680px; text-align: center; }
@@ -210,9 +218,6 @@
   <header>
     <div class="wrap">
       <a class="logo" href="/"><img class="bird" src="assets/bird.png" alt="" width="45" height="36"><img src="assets/wordmark-blue.png" alt="bower" width="150" height="40"></a>
-      <nav aria-label="Main">
-        <a class="navlink" href="#early-access">Get early access</a>
-      </nav>
     </div>
   </header>
 
@@ -222,7 +227,7 @@
         <div>
           <p class="eyebrow">The content system for small brands</p>
           <h1>Your brand, <span class="accent">coded in.</span></h1>
-          <p class="lede">Newsletters, carousels, stories and ads, made from your own photos, fonts and voice. Checked against your brand rules before they go out. Approved by your team.</p>
+          <p class="lede">Newsletters, carousels, stories and ads, made from your own photos, videos, logos, fonts and brand voice. Checked against your brand rules before they go out. Approved by your team.</p>
           <div class="ctas">
             <a class="btn" href="#early-access">Get early access</a>
           </div>
@@ -245,78 +250,13 @@
       </div>
     </section>
 
-    <section class="problem">
+    <section class="bowerbird" id="why">
       <div class="wrap">
-        <p class="eyebrow" style="color:var(--light-blue)">The problem</p>
-        <h2>Almost on brand is <span class="accent">still off brand.</span></h2>
-        <p class="lede">Small teams are expected to publish like big ones. Without a system behind it, every piece drifts a little: a different tone, a different colour, a headline any brand could use.</p>
-        <div class="three">
-          <div><h3>Every week, every channel.</h3><p>A newsletter, posts, stories and ads, made by one or two people who also run everything else.</p></div>
-          <div><h3>Drafts that sound almost like you.</h3><p>The wrong word, the off colour, a headline any brand could use. Readers notice.</p></div>
-          <div><h3>Content you paid for, sitting unused.</h3><p>Photos and video from the last shoot, posted once and forgotten in a folder.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="how" id="how">
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">How it works</p>
-            <h2>One system, from the first file to the next idea.</h2>
-          </div>
-          <a class="btn small ghost" href="demo/">Take the guided demo</a>
-        </div>
-        <ol class="steps">
-          <li><b>Assets</b><span>Drop in everything you have. bower sorts and tags it.</span></li>
-          <li><b>Brand</b><span>Your voice, rules, products and prices, coded in once.</span></li>
-          <li><b>Ideas</b><span>Ideas from trends, brands like yours and your own library.</span></li>
-          <li><b>Create</b><span>One idea becomes a newsletter, a carousel, stories and an ad.</span></li>
-          <li><b>Approve</b><span>Every piece is checked against your rules. A person says yes.</span></li>
-          <li><b>Schedule</b><span>Everything on one calendar, balanced across your pillars.</span></li>
-          <li><b>Results</b><span>What sold shapes what comes next.</span></li>
-          <li class="cta-card"><b>See all seven steps with a real launch.</b><a href="demo/">Start the demo</a></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="diff">
-      <div class="wrap">
+        <img src="assets/bird.png" alt="" width="120" height="96">
         <div>
           <p class="eyebrow">Why bower</p>
-          <h2>Not a prompt. A system.</h2>
-          <p class="lede">Consistency doesn't come from a prompt. It comes from a system: your rules, assets and results, written down once and applied to every piece.</p>
-          <blockquote>
-            <img src="assets/bird.png" alt="" width="64" height="51">
-            The bowerbird doesn't make one pretty thing. It builds a precise structure, every piece placed by rule, to attract exactly the right audience. bower does the same for your brand.
-          </blockquote>
-        </div>
-        <div class="points">
-          <div><h3>It runs on your data, not guesswork.</h3><p>Your brand rules and assets, your email and sales results, and what's moving in your market. Three kinds of data, one system.</p></div>
-          <div><h3>Coded once. On brand every time.</h3><p>Banned words, approved prices and real product facts are written down once. If it isn't in there, bower won't say it.</p></div>
-          <div><h3>Your team stays in charge.</h3><p>Your ideas, your approval. bower organizes and checks the work. It doesn't replace the people who know the brand.</p></div>
-          <div><h3>Built to sell.</h3><p>Results from each send feed the next one, so the content gets sharper as it learns from your results over time.</p></div>
-          <div><h3>Your content goes further.</h3><p>bower finds the photos and video you haven't used yet, suggests new ways to use them and plans your next shoot around real gaps.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="founding">
-      <div class="wrap">
-        <div>
-          <p class="eyebrow">Founding brands</p>
-          <h2>Be one of the first brands on bower.</h2>
-          <p class="lede">We're taking a small group of founding brands. We set bower up with your assets, your rules and your voice, then run it alongside your team. Founding brands get a founding rate in exchange for a case study.</p>
-          <a class="btn" href="#early-access">Apply as a founding brand</a>
-        </div>
-        <div class="fit">
-          <h3>A good fit if you have</h3>
-          <ul>
-            <li>A consumer brand with an online store</li>
-            <li>An email list you send to, or want to</li>
-            <li>One or two people doing marketing</li>
-            <li>More photos and video than you have time to use</li>
-          </ul>
+          <h2>Named after the <span class="accent">bowerbird.</span></h2>
+          <p class="lede">The bowerbird collects beautiful things and arranges each one by rule, to attract exactly the right audience. bower does the same for your brand: your assets and rules, organized into a system that keeps every piece on brand.</p>
         </div>
       </div>
     </section>
@@ -324,7 +264,7 @@
     <section class="signup" id="early-access">
       <div class="wrap">
         <h2>Get early access.</h2>
-        <p>Join the waitlist and we'll be in touch about early access and founding brand spots.</p>
+        <p>Join the waitlist and we'll be in touch about early access. Founding brands get a founding rate in exchange for a case study.</p>
 
         <!-- Signups go to the "bower waitlist" Google Sheet through an Apps Script web app
              (code in apps-script/Code.gs). Paste the web app URL into data-endpoint. -->
