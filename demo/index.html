@@ -51,6 +51,9 @@
     header { padding: 18px 0; }
     header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     header img { height: 34px; width: auto; display: block; }
+    header .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    header .logo .bird { height: 30px; }
+    .sample-note { font: italic 400 15px/1.4 var(--accent); color: var(--ui-muted); text-align: center; padding: 8px 0 24px; }
     .navlink { color: var(--blue); font-size: 17px; text-decoration: none; border-bottom: 1px solid var(--light-blue); }
     .navlink:hover { color: var(--ink); }
 
@@ -80,7 +83,7 @@
 
     /* Steps */
     .demo { padding: 44px 0 72px; }
-    .step { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 48px; align-items: start; padding: 28px 0 56px; scroll-margin-top: 80px; }
+    .step { position: relative; display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 48px; align-items: start; padding: 28px 0 56px; scroll-margin-top: 80px; }
     .js .step { display: none; }
     .js .step.active { display: grid; animation: rise .35s ease both; }
     @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -357,6 +360,15 @@
     .doclist { list-style: none; padding: 0; display: grid; gap: 8px; }
     .doclist li { display: flex; justify-content: space-between; gap: 10px; background: var(--ui-soft); border-radius: 10px; padding: 10px 12px; font-size: 13px; }
     .doclist li span { color: var(--ui-muted); }
+    .tpls { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .tpls li { flex-direction: column; justify-content: flex-start; gap: 2px; padding: 10px; }
+    .tpls li::before { content: ""; display: block; height: 74px; margin-bottom: 8px; border-radius: 6px; background: #fff; box-shadow: inset 0 0 0 1px #dfe4ef;
+      background-image: linear-gradient(#262422, #262422), linear-gradient(#d9cdb8, #d9cdb8), linear-gradient(#c9cfdc, #c9cfdc), linear-gradient(#c9cfdc, #c9cfdc);
+      background-size: 40% 5px, 84% 34px, 70% 4px, 50% 4px; background-position: 8% 8px, 50% 18px, 10% 58px, 10% 65px; background-repeat: no-repeat; }
+    .tpls li:nth-child(2)::before { background-image: linear-gradient(#d9cdb8, #d9cdb8), linear-gradient(#e8e2d6, #e8e2d6), linear-gradient(#e8e2d6, #e8e2d6); background-size: 30% 60px, 30% 60px, 30% 60px; background-position: 4% 7px, 50% 7px, 96% 7px; }
+    .tpls li:nth-child(3)::before { background-image: linear-gradient(#7a6a58, #7a6a58), linear-gradient(#7a6a58, #7a6a58), linear-gradient(#7a6a58, #7a6a58); background-size: 18% 62px, 18% 62px, 18% 62px; background-position: 22% 6px, 50% 6px, 78% 6px; }
+    .tpls li:nth-child(4)::before { background-image: linear-gradient(#d9cdb8, #d9cdb8), linear-gradient(#262422, #262422); background-size: 36% 54px, 30% 5px; background-position: 50% 6px, 50% 64px; }
+    @media (max-width: 760px) { .tpls { grid-template-columns: 1fr 1fr; } }
     .shelf[hidden] { display: none; }
 
     /* Step 6 schedule */
@@ -416,7 +428,7 @@
       .step-copy .try { margin: 0 0 16px; }
     }
     @media (min-width: 761px) {
-      .app { display: flex; flex-direction: column; aspect-ratio: 16 / 10; width: 86%; max-width: calc((100vh - 330px) * 1.6); min-width: min(100%, 760px); margin-left: auto; margin-right: auto; }
+      .app { display: flex; flex-direction: column; aspect-ratio: 16 / 10; width: 86%; max-width: calc((100vh - 370px) * 1.6); min-width: min(100%, 700px); margin-left: auto; margin-right: auto; }
       .app > :not(.chrome) { zoom: var(--z, 1); }
       /* Fit each screen without scrolling the whole app */
       .lib:has(.cat.on[data-cat="all"]) .tiles, .lib:has(.cat.on[data-cat="all"]) .swatches { grid-template-rows: auto; grid-auto-rows: 0; row-gap: 0; overflow: hidden; }
@@ -445,6 +457,25 @@
     .callout b { color: var(--light-blue); font-weight: 600; }
     .callout::before { content: ""; position: absolute; left: 50%; top: -6px; width: 12px; height: 12px; margin-left: -6px; background: var(--ink); transform: rotate(45deg); border-radius: 2px; }
     .callout[hidden] { display: none; }
+    .callout.light { background: var(--light-blue); color: var(--ink); }
+    .callout.light b { color: var(--ink); }
+    .callout.light::before { background: var(--light-blue); }
+    .callout.inline { display: inline-block; text-align: left; margin: 10px 0 12px; }
+    .callout.inline::before { left: 40px; }
+    .cats .callout { margin-top: 12px; text-align: left; }
+    .callout.left { text-align: left; margin-top: 0; animation-name: nudge-x; }
+    .callout.left::before { left: -6px; top: 50%; margin: -6px 0 0; }
+    @keyframes nudge-x { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+    .s5 .piece { position: relative; }
+    .callout.float { position: absolute; left: calc(100% + 30px); bottom: 10px; width: 230px; z-index: 2; }
+    .s6c .card:has(.float6) { position: relative; }
+    .callout.float6 { position: absolute; right: calc(100% + 26px); bottom: 18px; width: 230px; z-index: 2; }
+    .callout.float6::before { left: auto; right: -6px; }
+    .loop .callout.left { flex: 0 1 280px; }
+    @media (max-width: 760px) { .callout.float, .callout.float6 { position: static; width: auto; margin-top: 12px; } .callout.left::before { display: none; } }
+    .hint-arrow { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 3; }
+    .hint-arrow path { fill: none; stroke: var(--blue); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 3px var(--cream)); }
+    @media (max-width: 760px) { .cats .callout { display: none; } }
     @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
     #code-it:not(:disabled) { animation: nudge 1.8s ease-in-out infinite; }
     @media (prefers-reduced-motion: reduce) { .callout, #code-it { animation: none !important; } }
@@ -596,21 +627,12 @@
 
   <header>
     <div class="wrap">
-      <a href="../"><img src="../assets/wordmark-blue.png" alt="bower" width="150" height="40"></a>
-      <a class="navlink" href="#early-access">Get early access</a>
+      <a class="logo" href="../"><img class="bird" src="../assets/bird.png" alt="" width="45" height="36"><img src="../assets/wordmark-blue.png" alt="bower" width="150" height="40"></a>
+      <a class="navlink" href="../">&larr; Back to bower</a>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="wrap">
-        <p class="eyebrow">See how it works</p>
-        <h1>One launch, start to finish.</h1>
-        <p>Meet Asanagi, a small coffee roaster we made up. Follow its winter launch through bower, from a folder of files to a launch that sold 120 bags in a week. It's <span class="accent">your brand, coded in.</span></p>
-        <div class="hero-ctas"><a class="btn" href="#step-1" data-tour-start>Start the guided demo</a><a class="hero-alt" href="#step-1" data-go="1">or explore on your own</a></div>
-        <p class="note">Demo brand. All content and numbers are sample data.</p>
-      </div>
-    </section>
 
     <nav class="stepnav" aria-label="Demo steps">
       <div class="wrap">
@@ -634,8 +656,8 @@
         <section class="step" id="step-1" data-step="1" aria-labelledby="h-1">
           <div class="step-copy">
             <p class="eyebrow">Step 1 of 7 · Assets</p>
-            <h2 id="h-1">Drop in all your assets. bower sorts them.</h2>
-            <p>Your brand's photos, videos, logos and fonts go in one place. bower sorts and tags each one, and gives it a rule for how it can be used. You just confirm.</p>
+            <h2 id="h-1">Drop in all your assets.<br>bower sorts them.</h2>
+            <p>Your brand's photos, videos, logos and fonts go in one place, sorted and tagged, each with a rule for how it can be used. Save the templates you love, like your newsletter or an Instagram carousel, and bower codes them so every piece keeps the same look. You just confirm.</p>
             <div class="step-controls"><button class="btn" type="button" data-go="2">Next: Brand</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Assets screen, demo">
@@ -665,6 +687,7 @@
                   <button type="button" class="cat" data-cat="videos">Videos <span data-count="videos">22</span></button>
                   <button type="button" class="cat" data-cat="docs">Documents <span data-count="docs">29</span></button>
                   <button type="button" class="cat" data-cat="templates">Templates <span data-count="templates">5</span></button>
+                  <p class="callout" data-hint="1" data-hint-for=".cat"><b>Click a category</b> to see everything bower sorted.</p>
                 </nav>
                 <div class="shelves">
                   <section class="shelf" data-shelf="logos">
@@ -674,6 +697,10 @@
                       <div class="tile"><div class="art tone-sumi"><div class="asa-wm" style="color:var(--washi)">asanagi<small style="color:var(--hinoki)">朝凪</small></div></div><b>Wordmark, reversed</b><span>On sumi black or photos.</span></div>
                       <div class="tile"><div class="art tone-washi"><span class="seal">朝</span></div><b>Seal mark</b><span>Small sizes and avatars.</span></div>
                     </div>
+                  </section>
+                  <section class="shelf" data-shelf="templates">
+                    <div class="shelf-head"><h4>Templates</h4><span>Saved once, coded so every piece keeps the same look.</span></div>
+                    <ul class="doclist tpls"><li><b>Master newsletter</b><span>Your default</span></li><li><b>Six slide carousel</b><span>Saved from a post</span></li><li><b>Countdown stories</b><span>Three frames</span></li><li><b>Feed ad, 4:5</b><span>One photo, one line</span></li></ul>
                   </section>
                   <section class="shelf" data-shelf="fonts" data-hidden-in-all>
                     <div class="shelf-head"><h4>Fonts</h4><span>Two faces, two jobs.</span></div>
@@ -715,10 +742,6 @@
                     <div class="shelf-head"><h4>Documents</h4><span>Read by bower, not posted.</span></div>
                     <ul class="doclist"><li><b>asanagi-brand-book.pdf</b><span>Brand book, 14 pages</span></li><li><b>yuki-cupping-notes.pdf</b><span>Tasting notes, Yuki</span></li><li><b>founder-notes.docx</b><span>Story and origin</span></li></ul>
                   </section>
-                  <section class="shelf" data-shelf="templates" data-hidden-in-all>
-                    <div class="shelf-head"><h4>Templates</h4><span>Every piece starts from one.</span></div>
-                    <ul class="doclist"><li><b>Master newsletter</b><span>Your default</span></li><li><b>Six slide carousel</b><span>Saved from a post</span></li><li><b>Countdown stories</b><span>Three frames</span></li><li><b>Feed ad, 4:5</b><span>One photo, one line</span></li></ul>
-                  </section>
                 </div>
               </div>
             </div>
@@ -749,7 +772,7 @@
                   <div class="source"><span class="ic">DOC</span><div><b>founder-notes.docx</b><span>Story and origin</span></div></div>
                 </div>
                 <button class="ubtn solid" type="button" id="code-it" style="width:100%;margin-top:14px;padding:14px;font-size:17px">Code it in</button>
-                <p class="callout" id="code-hint"><b>Click here</b> to watch bower read Asanagi's brand and write its rules.</p>
+                <p class="callout" id="code-hint" data-hint="2" data-hint-for="#code-it"><b>Click here</b> to watch bower read Asanagi's brand and write its rules.</p>
               </div>
               <div class="grid rules">
                 <div class="card rule-card">
@@ -843,6 +866,7 @@
                 </ol>
                 <em>From your last season: short, quiet headlines win.</em>
                 <button class="ubtn" type="button" data-go="4" id="build-campaign">Build this campaign</button>
+                <p class="callout light" data-hint="3" data-hint-for="#build-campaign"><b>Click here</b> to turn this plan into a full campaign.</p>
               </div>
             </div>
           </div>
@@ -871,6 +895,7 @@
                   <button role="tab" type="button" aria-selected="false" aria-controls="f-st" id="t-st" data-fmt="st">Stories</button>
                   <button role="tab" type="button" aria-selected="false" aria-controls="f-ad" id="t-ad" data-fmt="ad">Ad</button>
                 </div>
+                <p class="callout inline" data-hint="4" data-hint-for=".tabs [role=tab]"><b>Click a format</b> to see the same story as a carousel, stories or an ad.</p>
                 <div class="stage" style="margin-top:14px">
                   <div role="tabpanel" id="f-nl" aria-labelledby="t-nl">
                     <div class="nl">
@@ -959,6 +984,7 @@
                   <div><span class="label">Stories · Mon 16 to Wed 18</span><b>Something quiet is coming.</b><span class="meta" id="st-meta" style="color:#8a3f22">1 rule flagged</span></div>
                   <div class="flagline" id="flagline">"Bold" is on your never say list. Story 2 reads:<q id="st-line">Bold and warm, gone by spring.</q></div>
                   <div class="acts"><button class="ubtn solid" type="button" id="fix-it">Use the fix: "Quiet and warm"</button></div>
+                  <p class="callout left float" data-hint="5" data-hint-for="#fix-it, .s5 .ubtn"><b>Click here</b> to fix the flagged word, then approve all three.</p>
                 </div>
               </div>
               <div class="col">
@@ -1045,6 +1071,7 @@
                   <h3>Open slots <span class="count-pill" id="open-count">0</span></h3>
                   <p class="muted" style="font-size:13px;margin-bottom:12px">bower has an idea ready for each one.</p>
                   <button class="ubtn" type="button" data-go="3" style="width:100%;padding:11px">See ideas</button>
+                  <p class="callout left float6" data-hint="6" data-hint-for=".s6c .ubtn, .open-slot"><b>Click here</b> or on an open slot to fill it with a ready idea.</p>
                 </div>
               </div>
             </div>
@@ -1081,11 +1108,13 @@
               <div class="card loop">
                 <p>These lessons are now part of how bower writes for Asanagi.</p>
                 <button class="ubtn solid" type="button" id="close-loop">See the next ideas</button>
+                <p class="callout left" data-hint="7" data-hint-for="#close-loop"><b>Click here</b> to see how these results shape the next ideas.</p>
               </div>
             </div>
           </div>
           <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="6">Back</button><a class="btn" href="#early-access">Get early access</a></div>
         </section>
+        <p class="sample-note">Asanagi is a sample coffee brand. All content and numbers are made up.</p>
 
       </div>
     </div>
@@ -1149,7 +1178,7 @@
         });
         var cur = navBtns[n - 1];
         if (cur && cur.scrollIntoView) cur.parentNode.parentNode.scrollLeft = cur.offsetLeft - 16;
-        if (history.replaceState) history.replaceState(null, '', '#step-' + n);
+        if (history.replaceState && (scroll || location.hash)) history.replaceState(null, '', '#step-' + n);
         if (scroll) {
           var top = document.querySelector('.demo').getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
           window.scrollTo({ top: top, behavior: 'smooth' });
@@ -1470,8 +1499,51 @@
         var inner = app.clientWidth - 36;
         if (inner > 0) document.documentElement.style.setProperty('--z', Math.min(1, inner / DESKTOP).toFixed(3));
       }
-      var codeIt = document.getElementById('code-it'), codeHint = document.getElementById('code-hint');
-      if (codeIt && codeHint) codeIt.addEventListener('click', function () { codeHint.hidden = true; codeIt.style.animation = 'none'; });
+      // Hint bubbles: each one hides once its target is clicked.
+      var hints = [].slice.call(document.querySelectorAll('[data-hint-for]'));
+      document.addEventListener('click', function (e) {
+        hints.forEach(function (h) {
+          if (!h.hidden && e.target.closest(h.getAttribute('data-hint-for'))) {
+            h.hidden = true;
+            var t = document.getElementById('code-it'); if (h.id === 'code-hint' && t) t.style.animation = 'none';
+            drawArrows();
+          }
+        });
+      }, true);
+
+      // Arrows from the "Try it" line into the screen (Ideas and Create).
+      var ARROWS = [{ step: 3, to: '#build-campaign', hint: 3, side: 'right' }, { step: 4, to: '.tabs', hint: 4, side: 'top' }];
+      function drawArrows() {
+        ARROWS.forEach(function (a) {
+          var step = document.getElementById('step-' + a.step);
+          var old = step && step.querySelector('.hint-arrow'); if (old) old.remove();
+          var hint = document.querySelector('[data-hint="' + a.hint + '"]');
+          var from = step && step.querySelector('.try'), to = step && step.querySelector(a.to);
+          if (!step || !from || !to || !hint || hint.hidden || window.innerWidth <= 1080 || !step.offsetParent) return;
+          var S = step.getBoundingClientRect(), F = from.getBoundingClientRect(), T = to.getBoundingClientRect();
+          var x1, y1, x2, y2, c1x, c1y, c2x, c2y;
+          if (a.side === 'right') {
+            x1 = F.right - S.left - 40; y1 = F.bottom - S.top + 6;
+            x2 = T.right - S.left + 10; y2 = T.top - S.top + T.height / 2;
+            c1x = x1 + 30; c1y = y1 + (y2 - y1) * 0.55; c2x = x2 + 110; c2y = y2 + 10;
+          } else {
+            x1 = F.left - S.left + 30; y1 = F.bottom - S.top + 6;
+            x2 = T.left - S.left + Math.min(T.width * 0.5, 120); y2 = T.top - S.top - 6;
+            c1x = x1 - 10; c1y = y1 + (y2 - y1) * 0.7; c2x = x2 + 160; c2y = y2 - (y2 - y1) * 0.6;
+          }
+          if (Math.abs(y2 - y1) < 30) return;
+          var ang = Math.atan2(y2 - c2y, x2 - c2x), L = 14;
+          var hx1 = x2 - L * Math.cos(ang - 0.45), hy1 = y2 - L * Math.sin(ang - 0.45), hx2 = x2 - L * Math.cos(ang + 0.45), hy2 = y2 - L * Math.sin(ang + 0.45);
+          var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('class', 'hint-arrow'); svg.setAttribute('aria-hidden', 'true');
+          svg.innerHTML = '<path class="line" d="M' + x1 + ' ' + y1 + ' C' + c1x + ' ' + c1y + ' ' + c2x + ' ' + c2y + ' ' + x2 + ' ' + y2 + '"/>' +
+            '<path d="M' + hx1 + ' ' + hy1 + ' L' + x2 + ' ' + y2 + ' L' + hx2 + ' ' + hy2 + '"/>';
+          step.appendChild(svg);
+        });
+      }
+      window.addEventListener('resize', drawArrows);
+      window.addEventListener('load', drawArrows);
+      document.addEventListener('click', function () { setTimeout(drawArrows, 450); });
       window.addEventListener('resize', fit);
       document.addEventListener('click', function () { requestAnimationFrame(fit); });
       window.addEventListener('load', fit);
