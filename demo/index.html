@@ -439,6 +439,16 @@
       .chrome span { transform: none; }
     }
 
+
+    /* Hint bubble pointing at the main action on a demo screen */
+    .callout { position: relative; margin-top: 14px; background: var(--ink); color: var(--cream); border-radius: 12px; padding: 12px 16px; font: 400 17px/1.4 var(--ui); text-align: center; animation: bob 1.6s ease-in-out infinite; }
+    .callout b { color: var(--light-blue); font-weight: 600; }
+    .callout::before { content: ""; position: absolute; left: 50%; top: -6px; width: 12px; height: 12px; margin-left: -6px; background: var(--ink); transform: rotate(45deg); border-radius: 2px; }
+    .callout[hidden] { display: none; }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    #code-it:not(:disabled) { animation: nudge 1.8s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) { .callout, #code-it { animation: none !important; } }
+
     /* Guided tour */
     .hero-ctas { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
     .hero-alt { color: var(--blue); font-size: 17px; text-decoration: none; border-bottom: 1px solid var(--light-blue); }
@@ -738,7 +748,8 @@
                   <div class="source"><span class="ic">IG</span><div><b>Last 40 Instagram posts</b><span>Captions and results</span></div></div>
                   <div class="source"><span class="ic">DOC</span><div><b>founder-notes.docx</b><span>Story and origin</span></div></div>
                 </div>
-                <button class="ubtn solid" type="button" id="code-it" style="width:100%;margin-top:14px;padding:12px">Code it in</button>
+                <button class="ubtn solid" type="button" id="code-it" style="width:100%;margin-top:14px;padding:14px;font-size:17px">Code it in</button>
+                <p class="callout" id="code-hint"><b>Click here</b> to watch bower read Asanagi's brand and write its rules.</p>
               </div>
               <div class="grid rules">
                 <div class="card rule-card">
@@ -1459,6 +1470,8 @@
         var inner = app.clientWidth - 36;
         if (inner > 0) document.documentElement.style.setProperty('--z', Math.min(1, inner / DESKTOP).toFixed(3));
       }
+      var codeIt = document.getElementById('code-it'), codeHint = document.getElementById('code-hint');
+      if (codeIt && codeHint) codeIt.addEventListener('click', function () { codeHint.hidden = true; codeIt.style.animation = 'none'; });
       window.addEventListener('resize', fit);
       document.addEventListener('click', function () { requestAnimationFrame(fit); });
       window.addEventListener('load', fit);
