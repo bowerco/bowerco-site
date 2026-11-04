@@ -505,6 +505,10 @@
     .tour-started .btn.tour-start { display: none; }
     @media (prefers-reduced-motion: reduce) { .stepnav .tour-btn { animation: none; } }
     .touring .tour-btn { visibility: hidden; }
+    #tour-exit { display: none; position: fixed; z-index: 42; top: 16px; right: 20px; align-items: center; gap: 8px; background: var(--cream); color: var(--ink); border: 0; border-radius: 100px; padding: 10px 16px 10px 18px; font: 600 15px/1 var(--ui); cursor: pointer; box-shadow: 0 8px 24px -8px rgba(20, 24, 40, .6); }
+    #tour-exit span { font-size: 20px; line-height: 0; font-weight: 400; }
+    #tour-exit:hover { background: #fff; }
+    .touring #tour-exit { display: inline-flex; }
     #tour-spot { position: fixed; z-index: 40; pointer-events: none; border-radius: 16px; box-shadow: 0 0 0 3px var(--light-blue), 0 0 0 200vmax rgba(24, 29, 48, .46); transition: top .35s ease, left .35s ease, width .35s ease, height .35s ease; }
     #tour-bubble { position: fixed; z-index: 41; width: 320px; background: var(--ink); color: var(--cream); border-radius: 16px; padding: 16px 18px 14px; font: 400 15px/1.5 var(--ui); box-shadow: 0 18px 40px -12px rgba(0,0,0,.45); transition: top .35s ease, left .35s ease; }
     #tour-bubble.pop { animation: pop .3s ease both; }
@@ -1162,13 +1166,14 @@
   </footer>
 
   <div id="tour-spot" hidden></div>
+  <button type="button" id="tour-exit">Exit tour <span aria-hidden="true">&times;</span></button>
   <div id="tour-bubble" role="dialog" aria-label="Guided tour" hidden>
     <span class="tour-arrow" aria-hidden="true"></span>
     <div class="tour-top"><span id="tour-where"></span><span id="tour-count"></span></div>
     <div class="tour-bar" aria-hidden="true"><i id="tour-prog"></i></div>
     <p id="tour-text" aria-live="polite"></p>
     <div class="tour-acts">
-      <button type="button" class="tour-skip" id="tour-skip">Skip tour</button>
+      <button type="button" class="tour-skip" id="tour-skip">Exit tour</button>
       <span class="tour-hint">Press Enter</span>
       <button type="button" class="tour-back" id="tour-back">Back</button>
       <button type="button" class="tour-next" id="tour-next">Next</button>
@@ -1368,6 +1373,7 @@
       }
       function tab(f) { selectTab(document.querySelector('[data-fmt="' + f + '"]')); }
       var stops = [
+        { step: 1, at: '#step-1 .app', label: 'Welcome', text: 'This demo follows <b>Asanagi</b>, a Japanese coffee brand we made up, as it launches a new winter roast with bower.' },
         { step: 1, at: '.drop', text: 'Start with what you already have. Drop in photos, videos, logos, fonts and your brand book.' },
         { step: 1, at: '#newtag', text: 'bower tags every new file and suggests where it goes. You confirm with one click.', act: function () { clickAll('#newtag [data-confirm]:not(.done)', 350); } },
         { step: 1, at: '.cats', text: 'Everything has its place: logos, fonts, brand colours, photos and videos.', act: function () { filter('all'); } },
@@ -1471,6 +1477,7 @@
       nextBtn.addEventListener('click', function () { goTo(tour.i + 1); });
       backBtn.addEventListener('click', function () { goTo(tour.i - 1); });
       document.getElementById('tour-skip').addEventListener('click', endTour);
+      document.getElementById('tour-exit').addEventListener('click', endTour);
       document.addEventListener('keydown', function (e) {
         if (!tour.on || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
         if (e.key === 'Enter' || e.key === 'ArrowRight') { e.preventDefault(); goTo(tour.i + 1); }
