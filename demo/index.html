@@ -401,8 +401,23 @@
     .chrome { display: flex; align-items: center; gap: 6px; margin: 0 -18px 14px; padding: 9px 14px; background: #e6eaf2; border-radius: 10px 10px 0 0; }
     .chrome i { width: 10px; height: 10px; border-radius: 50%; background: #c9cfdc; }
     .chrome span { flex: 1; max-width: 340px; margin: 0 auto; transform: translateX(-17px); text-align: center; background: #fff; border-radius: 100px; padding: 5px 12px; font: 400 12px/1 var(--ui); color: var(--ui-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    /* Desktop: copy on top, full-width laptop with a real 16:10 screen */
+    @media (min-width: 1081px) {
+      .step { grid-template-columns: 1fr; gap: 22px; padding-top: 18px; }
+      .step-copy h2 { font-size: clamp(28px, 2.8vw, 36px); }
+      .step-copy > p:not(.eyebrow) { font-size: 17px; margin-bottom: 12px; }
+      .step-copy { position: static; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 64px; align-items: start; }
+      .step-copy > * { grid-column: 2; }
+      .step-copy > .eyebrow { grid-column: 1 / -1; grid-row: 1; }
+      .step-copy > h2 { grid-column: 1; grid-row: 2; margin-bottom: 0; }
+      .step-copy > .step-controls { grid-column: 1; grid-row: 3; align-self: end; }
+      .step-copy .try { font-size: 14px; padding: 10px 12px; }
+      .step-copy > p:not(.eyebrow) { margin-top: 6px; }
+      .step-copy .try { margin: 0 0 16px; }
+    }
     @media (min-width: 761px) {
-      .app > .grid { height: clamp(420px, 64vh, 620px); overflow-y: auto; overscroll-behavior: contain; margin-right: -10px; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #c3cbdd transparent; }
+      .app { display: flex; flex-direction: column; aspect-ratio: 16 / 10; width: 86%; max-width: calc((100vh - 330px) * 1.6); min-width: min(100%, 760px); margin-left: auto; margin-right: auto; }
+      .app > .grid { flex: 1; min-height: 0; align-content: start; overflow-y: auto; overscroll-behavior: contain; margin-right: -10px; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #c3cbdd transparent; }
     }
     @media (max-width: 760px) {
       .app { border: 0; border-radius: 16px; padding: 0 12px 12px; margin-bottom: 0; overflow: hidden; }
