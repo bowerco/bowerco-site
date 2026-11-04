@@ -75,7 +75,7 @@
     .hero .note { font: italic 16px/1.5 var(--accent); color: #525b7a; margin-top: 16px; }
 
     /* Hero visual: a piece of content, checked against the rules */
-    .stack { position: relative; min-height: 470px; }
+    .stack { position: relative; min-height: 470px; margin-top: 28px; }
     .piece { position: absolute; background: #fbf9f4; border-radius: 6px; box-shadow: 0 1px 2px rgba(38,36,34,.06), 0 28px 60px -28px rgba(43,51,80,.45); overflow: hidden; }
     .nl { width: 300px; left: 0; top: 0; transform: rotate(-1deg); }
     .nl-head { display: flex; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid #e6dfd1; font: 700 14px/1 "Shippori Mincho", Georgia, serif; letter-spacing: .06em; color: #262422; }
@@ -90,6 +90,7 @@
     .check { position: absolute; right: 4%; bottom: 0; background: var(--ink); color: var(--cream); border-radius: 14px; padding: 18px 22px; font: 400 16px/1.55 var(--serif); width: 270px; box-shadow: 0 20px 40px -18px rgba(0,0,0,.45); }
     .check b { display: block; font-weight: 700; font-size: 18px; color: var(--light-blue); margin-bottom: 6px; }
     .check ul { list-style: none; padding: 0; display: grid; gap: 2px; }
+    .example-tag { position: absolute; left: 14px; top: -28px; z-index: 2; transform: rotate(-1deg); background: var(--light-blue); color: var(--ink); font: italic 400 15px/1 var(--accent); padding: 8px 12px; border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(43,51,80,.4); }
     .check li::before { content: "✓"; color: var(--light-blue); margin-right: 8px; }
 
     /* Problem */
@@ -223,6 +224,7 @@
           <p class="note">The demo takes two minutes, with a sample coffee brand.</p>
         </div>
         <div class="stack" aria-hidden="true">
+          <span class="example-tag">Example: made in bower</span>
           <div class="piece nl">
             <div class="nl-head">asanagi <small>朝凪</small></div>
             <img src="assets/demo/morning-notes.jpg" alt="">
