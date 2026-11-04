@@ -1368,6 +1368,7 @@
       }
       function tab(f) { selectTab(document.querySelector('[data-fmt="' + f + '"]')); }
       var stops = [
+        { step: 1, at: '#step-1 .app', label: 'Welcome', text: 'This demo follows <b>Asanagi</b>, a Japanese coffee brand we made up, as it launches a new winter roast with bower.' },
         { step: 1, at: '.drop', text: 'Start with what you already have. Drop in photos, videos, logos, fonts and your brand book.' },
         { step: 1, at: '#newtag', text: 'bower tags every new file and suggests where it goes. You confirm with one click.', act: function () { clickAll('#newtag [data-confirm]:not(.done)', 350); } },
         { step: 1, at: '.cats', text: 'Everything has its place: logos, fonts, brand colours, photos and videos.', act: function () { filter('all'); } },
