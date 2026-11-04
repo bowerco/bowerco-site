@@ -775,7 +775,7 @@
           </div>
           <div class="app" role="group" aria-label="bower Brand screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/brand</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s2-status">4 sources ready.</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s2-status">5 sources ready.</span></div>
             <div class="app-title">Your brand, on record.</div>
             <div class="grid s2" id="s2">
               <div class="card">
@@ -1239,7 +1239,7 @@
       var codeBtn = document.getElementById('code-it');
       codeBtn.addEventListener('click', function () {
         if (codeBtn.disabled) return;
-        codeBtn.disabled = true; codeBtn.textContent = 'Reading 4 sources...';
+        codeBtn.disabled = true; codeBtn.textContent = 'Reading 5 sources...';
         var wrap = document.getElementById('s2'); wrap.classList.add('coding');
         var cards = [].slice.call(wrap.querySelectorAll('.rule-card'));
         cards.forEach(function (c, i) {
@@ -1372,8 +1372,8 @@
         { step: 1, at: '#newtag', text: 'bower tags every new file and suggests where it goes. You confirm with one click.', act: function () { clickAll('#newtag [data-confirm]:not(.done)', 350); } },
         { step: 1, at: '.cats', text: 'Everything has its place: logos, fonts, brand colours, photos and videos.', act: function () { filter('all'); } },
         { step: 1, at: '.shelf[data-shelf="photos"]', text: 'Photos and videos are sorted by what they show, so the right shot is one click away.', act: function () { filter('photos'); } },
-        { step: 2, at: '#s2 > .card:first-child', text: 'bower reads your brand book, your site and your best posts.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
-        { step: 2, at: '.rules', text: 'Out come the rules: voice, banned words, products and prices. <em>If it isn\'t in here, bower won\'t say it.</em>' },
+        { step: 2, at: '#s2 > .card:first-child', text: 'Drop in your brand book, site and best posts, plus your products, ingredients, price points and where each one is sold. bower reads it all.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
+        { step: 2, at: '.rules', text: 'Out come the rules: your brand voice, banned words, brand facts, and every product with its prices and retailers. <em>If it isn\'t in here, bower won\'t say it.</em>' },
         { step: 3, at: '.focus', text: 'Tell bower what you\'re working toward. For Asanagi, it\'s the launch of Yuki, a winter roast.' },
         { step: 3, at: '#ideas', text: 'bower finds ideas in trends, in brands like yours and in files you haven\'t used yet.' },
         { step: 3, at: '.campaign', text: 'Then it lays out the whole campaign, in order.' },
