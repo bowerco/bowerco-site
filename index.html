@@ -35,7 +35,7 @@
     .tagline { font-family: var(--accent); font-style: italic; color: var(--blue); }
     .accent { font-family: var(--accent); font-style: italic; }
     .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-    .eyebrow { font: 500 13px/1.4 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+    .eyebrow { font: 700 13px/1.4 var(--serif); letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
     section { padding: 88px 0; }
     .lede { font-size: 21px; max-width: 640px; }
 
@@ -43,6 +43,8 @@
     header { padding: 18px 0; }
     header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     header img { height: 34px; width: auto; display: block; }
+    header .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    header .logo .bird { height: 30px; }
     header nav { display: flex; align-items: center; gap: 22px; }
     .navlink { color: var(--blue); font-size: 17px; text-decoration: none; border-bottom: 1px solid var(--light-blue); }
     .navlink:hover { color: var(--ink); }
@@ -66,30 +68,29 @@
     /* Hero */
     .hero { padding: 48px 0 96px; }
     .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
-    .hero h1 { font-size: clamp(46px, 6.4vw, 84px); margin-bottom: 24px; letter-spacing: -.01em; }
-    .hero h1 .accent { color: var(--blue); font-weight: 400; }
+    .hero h1 { font-size: clamp(46px, 6.4vw, 84px); line-height: 1.04; margin-bottom: 28px; letter-spacing: -.01em; }
+    .hero h1 .accent { color: var(--ink); font-weight: 400; }
     .hero .lede { margin-bottom: 32px; }
     .ctas { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .hero .note { font: 400 14px/1.5 var(--ui); color: #6c7593; margin-top: 16px; }
+    .hero .note { font: italic 16px/1.5 var(--accent); color: #525b7a; margin-top: 16px; }
 
     /* Hero visual: a piece of content, checked against the rules */
     .stack { position: relative; min-height: 470px; }
     .piece { position: absolute; background: #fbf9f4; border-radius: 6px; box-shadow: 0 1px 2px rgba(38,36,34,.06), 0 28px 60px -28px rgba(43,51,80,.45); overflow: hidden; }
-    .nl { width: 300px; left: 8%; top: 0; transform: rotate(-2deg); }
+    .nl { width: 300px; left: 0; top: 0; transform: rotate(-1deg); }
     .nl-head { display: flex; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid #e6dfd1; font: 700 14px/1 "Shippori Mincho", Georgia, serif; letter-spacing: .06em; color: #262422; }
     .nl-head small { font-size: 10px; letter-spacing: .3em; color: #3f6a24; }
     .nl img { display: block; width: 100%; height: 190px; object-fit: cover; object-position: center 30%; }
     .nl-body { padding: 18px 20px 22px; color: #262422; font: 400 13px/1.6 Georgia, serif; }
     .nl-body h3 { font: 700 24px/1.2 "Shippori Mincho", Georgia, serif; margin-bottom: 8px; }
     .nl-body span { display: inline-block; margin-top: 12px; background: #262422; color: #f3efe6; font: 500 10px/1 var(--ui); letter-spacing: .14em; padding: 10px 14px; }
-    .story { width: 150px; right: 6%; top: 70px; transform: rotate(3deg); aspect-ratio: 9 / 16; }
+    .story { width: 150px; right: 0; top: 60px; transform: rotate(1.5deg); aspect-ratio: 9 / 16; }
     .story img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .story p { position: absolute; left: 12px; right: 12px; bottom: 14px; color: #fbf7ee; font: 700 15px/1.3 "Shippori Mincho", Georgia, serif; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
-    .check { position: absolute; left: 0; bottom: 6px; background: var(--ink); color: var(--cream); border-radius: 14px; padding: 16px 18px; font: 400 14px/1.5 var(--ui); width: 250px; box-shadow: 0 20px 40px -18px rgba(0,0,0,.45); }
-    .check b { display: block; font-weight: 600; color: var(--light-blue); margin-bottom: 6px; }
+    .check { position: absolute; right: 4%; bottom: 0; background: var(--ink); color: var(--cream); border-radius: 14px; padding: 18px 22px; font: 400 16px/1.55 var(--serif); width: 270px; box-shadow: 0 20px 40px -18px rgba(0,0,0,.45); }
+    .check b { display: block; font-weight: 700; font-size: 18px; color: var(--light-blue); margin-bottom: 6px; }
     .check ul { list-style: none; padding: 0; display: grid; gap: 2px; }
     .check li::before { content: "✓"; color: var(--light-blue); margin-right: 8px; }
-    .demo-tag { position: absolute; right: 6%; bottom: 0; font: 500 12px/1.4 var(--ui); color: #6c7593; }
 
     /* Problem */
     .problem { background: var(--ink); color: var(--cream); }
@@ -107,13 +108,13 @@
     .how .head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
     .steps { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; counter-reset: s; }
     .steps li { background: var(--soft); border-radius: 14px; padding: 22px 20px 24px; counter-increment: s; }
-    .steps li::before { content: counter(s); display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--cream); color: var(--blue); font: 600 13px/1 var(--ui); margin-bottom: 14px; }
-    .steps b { display: block; font: 600 17px/1.3 var(--ui); margin-bottom: 6px; }
+    .steps li::before { content: counter(s); display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--cream); color: var(--blue); font: 700 13px/1 var(--serif); margin-bottom: 14px; }
+    .steps b { display: block; font: 700 17px/1.3 var(--serif); margin-bottom: 6px; }
     .steps span { font-size: 16px; line-height: 1.5; display: block; }
     .steps .cta-card { background: var(--blue); color: var(--cream); display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
     .steps .cta-card::before { display: none; }
     .steps .cta-card b { font: 700 22px/1.25 var(--serif); }
-    .steps .cta-card a { color: var(--cream); font: 600 15px/1 var(--ui); text-decoration: none; border-bottom: 1px solid rgba(255,252,244,.5); align-self: flex-start; padding-bottom: 3px; }
+    .steps .cta-card a { color: var(--cream); font: 700 15px/1 var(--serif); text-decoration: none; border-bottom: 1px solid rgba(255,252,244,.5); align-self: flex-start; padding-bottom: 3px; }
     .steps .cta-card:hover { background: var(--ink); }
 
     /* Difference */
@@ -131,10 +132,10 @@
     .founding h2 { font-size: clamp(32px, 4vw, 46px); margin-bottom: 18px; }
     .founding .lede { margin-bottom: 28px; }
     .fit { background: #fff; border: 1px solid #ece6d6; border-radius: 16px; padding: 28px; }
-    .fit h3 { font: 600 15px/1.3 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+    .fit h3 { font: 700 15px/1.3 var(--serif); letter-spacing: .08em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
     .fit ul { list-style: none; padding: 0; display: grid; gap: 12px; font-size: 17px; }
     .fit li { padding-left: 28px; position: relative; }
-    .fit li::before { content: "✓"; position: absolute; left: 0; color: var(--blue); font-family: var(--ui); font-weight: 600; }
+    .fit li::before { content: "✓"; position: absolute; left: 0; color: var(--blue); font-family: var(--serif); font-weight: 600; }
 
     /* Signup */
     .signup { background: var(--blue); color: var(--cream); padding: 112px 0; }
@@ -165,7 +166,7 @@
     footer .wrap { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
     footer img { height: 36px; width: auto; }
     footer .tagline { font-size: 18px; }
-    footer .legal { margin-left: auto; font: 400 14px/1.5 var(--ui); color: #6c7593; }
+    footer .legal { margin-left: auto; font: 400 14px/1.5 var(--serif); color: #6c7593; }
     footer .legal a { color: inherit; }
 
     :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
@@ -182,18 +183,16 @@
       .three { grid-template-columns: 1fr; gap: 24px; }
       .signup { padding: 72px 0; }
       .signup p { font-size: 21px; }
-      header nav .navlink.secondary { display: none; }
     }
     @media (max-width: 520px) {
       .wrap { padding: 0 16px; }
       .steps { grid-template-columns: 1fr; }
       .signup form { flex-direction: column; }
-      .stack { min-height: 420px; }
+      .stack { min-height: 475px; }
       .nl { width: 240px; left: 0; }
       .nl img { height: 150px; }
-      .story { width: 120px; right: 0; top: 40px; }
-      .check { width: 220px; left: 12px; font-size: 13px; }
-      .demo-tag { display: none; }
+      .story { width: 110px; right: 0; top: 40px; }
+      .check { width: 230px; right: 0; font-size: 14px; }
       footer .legal { margin-left: 0; }
     }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -203,10 +202,9 @@
 
   <header>
     <div class="wrap">
-      <a href="/"><img src="assets/wordmark-blue.png" alt="bower" width="150" height="40"></a>
+      <a class="logo" href="/"><img class="bird" src="assets/bird.png" alt="" width="45" height="36"><img src="assets/wordmark-blue.png" alt="bower" width="150" height="40"></a>
       <nav aria-label="Main">
-        <a class="navlink" href="demo/">See how it works</a>
-        <a class="navlink secondary" href="#early-access">Get early access</a>
+        <a class="navlink" href="#early-access">Get early access</a>
       </nav>
     </div>
   </header>
@@ -217,12 +215,12 @@
         <div>
           <p class="eyebrow">The content system for small brands</p>
           <h1>Your brand, <span class="accent">coded in.</span></h1>
-          <p class="lede">bower builds the system behind your brand's content, so everything you put out stays consistent. Newsletters, carousels, stories and ads, made from your own photos, fonts, colours and voice, and approved by your team.</p>
+          <p class="lede">Newsletters, carousels, stories and ads, made from your own photos, fonts and voice. Checked against your brand rules before they go out. Approved by your team.</p>
           <div class="ctas">
-            <a class="btn" href="demo/">See how it works</a>
-            <a class="btn ghost" href="#early-access">Get early access</a>
+            <a class="btn" href="#early-access">Get early access</a>
+            <a class="btn ghost" href="demo/">See how it works</a>
           </div>
-          <p class="note">A guided demo with a sample coffee brand. About two minutes.</p>
+          <p class="note">The demo takes two minutes, with a sample coffee brand.</p>
         </div>
         <div class="stack" aria-hidden="true">
           <div class="piece nl">
@@ -235,8 +233,7 @@
             </div>
           </div>
           <div class="piece story"><img src="assets/demo/the-stir.jpg" alt=""><p>Quiet and warm, gone by spring.</p></div>
-          <div class="check"><b>Passes 9 of 9 brand rules</b><ul><li>No banned words</li><li>Only approved prices</li><li>In your voice</li></ul></div>
-          <span class="demo-tag">Sample brand from the demo</span>
+          <div class="check"><b>Passes 9 of 9 brand rules</b><ul><li>No banned words</li><li>Only approved prices</li><li>Real product facts only</li></ul></div>
         </div>
       </div>
     </section>
