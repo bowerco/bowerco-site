@@ -417,6 +417,19 @@
     }
     @media (min-width: 761px) {
       .app { display: flex; flex-direction: column; aspect-ratio: 16 / 10; width: 86%; max-width: calc((100vh - 330px) * 1.6); min-width: min(100%, 760px); margin-left: auto; margin-right: auto; }
+      .app > :not(.chrome) { zoom: var(--z, 1); }
+      /* Fit each screen without scrolling the whole app */
+      .lib:has(.cat.on[data-cat="all"]) .tiles, .lib:has(.cat.on[data-cat="all"]) .swatches { grid-template-rows: auto; grid-auto-rows: 0; row-gap: 0; overflow: hidden; }
+      .lib:has(.cat.on[data-cat="all"]) .shelf + .shelf { margin-top: 14px; }
+      .s1 { grid-template-columns: minmax(0, 1fr) 290px; align-items: start; }
+      .s1 > .drop { grid-column: 1 / -1; }
+      .s1 > .lib { grid-column: 1 !important; grid-row: 2; }
+      .s1 > .newtag { grid-column: 2; grid-row: 2; }
+      .s1 .newtag .list { grid-template-columns: 1fr; gap: 10px; }
+      .s1 .newtag h3 { flex-wrap: wrap; gap: 2px 8px; }
+      .s1 .newtag h3 small { flex-basis: 100%; }
+      .s4 .stage { min-height: 0; max-height: 440px; overflow-y: auto; place-items: start center; scrollbar-width: thin; }
+      .cday { min-height: 66px; }
       .app > .grid { flex: 1; min-height: 0; align-content: start; overflow-y: auto; overscroll-behavior: contain; margin-right: -10px; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #c3cbdd transparent; }
     }
     @media (max-width: 760px) {
@@ -652,7 +665,7 @@
                       <div class="tile"><div class="art tone-washi"><span class="seal">朝</span></div><b>Seal mark</b><span>Small sizes and avatars.</span></div>
                     </div>
                   </section>
-                  <section class="shelf" data-shelf="fonts">
+                  <section class="shelf" data-shelf="fonts" data-hidden-in-all>
                     <div class="shelf-head"><h4>Fonts</h4><span>Two faces, two jobs.</span></div>
                     <div class="grid tiles">
                       <div class="tile font"><div class="art tone-washi">Aa</div><b>Shippori Mincho</b><span>Headlines only.</span></div>
@@ -679,7 +692,7 @@
                       <div class="tile"><div class="art tone-hinoki"><svg viewBox="0 0 100 120" style="width:34%"><use href="#i-bag"/></svg><span class="tag">Product</span></div><b>yuki-bag-front.png</b><span>Product heroes.</span></div>
                     </div>
                   </section>
-                  <section class="shelf" data-shelf="videos">
+                  <section class="shelf" data-shelf="videos" data-hidden-in-all>
                     <div class="shelf-head"><h4>Videos</h4><span>Sorted by what they show.</span></div>
                     <div class="subtags"><span class="pill blue">All 22</span><span class="pill">Ritual 9</span><span class="pill">Roastery 8</span><span class="pill">Founder 5</span></div>
                     <div class="grid tiles">
@@ -1434,6 +1447,22 @@
           .catch(function () { msg.textContent = 'Something went wrong. Try again in a minute.'; })
           .then(function () { button.disabled = false; });
       });
+    })();
+  </script>
+  <script>
+    // Show each demo screen as a desktop app at full size, scaled down to fit the laptop.
+    (function () {
+      var DESKTOP = 1280;
+      function fit() {
+        var app = document.querySelector('.step.active .app') || document.querySelector('.app');
+        if (!app || window.innerWidth <= 760) { document.documentElement.style.removeProperty('--z'); return; }
+        var inner = app.clientWidth - 36;
+        if (inner > 0) document.documentElement.style.setProperty('--z', Math.min(1, inner / DESKTOP).toFixed(3));
+      }
+      window.addEventListener('resize', fit);
+      document.addEventListener('click', function () { requestAnimationFrame(fit); });
+      window.addEventListener('load', fit);
+      fit();
     })();
   </script>
 </body>
