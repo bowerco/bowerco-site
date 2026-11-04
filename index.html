@@ -90,7 +90,11 @@
     .check { position: absolute; right: 4%; bottom: 0; background: var(--ink); color: var(--cream); border-radius: 14px; padding: 18px 22px; font: 400 16px/1.55 var(--serif); width: 270px; box-shadow: 0 20px 40px -18px rgba(0,0,0,.45); }
     .check b { display: block; font-weight: 700; font-size: 18px; color: var(--light-blue); margin-bottom: 6px; }
     .check ul { list-style: none; padding: 0; display: grid; gap: 2px; }
-    .example-tag { position: absolute; left: 14px; top: -28px; z-index: 2; transform: rotate(-1deg); background: var(--light-blue); color: var(--ink); font: italic 400 15px/1 var(--accent); padding: 8px 12px; border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(43,51,80,.4); }
+    .example-tag { position: absolute; left: 14px; top: -28px; z-index: 2; transform: rotate(-1deg); background: var(--light-blue); color: var(--ink); font: italic 400 15px/1 var(--accent); padding: 9px 14px; border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(43,51,80,.4); white-space: nowrap; }
+    .demo-link { display: inline-block; margin-top: 18px; color: var(--blue); font-size: 18px; text-decoration: none; border-bottom: 1px solid var(--light-blue); padding-bottom: 2px; }
+    .demo-link span { display: inline-block; transition: transform .15s; }
+    .demo-link:hover { color: var(--ink); border-color: var(--ink); }
+    .demo-link:hover span { transform: translateX(3px); }
     .check li::before { content: "✓"; color: var(--light-blue); margin-right: 8px; }
 
     /* Problem */
@@ -190,6 +194,8 @@
       .steps { grid-template-columns: 1fr; }
       .signup form { flex-direction: column; }
       .stack { min-height: 475px; }
+      .hero .stack { margin-top: 44px; }
+      .example-tag { left: 0; font-size: 13px; padding: 8px 12px; }
       .nl { width: 240px; left: 0; }
       .nl img { height: 150px; }
       .story { width: 110px; right: 0; top: 40px; }
@@ -219,13 +225,12 @@
           <p class="lede">Newsletters, carousels, stories and ads, made from your own photos, fonts and voice. Checked against your brand rules before they go out. Approved by your team.</p>
           <div class="ctas">
             <a class="btn" href="#early-access">Get early access</a>
-            <a class="btn ghost" href="demo/">See how it works</a>
           </div>
-          <p class="note">The demo takes two minutes, with a sample coffee brand.</p>
+          <a class="demo-link" href="demo/">or see the 2-minute demo <span aria-hidden="true">&rarr;</span></a>
         </div>
-        <div class="stack" aria-hidden="true">
+        <div class="stack">
           <span class="example-tag">Example: made in bower</span>
-          <div class="piece nl">
+          <div class="piece nl" aria-hidden="true">
             <div class="nl-head">asanagi <small>朝凪</small></div>
             <img src="assets/demo/morning-notes.jpg" alt="">
             <div class="nl-body">
@@ -234,8 +239,8 @@
               <br><span>ORDER YUKI</span>
             </div>
           </div>
-          <div class="piece story"><img src="assets/demo/the-stir.jpg" alt=""><p>Quiet and warm, gone by spring.</p></div>
-          <div class="check"><b>Passes 9 of 9 brand rules</b><ul><li>No banned words</li><li>Only approved prices</li><li>Real product facts only</li></ul></div>
+          <div class="piece story" aria-hidden="true"><img src="assets/demo/the-stir.jpg" alt=""><p>Quiet and warm, gone by spring.</p></div>
+          <div class="check" aria-hidden="true"><b>Passes 9 of 9 brand rules</b><ul><li>No banned words</li><li>Only approved prices</li><li>Real product facts only</li></ul></div>
         </div>
       </div>
     </section>
