@@ -524,6 +524,9 @@
     .lib-thumbs i { font-style: normal; color: var(--blue); font-weight: 700; }
     .slide .badge { position: absolute; right: 10px; top: 10px; z-index: 3; font: 600 9px/1 var(--ui); letter-spacing: .06em; text-transform: uppercase; background: rgba(251,247,238,.92); color: var(--sumi); border-radius: 100px; padding: 4px 7px; }
 
+    .shelf-head .coded { font: 600 10px/1 var(--ui); font-style: normal; letter-spacing: .04em; color: var(--blue); background: var(--light-blue); border-radius: 100px; padding: 4px 8px; margin-left: auto; white-space: nowrap; }
+    .tile.in { animation: rise .4s ease both; }
+
     /* Products step */
     .new-tag { font: 600 10px/1 var(--ui); font-style: normal; letter-spacing: .04em; text-transform: uppercase; background: var(--ink); color: var(--cream); border-radius: 100px; padding: 3px 7px; margin-left: 6px; vertical-align: 2px; }
     .pd-head-acts { display: flex; align-items: center; gap: 10px; }
@@ -804,7 +807,7 @@
                 </nav>
                 <div class="shelves">
                   <section class="shelf" data-shelf="logos">
-                    <div class="shelf-head"><h4>Logos</h4><span>Use as supplied. Never recoloured.</span></div>
+                    <div class="shelf-head"><h4>Logos</h4><span>Use as supplied. Never recoloured.</span><em class="coded">✓ Coded rule</em></div>
                     <div class="grid tiles">
                       <div class="tile"><div class="art tone-washi"><div class="asa-wm">asanagi<small>朝凪</small></div></div><b>Wordmark</b><span>On washi or white.</span></div>
                       <div class="tile"><div class="art tone-sumi"><div class="asa-wm" style="color:var(--washi)">asanagi<small style="color:var(--hinoki)">朝凪</small></div></div><b>Wordmark, reversed</b><span>On sumi black or photos.</span></div>
@@ -812,18 +815,18 @@
                     </div>
                   </section>
                   <section class="shelf" data-shelf="templates">
-                    <div class="shelf-head"><h4>Templates</h4><span>Saved once, coded so every piece keeps the same look.</span></div>
+                    <div class="shelf-head"><h4>Templates</h4><span>Saved once, coded so every piece keeps the same look.</span><em class="coded">✓ Coded rule</em></div>
                     <ul class="doclist tpls"><li><b>Master newsletter</b><span>Your default</span></li><li><b>Six slide carousel</b><span>Saved from a post</span></li><li><b>Countdown stories</b><span>Three frames</span></li><li><b>Feed ad, 4:5</b><span>One photo, one line</span></li></ul>
                   </section>
-                  <section class="shelf" data-shelf="fonts" data-hidden-in-all>
-                    <div class="shelf-head"><h4>Fonts</h4><span>Two faces, two jobs.</span></div>
+                  <section class="shelf" data-shelf="fonts">
+                    <div class="shelf-head"><h4>Fonts</h4><span>Two faces, two jobs.</span><em class="coded">✓ Coded rule</em></div>
                     <div class="grid tiles">
                       <div class="tile font"><div class="art tone-washi">Aa</div><b>Shippori Mincho</b><span>Headlines only.</span></div>
                       <div class="tile font"><div class="art tone-washi" style="font-family:var(--ui);font-weight:500">Aa</div><b>Inter</b><span>Labels, prices and recipes.</span></div>
                     </div>
                   </section>
                   <section class="shelf" data-shelf="colours">
-                    <div class="shelf-head"><h4>Brand colours</h4><span>Washi and sumi lead. Green and crema are accents.</span></div>
+                    <div class="shelf-head"><h4>Brand colours</h4><span>Washi and sumi lead. Green and crema are accents.</span><em class="coded">✓ Coded rule</em></div>
                     <div class="swatches">
                       <div class="swatch"><i style="background:#f3efe6"></i><b>Washi</b><span>#F3EFE6 · Backgrounds</span></div>
                       <div class="swatch"><i style="background:#262422"></i><b>Sumi</b><span>#262422 · Text and buttons</span></div>
@@ -836,6 +839,9 @@
                     <div class="shelf-head"><h4>Photos</h4><span>Sorted by what they show.</span></div>
                     <div class="subtags"><span class="pill blue">All 146</span><span class="pill">Ritual 52</span><span class="pill">Roastery 38</span><span class="pill">Product 31</span><span class="pill">Moody 25</span></div>
                     <div class="grid tiles">
+                      <div class="tile" data-new-tile="yuki-shelf.jpg" hidden><div class="art ph"><img src="../assets/demo/yuki-shelf.jpg" alt="" loading="lazy" style="object-position:center 40%"><span class="tag">New · Yuki</span></div><b>yuki-shelf.jpg</b><span>Launch covers.</span></div>
+                      <div class="tile" data-new-tile="yuki-beans.jpg" hidden><div class="art ph"><img src="../assets/demo/yuki-beans.jpg" alt="" loading="lazy" style="object-position:center 65%"><span class="tag">New · Yuki</span></div><b>yuki-beans.jpg</b><span>Product posts.</span></div>
+                      <div class="tile" data-new-tile="yuki-pour.jpg" hidden><div class="art ph"><img src="../assets/demo/yuki-pour.jpg" alt="" loading="lazy" style="object-position:center 45%"><span class="tag">New · Yuki</span></div><b>yuki-pour.jpg</b><span>Newsletter heroes.</span></div>
                       <div class="tile"><div class="art ph"><img src="../assets/demo/morning-notes.jpg" alt="" loading="lazy" style="object-position:center"><span class="tag">Ritual</span></div><b>morning-notes.jpg</b><span>Newsletter heroes.</span></div>
                       <div class="tile"><div class="art ph"><img src="../assets/demo/the-stir.jpg" alt="" loading="lazy" style="object-position:center 70%"><span class="tag">Ritual</span></div><b>the-stir.jpg</b><span>Ritual posts.</span></div>
                       <div class="tile"><div class="art ph"><img src="../assets/demo/stacked-mugs.jpg" alt="" loading="lazy" style="object-position:center"><span class="tag">Product</span></div><b>stacked-mugs.jpg</b><span>Ads and covers.</span></div>
@@ -1388,6 +1394,7 @@
           if (b.classList.contains('done')) return;
           b.classList.add('done'); b.textContent = '✓ Filed';
           left--; bump(b.dataset.confirm);
+          var nm = b.parentNode.querySelector('b'); var nt = nm && document.querySelector('[data-new-tile="' + nm.textContent + '"]'); if (nt) { nt.hidden = false; nt.classList.add('in'); }
           var total = document.querySelector('[data-count="all"]').textContent;
           document.getElementById('s1-status').textContent = left ? total + ' sorted. ' + left + ' new to tag.' : total + ' sorted. All tagged.';
           if (!left) { var ch = document.getElementById('cat-hint'); if (ch && !ch.dataset.used) ch.hidden = false; }
@@ -1555,7 +1562,8 @@
         { step: 1, at: '.drop', text: '<b>Assets</b> is where every brand file lives: photos, videos, logos, colours and fonts. Asanagi drops in the new Yuki photos and its product sheet, with a quick note so bower knows what they\'re for.', act: function () { filter('all'); dropYuki(); } },
         { step: 1, at: '#newtag', text: 'bower tags each file: the photos by what they show, the product sheet as a document. Asanagi confirms with one click.', act: function () { dropYuki(); setTimeout(function () { clickAll('#newtag [data-confirm]:not(.done)', 350); }, 1700); } },
         { step: 1, at: '.cats', text: 'Now the Yuki photos sit with everything else, sorted into logos, fonts, colours, photos, videos and templates.', act: function () { filter('all'); } },
-        { step: 1, at: '.shelf[data-shelf="photos"]', text: 'When it\'s time to post about Yuki, the right shot is one click away.', act: function () { filter('photos'); } },
+        { step: 1, at: '.shelves', text: 'Logos, fonts, brand colours and templates aren\'t just stored here. Each one is a <b>coded rule</b>: logos never recoloured, two fonts with two jobs, washi and sumi leading. bower pulls from them every time it designs, so every Yuki piece looks like Asanagi.', act: function () { filter('all'); } },
+        { step: 1, at: '.shelf[data-shelf="photos"]', text: 'Photos are sorted by what they show, and the new Yuki shots are already in. When it\'s time to post, the right one is one click away.', act: function () { filter('photos'); } },
         { step: 2, at: '#s2 > .card:first-child', text: '<b>Brand</b> is where Asanagi\'s voice lives. bower reads its brand book, site and best posts once, so Yuki sounds like Asanagi from the very first post.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
         { step: 2, at: '.rules', text: 'Out come the rules every Yuki post will follow: voice, banned words, how Asanagi writes and its brand facts. <em>If it isn\'t in here, bower won\'t say it.</em>' },
         { step: 3, at: '#prod-list', text: '<b>Products</b> holds every product Asanagi sells. Yuki is new, so bower drafts its entry from the product sheet Asanagi added in Assets: origins, tasting notes, sizes and prices. The photos show what Yuki looks like; the sheet tells bower the facts.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); } },
@@ -1589,6 +1597,12 @@
         if (!tour.on) return;
         var el = target(); if (!el) return;
         var r = el.getBoundingClientRect(), pad = 8, vw = document.documentElement.clientWidth, vh = window.innerHeight;
+        // Keep the highlight inside the laptop screen when the target scrolls inside it
+        var box = el.closest('.app > .grid');
+        if (box && box !== el) {
+          var b = box.getBoundingClientRect(), t = Math.max(r.top, b.top), bt = Math.min(r.bottom, b.bottom);
+          r = { top: t, left: r.left, width: r.width, height: Math.max(0, bt - t), right: r.right, bottom: bt };
+        }
         spot.style.top = (r.top - pad) + 'px'; spot.style.left = (r.left - pad) + 'px';
         spot.style.width = (r.width + pad * 2) + 'px'; spot.style.height = (r.height + pad * 2) + 'px';
         if (vw <= 760) { bub.dataset.place = 'sheet'; return; }
