@@ -1668,14 +1668,14 @@
         var AnL = A.left - z.tx, AnT = A.top - z.ty;
         var nl = AnL + (r.left - A.left) / z.s, nt = AnT + (r.top - A.top) / z.s, nw = r.width / z.s, nh = r.height / z.s;
         var L = 28, R = vw() - (bub.offsetWidth || 380) - 64, T = navH() + 24, B = window.innerHeight - 24;
-        var sc = Math.min((R - L) / nw, (B - T) / nh) * 0.92;
-        sc = Math.min(sc, 2.2);
+        var sc = Math.min((R - L) / nw, (B - T) / nh) * 0.82;
+        sc = Math.min(sc, 1.6);
         if (sc < 1.12) { app.style.transform = ''; app._z = null; app.classList.remove('zoomed'); return false; }
         var tx = (L + R) / 2 - AnL - (nl + nw / 2 - AnL) * sc;
         var ty = (T + B) / 2 - AnT - (nt + nh / 2 - AnT) * sc;
         var tf = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')';
         app._z = { s: sc, tx: tx, ty: ty }; app.classList.add('zoomed');
-        if (app.style.transform !== tf && Math.abs(sc - z.s) + Math.abs(tx - z.tx) + Math.abs(ty - z.ty) > 4) {
+        if (app.style.transform !== tf) {
           spot.classList.add('zooming'); bub.classList.add('zooming');
           clearTimeout(app._zt); app._zt = setTimeout(zoomDone, 680);
         }
@@ -1688,7 +1688,10 @@
         if (i >= stops.length) { endTour(); tour.i = -1; updateTourBtn(); return; }
         tour.i = i;
         var s = stops[i];
+        var prevApp = document.querySelector('.step.active .app');
         if (s.step) show(s.step, false);
+        var curApp = document.querySelector('.step.active .app');
+        var pageChange = !prevApp || prevApp !== curApp;
         if (s.act) s.act();
         document.getElementById('tour-where').textContent = s.label || ('Step ' + s.step + ' · ' + names[s.step - 1]);
         document.getElementById('tour-count').textContent = (i + 1) + ' of ' + stops.length;
@@ -1699,13 +1702,31 @@
         spot.hidden = false; bub.hidden = false;
         bub.classList.remove('pop'); void bub.offsetWidth; bub.classList.add('pop');
         timers.forEach(clearTimeout);
-        place();
         var zoomed = false;
-        function frame() { zoomed = zoomTo(target()); if (!zoomed) reveal(); place(); }
-        timers = [80].map(function (ms) { return setTimeout(frame, ms); })
-          .concat([420, 700, 1300].map(function (ms) { return setTimeout(function () { if (!zoomed) reveal(); place(); }, ms); }))
-          .concat([2000].map(function (ms) { return setTimeout(frame, ms); }))
-          .concat([2700].map(function (ms) { return setTimeout(place, ms); }));
+        function frame() { zoomed = zoomTo(target()); if (!zoomed) { reveal(); zoomDone(); } }
+        function hold() { spot.classList.add('zooming'); bub.classList.add('zooming'); }
+        var useZoom = vw() > 900 && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var wait;
+        if (!useZoom) { place(); wait = 60; }
+        else if (pageChange) {
+          // New page: show the whole laptop first, then zoom in
+          hold(); unzoom();
+          if (curApp) {
+            var ar = curApp.getBoundingClientRect(), top = navH() + 16;
+            if (ar.top < top || ar.bottom > window.innerHeight - 8)
+              window.scrollTo({ top: window.pageYOffset + ar.top - top, behavior: 'smooth' });
+          }
+          wait = 1100;
+        } else if (curApp && curApp._z) {
+          // Same page: ease back out a little, then zoom to the next part
+          hold();
+          var z = curApp._z, k = 0.35;
+          curApp.style.transform = 'translate(' + (z.tx * k).toFixed(1) + 'px,' + (z.ty * k).toFixed(1) + 'px) scale(' + (1 + (z.s - 1) * k).toFixed(3) + ')';
+          curApp._z = { s: 1 + (z.s - 1) * k, tx: z.tx * k, ty: z.ty * k };
+          wait = 520;
+        } else { hold(); wait = 120; }
+        timers = [setTimeout(frame, wait), setTimeout(function () { if (zoomed) zoomTo(target()); }, wait + 1400),
+                  setTimeout(zoomDone, wait + 2300)];
         nextBtn.focus({ preventScroll: true });
       }
       function startTour() {
