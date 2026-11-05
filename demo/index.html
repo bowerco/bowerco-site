@@ -592,6 +592,10 @@
     .tour-started .btn.tour-start { display: none; }
     @media (prefers-reduced-motion: reduce) { .stepnav .tour-btn { animation: none; } }
     .touring .tour-btn { visibility: hidden; }
+    body.touring { overflow-x: clip; }
+    .touring .app { transform-origin: 0 0; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+    .app.zoomed { z-index: 5; }
+    #tour-spot.zooming, #tour-bubble.zooming { opacity: 0; transition: none; }
     #tour-exit { display: none; position: fixed; z-index: 42; top: 16px; right: 20px; align-items: center; gap: 8px; background: var(--cream); color: var(--ink); border: 0; border-radius: 100px; padding: 10px 16px 10px 18px; font: 600 15px/1 var(--ui); cursor: pointer; box-shadow: 0 8px 24px -8px rgba(20, 24, 40, .6); }
     #tour-exit span { font-size: 20px; line-height: 0; font-weight: 400; }
     #tour-exit:hover { background: #fff; }
@@ -1636,6 +1640,49 @@
         }
       }
       function vw() { return document.documentElement.clientWidth; }
+
+      // Zoom the laptop in on what the tour is pointing at, so it's easy to read.
+      function unzoom(except) {
+        document.querySelectorAll('.app.zoomed').forEach(function (a) {
+          if (a === except) return;
+          a.style.transform = ''; a._z = null; a.classList.remove('zoomed');
+        });
+      }
+      function zoomDone() { spot.classList.remove('zooming'); bub.classList.remove('zooming'); place(); }
+      function zoomTo(el) {
+        var app = el && el.closest('.app');
+        unzoom(app);
+        if (!app || el === app || vw() <= 900 || matchMedia('(prefers-reduced-motion: reduce)').matches) { if (app) unzoom(); return false; }
+        var z = app._z || { s: 1, tx: 0, ty: 0 };
+        var box = el.closest('.app > .grid');
+        // Bring the target into view inside the laptop screen first
+        if (box && box !== el) {
+          var br0 = box.getBoundingClientRect(), r0 = el.getBoundingClientRect();
+          if (r0.top < br0.top || r0.bottom > br0.bottom) box.scrollTop += (r0.top - br0.top) / z.s - 12;
+        }
+        var A = app.getBoundingClientRect(), r = el.getBoundingClientRect();
+        if (box && box !== el) {
+          var b = box.getBoundingClientRect(), t = Math.max(r.top, b.top), bt = Math.min(r.bottom, b.bottom);
+          r = { left: r.left, top: t, width: r.width, height: Math.max(1, bt - t) };
+        }
+        var AnL = A.left - z.tx, AnT = A.top - z.ty;
+        var nl = AnL + (r.left - A.left) / z.s, nt = AnT + (r.top - A.top) / z.s, nw = r.width / z.s, nh = r.height / z.s;
+        var L = 28, R = vw() - (bub.offsetWidth || 380) - 64, T = navH() + 24, B = window.innerHeight - 24;
+        var sc = Math.min((R - L) / nw, (B - T) / nh) * 0.92;
+        sc = Math.min(sc, 2.2);
+        if (sc < 1.12) { app.style.transform = ''; app._z = null; app.classList.remove('zoomed'); return false; }
+        var tx = (L + R) / 2 - AnL - (nl + nw / 2 - AnL) * sc;
+        var ty = (T + B) / 2 - AnT - (nt + nh / 2 - AnT) * sc;
+        var tf = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')';
+        app._z = { s: sc, tx: tx, ty: ty }; app.classList.add('zoomed');
+        if (app.style.transform !== tf && Math.abs(sc - z.s) + Math.abs(tx - z.tx) + Math.abs(ty - z.ty) > 4) {
+          spot.classList.add('zooming'); bub.classList.add('zooming');
+          clearTimeout(app._zt); app._zt = setTimeout(zoomDone, 680);
+        }
+        app.style.transform = tf;
+        return true;
+      }
+
       function goTo(i) {
         if (i < 0) return;
         if (i >= stops.length) { endTour(); tour.i = -1; updateTourBtn(); return; }
@@ -1653,8 +1700,12 @@
         bub.classList.remove('pop'); void bub.offsetWidth; bub.classList.add('pop');
         timers.forEach(clearTimeout);
         place();
-        timers = [60, 420].map(function (ms) { return setTimeout(function () { reveal(); place(); }, ms); })
-          .concat([800, 1300, 2400].map(function (ms) { return setTimeout(place, ms); }));
+        var zoomed = false;
+        function frame() { zoomed = zoomTo(target()); if (!zoomed) reveal(); place(); }
+        timers = [80].map(function (ms) { return setTimeout(frame, ms); })
+          .concat([420, 700, 1300].map(function (ms) { return setTimeout(function () { if (!zoomed) reveal(); place(); }, ms); }))
+          .concat([2000].map(function (ms) { return setTimeout(frame, ms); }))
+          .concat([2700].map(function (ms) { return setTimeout(place, ms); }));
         nextBtn.focus({ preventScroll: true });
       }
       function startTour() {
@@ -1663,7 +1714,7 @@
       }
       function endTour() {
         tour.on = false; timers.forEach(clearTimeout);
-        spot.hidden = true; bub.hidden = true; document.body.classList.remove('touring');
+        spot.hidden = true; bub.hidden = true; document.body.classList.remove('touring'); unzoom();
         updateTourBtn();
       }
       function updateTourBtn() {
