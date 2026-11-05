@@ -441,11 +441,16 @@
       /* Fit each screen without scrolling the whole app */
       .lib:has(.cat.on[data-cat="all"]) .tiles, .lib:has(.cat.on[data-cat="all"]) .swatches { grid-template-rows: auto; grid-auto-rows: 0; row-gap: 0; overflow: hidden; }
       .lib:has(.cat.on[data-cat="all"]) .shelf + .shelf { margin-top: 14px; }
-      .s1 { grid-template-columns: minmax(0, 1fr) 290px; align-items: start; }
+      .s1 { grid-template-columns: minmax(0, 1fr) 340px; align-items: start; }
       .s1 > .drop { grid-column: 1 / -1; }
       .s1 > .lib { grid-column: 1 !important; grid-row: 2; }
       .s1 > .newtag { grid-column: 2; grid-row: 2; }
-      .s1 .newtag .list { grid-template-columns: 1fr; gap: 10px; }
+      .s1 .newtag .list { grid-template-columns: 1fr; gap: 8px; }
+      .s1 .newtag .item { flex-wrap: nowrap; padding: 8px 10px; gap: 10px; }
+      .s1 .newtag .item > div { flex: 1; min-width: 0; }
+      .s1 .newtag .item b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .s1 .newtag .item .ubtn { width: auto; flex: none; padding: 7px 12px; margin-left: auto; }
+      .s1 .newtag .item .chips { flex-wrap: nowrap; }
       .s1 .newtag h3 { flex-wrap: wrap; gap: 2px 8px; }
       .s1 .newtag h3 small { flex-basis: 100%; }
       .s4 .stage { min-height: 0; max-height: 440px; overflow-y: auto; place-items: start center; scrollbar-width: thin; }
@@ -767,8 +772,8 @@
               <div class="card drop">
                 <span class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg></span>
                 <div><b id="drop-title">Drop new files here</b><span class="muted" id="drop-sub">or connect a Google Drive folder.</span></div>
-                <button class="ubtn solid" type="button" id="drop-yuki">Drop in the Yuki photos</button>
-                <p class="callout left" data-hint="0" data-hint-for="#drop-yuki"><b>Click here</b> to drop in Asanagi's new photos for its Yuki roast.</p>
+                <button class="ubtn solid" type="button" id="drop-yuki">Drop in the Yuki files</button>
+                <p class="callout left" data-hint="0" data-hint-for="#drop-yuki"><b>Click here</b> to drop in Asanagi's new photos and product sheet for its Yuki roast.</p>
                 <div class="ctx">
                   <label for="ctx-in">Add context <span>(optional)</span></label>
                   <input id="ctx-in" type="text" value="New product: Yuki winter roast. Launch photos." placeholder="e.g. new product, launch photos, holiday party, ingredients">
@@ -777,11 +782,12 @@
               </div>
               <div class="card newtag">
                 <h3>New for the Yuki launch <small>Confirm each one to add it to your library</small></h3>
-                <p class="newtag-empty" id="newtag-empty">Nothing new yet. Drop in Asanagi's Yuki launch photos and bower will tag them here.</p>
+                <p class="newtag-empty" id="newtag-empty">Nothing new yet. Drop in Asanagi's Yuki launch files and bower will tag them here.</p>
                 <div class="list" id="newtag">
                   <div class="item" hidden><span class="thumb art ph"><img src="../assets/demo/yuki-shelf.jpg" alt="" loading="lazy" style="object-position:center 60%"></span><div><b>yuki-shelf.jpg</b><span class="chips"><em>Yuki</em><em>Launch</em><em>Retail</em></span></div><button class="ubtn" type="button" data-confirm="photos">Confirm</button></div>
                   <div class="item" hidden><span class="thumb art ph"><img src="../assets/demo/yuki-beans.jpg" alt="" loading="lazy" style="object-position:center 65%"></span><div><b>yuki-beans.jpg</b><span class="chips"><em>Yuki</em><em>Launch</em><em>Product</em></span></div><button class="ubtn" type="button" data-confirm="photos">Confirm</button></div>
                   <div class="item" hidden><span class="thumb art ph"><img src="../assets/demo/yuki-pour.jpg" alt="" loading="lazy" style="object-position:center 45%"></span><div><b>yuki-pour.jpg</b><span class="chips"><em>Yuki</em><em>Launch</em><em>Ritual</em></span></div><button class="ubtn" type="button" data-confirm="photos">Confirm</button></div>
+                  <div class="item" hidden><span class="thumb art tone-washi" style="font:500 11px var(--ui);color:#7a7f63">PDF</span><div><b>yuki-product-sheet.pdf</b><span class="chips"><em>Document</em><em>Yuki</em><em>Launch</em></span></div><button class="ubtn" type="button" data-confirm="docs">Confirm</button></div>
                 </div>
               </div>
               <div class="card lib" style="grid-column:1/-1">
@@ -945,10 +951,10 @@
                 <p class="callout" data-hint="8" data-hint-for="[data-show-prod], #add-yuki"><b>Check Yuki's details</b>, then confirm to add it. Click any product to see its facts.</p>
                 <div class="prod-sync"><span class="ic">SYNC</span><div><b>Shopify</b><span>Prices and stock update daily</span></div></div>
                 <div class="prod-sync"><span class="ic">XLS</span><div><b>product-facts.xlsx</b><span>Ingredients, claims, retailers</span></div></div>
-                <div class="prod-sync"><span class="ic">PDF</span><div><b>yuki-product-sheet.pdf</b><span>New. Used to draft Yuki</span></div></div>
+                <div class="prod-sync"><span class="ic">PDF</span><div><b>yuki-product-sheet.pdf</b><span>Added in Assets. Used to draft Yuki</span></div></div>
               </div>
               <div class="prod-detail" data-prod="yuki">
-                <div class="card pd-head"><div><h3>Yuki</h3><span class="muted">Winter roast · drafted by bower from yuki-product-sheet.pdf</span></div><div class="pd-head-acts"><span class="pill blue">Limited: 200 bags</span><button class="ubtn solid" type="button" id="add-yuki">Confirm and add Yuki</button></div></div>
+                <div class="card pd-head"><div><h3>Yuki</h3><span class="muted">Winter roast · drafted from yuki-product-sheet.pdf, added in Assets</span></div><div class="pd-head-acts"><span class="pill blue">Limited: 200 bags</span><button class="ubtn solid" type="button" id="add-yuki">Confirm and add Yuki</button></div></div>
                 <div class="card"><h4>Formats and prices</h4><table class="pd-table"><tr><td>250 g whole bean</td><td>$26</td></tr><tr><td>250 g ground</td><td>$26</td></tr></table></div>
                 <div class="card"><h4>What's in it</h4><ul class="pd-ing"><li><span>Colombia, Huila</span><b>60%</b></li><li><span>Ethiopia, Sidama</span><b>40%</b></li></ul><p class="muted pd-notes">Dark chocolate, roasted chestnut, orange peel. Medium roast.</p></div>
                 <div class="card"><h4>Where it's sold</h4><div class="pd-sold"><span class="pill">Online shop</span><span class="pill">4 partner cafés, Montreal</span><span class="pill">Holiday pop-up, Dec 6 to 8</span></div></div>
@@ -1353,10 +1359,10 @@
       var dropBtn = document.getElementById('drop-yuki');
       function dropYuki() {
         if (dropBtn.disabled) return;
-        dropBtn.disabled = true; dropBtn.textContent = 'Adding 3 photos...';
+        dropBtn.disabled = true; dropBtn.textContent = 'Adding 4 files...';
         var dh = document.querySelector('[data-hint="0"]'); if (dh) dh.hidden = true;
         var zone = document.querySelector('.drop'); zone.classList.add('dropping');
-        document.getElementById('drop-title').textContent = 'yuki-shelf.jpg, yuki-beans.jpg, yuki-pour.jpg';
+        document.getElementById('drop-title').textContent = '3 Yuki photos and yuki-product-sheet.pdf';
         document.getElementById('drop-sub').textContent = 'Uploading and tagging...';
         var items = [].slice.call(document.querySelectorAll('#newtag .item'));
         setTimeout(function () {
@@ -1364,16 +1370,16 @@
           items.forEach(function (it, i) { setTimeout(function () { it.hidden = false; it.classList.add('in'); }, i * 260); });
           setTimeout(function () {
             zone.classList.remove('dropping');
-            dropBtn.textContent = '✓ 3 photos added'; dropBtn.classList.remove('solid'); dropBtn.classList.add('done');
+            dropBtn.textContent = '✓ 4 files added'; dropBtn.classList.remove('solid'); dropBtn.classList.add('done');
             document.getElementById('drop-title').textContent = 'Drop new files here';
             document.getElementById('drop-sub').textContent = 'or connect a Google Drive folder.';
-            document.getElementById('s1-status').textContent = '212 sorted. 3 new to tag.';
+            document.getElementById('s1-status').textContent = '212 sorted. 4 new to tag.';
           }, items.length * 260 + 100);
         }, 700);
       }
       dropBtn.addEventListener('click', dropYuki);
       document.querySelectorAll('.ctx-chips button').forEach(function (c) { c.addEventListener('click', function () { c.classList.toggle('on'); }); });
-      var left = 3;
+      var left = 4;
       function bump(cat) {
         ['all', cat].forEach(function (c) { var el = document.querySelector('[data-count="' + c + '"]'); el.textContent = +el.textContent + 1; });
       }
@@ -1546,13 +1552,13 @@
       function tab(f) { selectTab(document.querySelector('[data-fmt="' + f + '"]')); }
       var stops = [
         { step: 1, at: '#step-1 .app', label: 'Welcome', text: 'Meet Asanagi, a Japanese coffee brand we made up. It\'s launching <b>Yuki</b>, a limited winter roast. Follow the launch through bower, start to finish.' },
-        { step: 1, at: '.drop', text: '<b>Assets</b> is where every brand file lives: photos, videos, logos, colours and fonts. Asanagi drops in the new Yuki photos, with a quick note so bower knows what they\'re for.', act: function () { filter('all'); dropYuki(); } },
-        { step: 1, at: '#newtag', text: 'bower tags each Yuki photo (retail, product, ritual) and suggests where it goes. Asanagi confirms with one click.', act: function () { dropYuki(); setTimeout(function () { clickAll('#newtag [data-confirm]:not(.done)', 350); }, 1700); } },
+        { step: 1, at: '.drop', text: '<b>Assets</b> is where every brand file lives: photos, videos, logos, colours and fonts. Asanagi drops in the new Yuki photos and its product sheet, with a quick note so bower knows what they\'re for.', act: function () { filter('all'); dropYuki(); } },
+        { step: 1, at: '#newtag', text: 'bower tags each file: the photos by what they show, the product sheet as a document. Asanagi confirms with one click.', act: function () { dropYuki(); setTimeout(function () { clickAll('#newtag [data-confirm]:not(.done)', 350); }, 1700); } },
         { step: 1, at: '.cats', text: 'Now the Yuki photos sit with everything else, sorted into logos, fonts, colours, photos, videos and templates.', act: function () { filter('all'); } },
         { step: 1, at: '.shelf[data-shelf="photos"]', text: 'When it\'s time to post about Yuki, the right shot is one click away.', act: function () { filter('photos'); } },
         { step: 2, at: '#s2 > .card:first-child', text: '<b>Brand</b> is where Asanagi\'s voice lives. bower reads its brand book, site and best posts once, so Yuki sounds like Asanagi from the very first post.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
         { step: 2, at: '.rules', text: 'Out come the rules every Yuki post will follow: voice, banned words, how Asanagi writes and its brand facts. <em>If it isn\'t in here, bower won\'t say it.</em>' },
-        { step: 3, at: '#prod-list', text: '<b>Products</b> holds every product Asanagi sells. Yuki is new, so bower drafts its entry from the product sheet: origins, tasting notes, sizes and prices.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); } },
+        { step: 3, at: '#prod-list', text: '<b>Products</b> holds every product Asanagi sells. Yuki is new, so bower drafts its entry from the product sheet Asanagi added in Assets: origins, tasting notes, sizes and prices. The photos show what Yuki looks like; the sheet tells bower the facts.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); } },
         { step: 3, at: '.prod-detail:not([hidden]) .pd-claims', act: function () { document.getElementById('add-yuki').click(); }, text: 'Asanagi checks the claims and adds Yuki. Now every Yuki post uses the right price, and never says things like <em>"boosts energy"</em>.' },
         { step: 4, at: '.focus', text: '<b>Ideas</b>: Asanagi tells bower what it\'s working toward. This month, it\'s the Yuki launch.' },
         { step: 4, at: '#ideas', text: 'bower suggests Yuki ideas from trends and brands like Asanagi.' },
