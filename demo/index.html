@@ -488,6 +488,52 @@
     #code-it:not(:disabled) { animation: nudge 1.8s ease-in-out infinite; }
     @media (prefers-reduced-motion: reduce) { .callout, #code-it { animation: none !important; } }
 
+
+    /* Products step */
+    .s3p { grid-template-columns: 250px minmax(0, 1fr); align-items: start; }
+    .prod-list .list { display: grid; gap: 8px; margin-bottom: 14px; }
+    .prod { display: block; width: 100%; text-align: left; background: var(--ui-soft); border: 0; border-radius: 12px; padding: 13px 14px; font: 400 13px/1.35 var(--ui); color: var(--ui-ink); cursor: pointer; transition: background .15s, box-shadow .15s; }
+    .prod b { display: block; font-weight: 600; font-size: 16px; color: var(--ui-dark); }
+    .prod span { color: var(--ui-muted); font-size: 13px; }
+    .prod:hover { box-shadow: inset 0 0 0 1px #b7c3de; }
+    .prod.on { background: var(--light-blue); }
+    .prod-sync { display: flex; gap: 10px; align-items: center; padding: 9px 0; border-top: 1px solid var(--ui-line); font: 400 12px/1.35 var(--ui); }
+    .prod-sync b { display: block; color: var(--ui-dark); font-weight: 600; font-size: 13px; }
+    .prod-sync span { color: var(--ui-muted); }
+    .prod-sync .ic { flex: none; width: 38px; height: 30px; display: grid; place-items: center; background: var(--ui-soft); border-radius: 8px; font: 600 9px/1 var(--ui); letter-spacing: .04em; color: var(--ui-muted); }
+    .prod-list .callout { margin: 0 0 12px; text-align: left; }
+    .prod-detail { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; animation: rise .35s ease both; }
+    .prod-detail[hidden] { display: none; }
+    .prod-detail .pd-head { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .prod-detail .pd-head h3 { margin: 0 0 2px; font-size: 22px; }
+    .prod-detail .pd-claims { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; }
+    .prod-detail .pd-claims h4 { grid-column: 1 / -1; }
+    .prod-detail .pd-claims .pd-label:nth-of-type(1) { grid-column: 1; grid-row: 2; }
+    .prod-detail .pd-claims .ticks { grid-column: 1; grid-row: 3; }
+    .prod-detail .pd-claims .pd-label:nth-of-type(2) { grid-column: 2; grid-row: 2; }
+    .prod-detail .pd-claims .crosses { grid-column: 2; grid-row: 3; }
+    .prod-detail h4 { font: 600 12px/1.3 var(--ui); letter-spacing: .06em; text-transform: uppercase; color: var(--ui-muted); margin: 0 0 10px; }
+    .pd-label { font: 600 14px/1.3 var(--ui); color: var(--ui-dark); margin: 0 0 6px; }
+    .pd-table { width: 100%; border-collapse: collapse; font: 400 15px/1.45 var(--ui); }
+    .pd-table td { padding: 6px 0; border-top: 1px solid var(--ui-line); color: var(--ui-dark); }
+    .pd-table tr:first-child td { border-top: 0; }
+    .pd-table td + td { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .pd-ing { list-style: none; margin: 0; padding: 0; font: 400 15px/1.45 var(--ui); }
+    .pd-ing li { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-top: 1px solid var(--ui-line); color: var(--ui-dark); }
+    .pd-ing li:first-child { border-top: 0; }
+    .pd-notes { font-size: 14px; margin: 8px 0 0; }
+    .pd-sold { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pd-sold .pill { font-size: 13px; padding: 6px 11px; }
+    ul.crosses { list-style: none; margin: 0; padding: 0; font: 400 15px/1.5 var(--ui); color: var(--ui-dark); }
+    ul.crosses li { padding: 3px 0; }
+    ul.crosses li::before { content: "✕"; color: #8a3f22; font-weight: 600; margin-right: 8px; }
+    .prod-detail .ticks { font-size: 15px; line-height: 1.5; }
+    @media (max-width: 760px) {
+      .s3p { grid-template-columns: 1fr; }
+      .prod-detail, .prod-detail .pd-claims { grid-template-columns: 1fr; }
+      .prod-detail .pd-claims > * { grid-column: 1 !important; grid-row: auto !important; }
+    }
+
     /* Guided tour */
     .hero-ctas { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
     .hero-alt { color: var(--blue); font-size: 17px; text-decoration: none; border-bottom: 1px solid var(--light-blue); }
@@ -658,11 +704,12 @@
         <ol>
           <li><button type="button" data-go="1"><span class="n">1</span>Assets</button></li>
           <li><button type="button" data-go="2"><span class="n">2</span>Brand</button></li>
-          <li><button type="button" data-go="3"><span class="n">3</span>Ideas</button></li>
-          <li><button type="button" data-go="4"><span class="n">4</span>Create</button></li>
-          <li><button type="button" data-go="5"><span class="n">5</span>Approve</button></li>
-          <li><button type="button" data-go="6"><span class="n">6</span>Schedule</button></li>
-          <li><button type="button" data-go="7"><span class="n">7</span>Results</button></li>
+          <li><button type="button" data-go="3"><span class="n">3</span>Products</button></li>
+          <li><button type="button" data-go="4"><span class="n">4</span>Ideas</button></li>
+          <li><button type="button" data-go="5"><span class="n">5</span>Create</button></li>
+          <li><button type="button" data-go="6"><span class="n">6</span>Approve</button></li>
+          <li><button type="button" data-go="7"><span class="n">7</span>Schedule</button></li>
+          <li><button type="button" data-go="8"><span class="n">8</span>Results</button></li>
         </ol>
         <button type="button" class="tour-btn" id="tour-btn" data-tour-start>Guided tour</button>
       </div>
@@ -674,7 +721,7 @@
         <!-- STEP 1: ASSETS -->
         <section class="step" id="step-1" data-step="1" aria-labelledby="h-1">
           <div class="step-copy">
-            <p class="eyebrow">Step 1 of 7 · Assets</p>
+            <p class="eyebrow">Step 1 of 8 · Assets</p>
             <h2 id="h-1">Drop in all your assets.<br>bower sorts them.</h2>
             <p>Your brand's photos, videos, logos and fonts go in one place, sorted and tagged, each with a rule for how it can be used. Save the templates you love, like your newsletter or an Instagram carousel, and bower codes them so every piece keeps the same look. You just confirm.</p>
             <div class="step-controls"><button class="btn tour-start" type="button" data-tour-start>Take the 2-minute guided tour</button><button class="btn ghost" type="button" data-go="2">Or explore on your own</button></div>
@@ -771,15 +818,15 @@
         <!-- STEP 2: BRAND -->
         <section class="step" id="step-2" data-step="2" aria-labelledby="h-2">
           <div class="step-copy">
-            <p class="eyebrow">Step 2 of 7 · Brand</p>
+            <p class="eyebrow">Step 2 of 8 · Brand</p>
             <h2 id="h-2">Your brand, coded in.</h2>
-            <p>bower reads your brand book, your site and your best posts, and you add your product facts: every product line, what's in it, each format and price, and where it's sold. bower turns it all into rules. If it isn't in here, bower won't say it.</p>
+            <p>bower reads your brand book, your site and your best posts, then turns them into rules: your voice, the words you never use, how you write and the facts about your brand. If it isn't in here, bower won't say it.</p>
             <p class="try">Press "Code it in" and watch the rules fill.</p>
-            <div class="step-controls"><button class="btn ghost" type="button" data-go="1">Back</button><button class="btn" type="button" data-go="3">Next: Ideas</button></div>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="1">Back</button><button class="btn" type="button" data-go="3">Next: Products</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Brand screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/brand</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s2-status">5 sources ready.</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s2-status">4 sources ready.</span></div>
             <div class="app-title">Your brand, on record.</div>
             <div class="grid s2" id="s2">
               <div class="card">
@@ -789,10 +836,9 @@
                   <div class="source"><span class="ic">WEB</span><div><b>asanagi.co</b><span>Shop, about, journal</span></div></div>
                   <div class="source"><span class="ic">IG</span><div><b>Last 40 Instagram posts</b><span>Captions and results</span></div></div>
                   <div class="source"><span class="ic">DOC</span><div><b>founder-notes.docx</b><span>Story and origin</span></div></div>
-                  <div class="source"><span class="ic">XLS</span><div><b>product-facts.xlsx</b><span>Lines, ingredients, formats, prices, stockists</span></div></div>
                 </div>
                 <button class="ubtn solid" type="button" id="code-it" style="width:100%;margin-top:14px;padding:14px;font-size:17px">Code it in</button>
-                <p class="callout" id="code-hint" data-hint="2" data-hint-for="#code-it"><b>Click here</b> to watch bower read Asanagi's brand and product facts, and write its rules.</p>
+                <p class="callout" id="code-hint" data-hint="2" data-hint-for="#code-it"><b>Click here</b> to watch bower read Asanagi's brand and write its rules.</p>
               </div>
               <div class="grid rules">
                 <div class="card rule-card">
@@ -803,18 +849,6 @@
                     <div class="voice-line">"Slow is the point."</div>
                     <div class="banned">Never say: <s>bold</s><s>fuel</s><s>hustle</s><s>exotic</s></div>
                   </div>
-                </div>
-                <div class="card rule-card wide">
-                  <h3>Product facts <span class="status-tag">Waiting</span></h3>
-                  <div class="skel"><i></i><i></i><i></i></div>
-                  <table class="fill facts">
-                    <thead><tr><th>Product</th><th>What's in it</th><th>Formats and prices</th><th>Sold at</th></tr></thead>
-                    <tbody>
-                      <tr><td><b>Yuki</b> winter roast<em>Limited to 200 bags</em></td><td>Ethiopia and Colombia. Plum, cocoa, cedar.</td><td>250 g whole bean $26<br>250 g ground $26</td><td>Online, 4 cafés in Montreal</td></tr>
-                      <tr><td><b>House Blend</b></td><td>Brazil and Guatemala. Hazelnut, brown sugar.</td><td>250 g $24<br>1 kg $78</td><td>Online, 12 grocers in Quebec</td></tr>
-                      <tr><td><b>Drip Bags</b></td><td>House Blend, pre-ground.</td><td>Box of 10 $19</td><td>Online only</td></tr>
-                    </tbody>
-                  </table>
                 </div>
                 <div class="card rule-card">
                   <h3>Writing rules <span class="status-tag">Waiting</span></h3>
@@ -843,17 +877,68 @@
               </div>
             </div>
           </div>
-          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="1">Back</button><button class="btn" type="button" data-go="3">Next: Ideas</button></div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="1">Back</button><button class="btn" type="button" data-go="3">Next: Products</button></div>
         </section>
 
-        <!-- STEP 3: IDEAS -->
+        <!-- STEP 3: PRODUCTS -->
         <section class="step" id="step-3" data-step="3" aria-labelledby="h-3">
           <div class="step-copy">
-            <p class="eyebrow">Step 3 of 7 · Ideas</p>
-            <h2 id="h-3">Ideas worth making.</h2>
+            <p class="eyebrow">Step 3 of 8 · Products</p>
+            <h2 id="h-3">Every product,<br>exactly right.</h2>
+            <p>Add each product line once: its sizes and prices, what's in it, the claims you're allowed to make and where it's sold. Sync it from Shopify or a spreadsheet and bower keeps it current, so a price or a claim is never wrong.</p>
+            <p class="try">Click a product to see everything bower knows about it.</p>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="2">Back</button><button class="btn" type="button" data-go="4">Next: Ideas</button></div>
+          </div>
+          <div class="app" role="group" aria-label="bower Products screen, demo">
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/products</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status">3 lines · 6 formats · 17 places sold</span></div>
+            <div class="app-title">Your products, on record.</div>
+            <div class="grid s3p">
+              <div class="card prod-list">
+                <h3>Product lines</h3>
+                <div class="list" id="prod-list">
+                  <button type="button" class="prod on" data-show-prod="yuki"><b>Yuki</b><span>Winter roast · 2 formats</span></button>
+                  <button type="button" class="prod" data-show-prod="house"><b>House Blend</b><span>Everyday coffee · 3 formats</span></button>
+                  <button type="button" class="prod" data-show-prod="drip"><b>Drip Bags</b><span>Coffee on the go · 1 format</span></button>
+                </div>
+                <p class="callout" data-hint="8" data-hint-for="[data-show-prod]"><b>Click a product</b> to see its prices, ingredients, claims and where it's sold.</p>
+                <div class="prod-sync"><span class="ic">SYNC</span><div><b>Shopify</b><span>Prices and stock update daily</span></div></div>
+                <div class="prod-sync"><span class="ic">XLS</span><div><b>product-facts.xlsx</b><span>Ingredients, claims, retailers</span></div></div>
+              </div>
+              <div class="prod-detail" data-prod="yuki">
+                <div class="card pd-head"><div><h3>Yuki</h3><span class="muted">Winter roast</span></div><span class="pill blue">Limited: 200 bags</span></div>
+                <div class="card"><h4>Formats and prices</h4><table class="pd-table"><tr><td>250 g whole bean</td><td>$26</td></tr><tr><td>250 g ground</td><td>$26</td></tr></table></div>
+                <div class="card"><h4>What's in it</h4><ul class="pd-ing"><li><span>Ethiopia, Guji</span><b>60%</b></li><li><span>Colombia, Huila</span><b>40%</b></li></ul><p class="muted pd-notes">Plum, cocoa, cedar. Medium roast.</p></div>
+                <div class="card"><h4>Where it's sold</h4><div class="pd-sold"><span class="pill">Online shop</span><span class="pill">4 partner cafés, Montreal</span><span class="pill">Holiday pop-up, Dec 6 to 8</span></div></div>
+                <div class="card pd-claims"><h4>Claims</h4><p class="pd-label">bower can say</p><ul class="ticks"><li>Limited to 200 bags.</li><li>Roasted in Montreal in 12 kg batches.</li><li>Notes of plum, cocoa and cedar.</li></ul><p class="pd-label">bower will never say</p><ul class="crosses"><li>"Boosts energy and focus"</li><li>"The best coffee in Montreal"</li></ul></div>
+              </div>
+              <div class="prod-detail" data-prod="house" hidden>
+                <div class="card pd-head"><div><h3>House Blend</h3><span class="muted">Everyday coffee</span></div><span class="pill blue">Core line</span></div>
+                <div class="card"><h4>Formats and prices</h4><table class="pd-table"><tr><td>250 g whole bean</td><td>$24</td></tr><tr><td>250 g ground</td><td>$24</td></tr><tr><td>1 kg whole bean</td><td>$78</td></tr></table></div>
+                <div class="card"><h4>What's in it</h4><ul class="pd-ing"><li><span>Brazil, Cerrado</span><b>70%</b></li><li><span>Guatemala, Huehuetenango</span><b>30%</b></li></ul><p class="muted pd-notes">Hazelnut, brown sugar. Medium roast.</p></div>
+                <div class="card"><h4>Where it's sold</h4><div class="pd-sold"><span class="pill">Online shop</span><span class="pill">12 grocers in Quebec</span><span class="pill">Café wholesale</span></div></div>
+                <div class="card pd-claims"><h4>Claims</h4><p class="pd-label">bower can say</p><ul class="ticks"><li>Roasted every Tuesday.</li><li>Notes of hazelnut and brown sugar.</li><li>Made for every day.</li></ul><p class="pd-label">bower will never say</p><ul class="crosses"><li>"Low acid"</li><li>"Organic" (not certified)</li></ul></div>
+              </div>
+              <div class="prod-detail" data-prod="drip" hidden>
+                <div class="card pd-head"><div><h3>Drip Bags</h3><span class="muted">Coffee on the go</span></div><span class="pill blue">Core line</span></div>
+                <div class="card"><h4>Formats and prices</h4><table class="pd-table"><tr><td>Box of 10</td><td>$19</td></tr></table></div>
+                <div class="card"><h4>What's in it</h4><ul class="pd-ing"><li><span>House Blend, pre-ground</span><b>100%</b></li><li><span>Compostable filter</span><b></b></li></ul><p class="muted pd-notes">Brews in 4 minutes with hot water.</p></div>
+                <div class="card"><h4>Where it's sold</h4><div class="pd-sold"><span class="pill">Online shop only</span></div></div>
+                <div class="card pd-claims"><h4>Claims</h4><p class="pd-label">bower can say</p><ul class="ticks"><li>Brews in 4 minutes, just add hot water.</li><li>Filters are compostable.</li></ul><p class="pd-label">bower will never say</p><ul class="crosses"><li>"Zero waste"</li><li>"Café quality anywhere"</li></ul></div>
+              </div>
+            </div>
+          </div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="2">Back</button><button class="btn" type="button" data-go="4">Next: Ideas</button></div>
+        </section>
+
+        <!-- STEP 4: IDEAS -->
+        <section class="step" id="step-4" data-step="4" aria-labelledby="h-4">
+          <div class="step-copy">
+            <p class="eyebrow">Step 4 of 8 · Ideas</p>
+            <h2 id="h-4">Ideas worth making.</h2>
             <p>Tell bower what you're working toward. It pulls ideas from trends, brands like yours and the assets you already have, then lays out the whole campaign in order.</p>
             <p class="try">Press "Build this campaign."</p>
-            <div class="step-controls"><button class="btn ghost" type="button" data-go="2">Back</button><button class="btn" type="button" data-go="4">Next: Create</button></div>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="3">Back</button><button class="btn" type="button" data-go="5">Next: Create</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Ideas screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/ideas</span></div>
@@ -887,22 +972,22 @@
                   <li>5. The stir reel <span>Sat 21</span></li>
                 </ol>
                 <em>From your last season: short, quiet headlines win.</em>
-                <button class="ubtn" type="button" data-go="4" id="build-campaign">Build this campaign</button>
+                <button class="ubtn" type="button" data-go="5" id="build-campaign">Build this campaign</button>
                 <p class="callout light" data-hint="3" data-hint-for="#build-campaign"><b>Click here</b> to turn this plan into a full campaign.</p>
               </div>
             </div>
           </div>
-          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="2">Back</button><button class="btn" type="button" data-go="4">Next: Create</button></div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="3">Back</button><button class="btn" type="button" data-go="5">Next: Create</button></div>
         </section>
 
-        <!-- STEP 4: CREATE -->
-        <section class="step" id="step-4" data-step="4" aria-labelledby="h-4">
+        <!-- STEP 5: CREATE -->
+        <section class="step" id="step-5" data-step="5" aria-labelledby="h-5">
           <div class="step-copy">
-            <p class="eyebrow">Step 4 of 7 · Create</p>
-            <h2 id="h-4">One idea. Every format.</h2>
+            <p class="eyebrow">Step 5 of 8 · Create</p>
+            <h2 id="h-5">One idea. Every format.</h2>
             <p>bower writes and designs from your rules and templates, then checks every piece before you see it. The newsletter becomes a carousel, stories and an ad without starting over.</p>
             <p class="try">Switch between the four formats.</p>
-            <div class="step-controls"><button class="btn ghost" type="button" data-go="3">Back</button><button class="btn" type="button" data-go="5">Next: Approve</button></div>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="4">Back</button><button class="btn" type="button" data-go="6">Next: Approve</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Create screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/create</span></div>
@@ -966,23 +1051,23 @@
                 <div class="kv"><span class="muted">Voice</span><b>Quiet, precise</b></div>
                 <div class="kv"><span class="muted">Goes out</span><b id="m-when">Wed 18, 8:00</b></div>
                 <div class="stack">
-                  <button class="ubtn solid" type="button" data-go="5">Send for approval</button>
+                  <button class="ubtn solid" type="button" data-go="6">Send for approval</button>
                   <button class="ubtn" type="button" disabled>Tell bower what to change</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="3">Back</button><button class="btn" type="button" data-go="5">Next: Approve</button></div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="4">Back</button><button class="btn" type="button" data-go="6">Next: Approve</button></div>
         </section>
 
-        <!-- STEP 5: APPROVE -->
-        <section class="step" id="step-5" data-step="5" aria-labelledby="h-5">
+        <!-- STEP 6: APPROVE -->
+        <section class="step" id="step-6" data-step="6" aria-labelledby="h-6">
           <div class="step-copy">
-            <p class="eyebrow">Step 5 of 7 · Approve</p>
-            <h2 id="h-5">Nothing goes out without a yes.</h2>
+            <p class="eyebrow">Step 6 of 8 · Approve</p>
+            <h2 id="h-6">Nothing goes out without a yes.</h2>
             <p>Every piece waits for a person on your team. When something breaks a rule, bower flags it and suggests the fix. Approved pieces go straight onto the content calendar.</p>
             <p class="try">Fix the flagged story, then approve all three.</p>
-            <div class="step-controls"><button class="btn ghost" type="button" data-go="4">Back</button><button class="btn" type="button" data-go="6">Next: Schedule</button></div>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="5">Back</button><button class="btn" type="button" data-go="7">Next: Schedule</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Approve screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/approve</span></div>
@@ -1025,17 +1110,17 @@
               </div>
             </div>
           </div>
-          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="4">Back</button><button class="btn" type="button" data-go="6">Next: Schedule</button></div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="5">Back</button><button class="btn" type="button" data-go="7">Next: Schedule</button></div>
         </section>
 
-        <!-- STEP 6: SCHEDULE -->
-        <section class="step" id="step-6" data-step="6" aria-labelledby="h-6">
+        <!-- STEP 7: SCHEDULE -->
+        <section class="step" id="step-7" data-step="7" aria-labelledby="h-7">
           <div class="step-copy">
-            <p class="eyebrow">Step 6 of 7 · Schedule</p>
-            <h2 id="h-6">The month ahead, at a glance.</h2>
+            <p class="eyebrow">Step 7 of 8 · Schedule</p>
+            <h2 id="h-7">The month ahead, at a glance.</h2>
             <p>Every piece lands on one calendar, colour coded by pillar, so you can see the balance before your audience does. Open slots come with ideas ready to fill them.</p>
             <p class="try">Approve pieces in step 5 and watch them turn dark here.</p>
-            <div class="step-controls"><button class="btn ghost" type="button" data-go="5">Back</button><button class="btn" type="button" data-go="7">Next: Results</button></div>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="6">Back</button><button class="btn" type="button" data-go="8">Next: Results</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Schedule screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/schedule</span></div>
@@ -1060,7 +1145,7 @@
                     <div class="cday"><span class="cd">11</span></div>
                     <div class="cday"><span class="cd">12</span><span class="chipx sched" data-pillar="craft"><b>Stories</b> Roast day</span></div>
                     <div class="cday"><span class="cd">13</span></div>
-                    <div class="cday"><span class="cd">14</span><button class="open-slot" type="button" data-go="3">Open. Pick an idea</button></div>
+                    <div class="cday"><span class="cd">14</span><button class="open-slot" type="button" data-go="4">Open. Pick an idea</button></div>
                     <div class="cday"><span class="cd">15</span></div>
                     <div class="cday launch"><span class="cd">16</span><span class="chipx " data-pillar="launch" data-chipof="st"><b>Stories</b> Story 1</span></div>
                     <div class="cday launch"><span class="cd">17</span><span class="chipx " data-pillar="launch" data-chipof="st"><b>Stories</b> Story 2</span></div>
@@ -1072,9 +1157,9 @@
                     <div class="cday"><span class="cd">23</span><span class="chipx draft" data-pillar="origin"><b>Carousel</b> Cupping Yuki</span></div>
                     <div class="cday"><span class="cd">24</span><span class="chipx draft" data-pillar="launch"><b>Newsletter</b> Last call for Yuki</span></div>
                     <div class="cday"><span class="cd">25</span></div>
-                    <div class="cday"><span class="cd">26</span><button class="open-slot" type="button" data-go="3">Open. Pick an idea</button></div>
+                    <div class="cday"><span class="cd">26</span><button class="open-slot" type="button" data-go="4">Open. Pick an idea</button></div>
                     <div class="cday"><span class="cd">27</span></div>
-                    <div class="cday"><span class="cd">28</span><button class="open-slot" type="button" data-go="3">Open. Pick an idea</button></div>
+                    <div class="cday"><span class="cd">28</span><button class="open-slot" type="button" data-go="4">Open. Pick an idea</button></div>
                     <div class="cday"><span class="cd">29</span></div>
                   </div>
                 </div>
@@ -1083,7 +1168,7 @@
                 <div class="card">
                   <h3>Needs you <span class="count-pill" id="need-count">0</span></h3>
                   <p class="muted" style="font-size:13px;margin-bottom:12px" id="need-text">Launch week pieces waiting for approval.</p>
-                  <button class="ubtn solid" type="button" data-go="5" style="width:100%;padding:11px">Go to approvals</button>
+                  <button class="ubtn solid" type="button" data-go="6" style="width:100%;padding:11px">Go to approvals</button>
                 </div>
                 <div class="card">
                   <h3>Pillar balance</h3>
@@ -1092,23 +1177,23 @@
                 <div class="card">
                   <h3>Open slots <span class="count-pill" id="open-count">0</span></h3>
                   <p class="muted" style="font-size:13px;margin-bottom:12px">bower has an idea ready for each one.</p>
-                  <button class="ubtn" type="button" data-go="3" style="width:100%;padding:11px">See ideas</button>
+                  <button class="ubtn" type="button" data-go="4" style="width:100%;padding:11px">See ideas</button>
                   <p class="callout left float6" data-hint="6" data-hint-for=".s6c .ubtn, .open-slot"><b>Click here</b> or on an open slot to fill it with a ready idea.</p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="5">Back</button><button class="btn" type="button" data-go="7">Next: Results</button></div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="6">Back</button><button class="btn" type="button" data-go="8">Next: Results</button></div>
         </section>
 
-        <!-- STEP 7: RESULTS -->
-        <section class="step" id="step-7" data-step="7" aria-labelledby="h-7">
+        <!-- STEP 8: RESULTS -->
+        <section class="step" id="step-8" data-step="8" aria-labelledby="h-8">
           <div class="step-copy">
-            <p class="eyebrow">Step 7 of 7 · Results</p>
-            <h2 id="h-7">What worked. What comes next.</h2>
+            <p class="eyebrow">Step 8 of 8 · Results</p>
+            <h2 id="h-8">What worked. What comes next.</h2>
             <p>After every send, bower reads the numbers and turns them into lessons. Each lesson shapes the next idea and the next draft, so the system gets sharper every week.</p>
             <p class="try">Press "See the next ideas" to close the loop.</p>
-            <div class="step-controls"><button class="btn ghost" type="button" data-go="6">Back</button><a class="btn" href="#early-access">Get early access</a></div>
+            <div class="step-controls"><button class="btn ghost" type="button" data-go="7">Back</button><a class="btn" href="#early-access">Get early access</a></div>
           </div>
           <div class="app" role="group" aria-label="bower Results screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/results</span></div>
@@ -1134,7 +1219,7 @@
               </div>
             </div>
           </div>
-          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="6">Back</button><a class="btn" href="#early-access">Get early access</a></div>
+          <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="7">Back</button><a class="btn" href="#early-access">Get early access</a></div>
         </section>
         <p class="sample-note">Asanagi is a sample coffee brand. All content and numbers are made up.</p>
 
@@ -1191,7 +1276,7 @@
       var tour = { on: false, i: -1 };
 
       function show(n, scroll) {
-        n = Math.max(1, Math.min(7, n));
+        n = Math.max(1, Math.min(8, n));
         steps.forEach(function (s) { s.classList.toggle('active', +s.dataset.step === n); });
         seen[n] = true;
         navBtns.forEach(function (b) {
@@ -1215,7 +1300,7 @@
         if (go) { e.preventDefault(); if (tour.on && !e.target.closest('#tour-bubble')) endTour(); show(+go.dataset.go, true); }
       });
 
-      var m = /^#step-([1-7])$/.exec(location.hash);
+      var m = /^#step-([1-8])$/.exec(location.hash);
       show(m ? +m[1] : 1, false);
 
       // Step 1: confirm new files, browse categories
@@ -1240,11 +1325,20 @@
       document.querySelectorAll('.cat').forEach(function (c) { c.addEventListener('click', function () { filter(c.dataset.cat); }); });
       filter('all');
 
+      // Step 3: products
+      document.querySelectorAll('[data-show-prod]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var k = b.getAttribute('data-show-prod');
+          document.querySelectorAll('[data-show-prod]').forEach(function (x) { x.classList.toggle('on', x === b); });
+          document.querySelectorAll('.prod-detail').forEach(function (d) { d.hidden = d.getAttribute('data-prod') !== k; });
+        });
+      });
+
       // Step 2: code it in
       var codeBtn = document.getElementById('code-it');
       codeBtn.addEventListener('click', function () {
         if (codeBtn.disabled) return;
-        codeBtn.disabled = true; codeBtn.textContent = 'Reading 5 sources...';
+        codeBtn.disabled = true; codeBtn.textContent = 'Reading 4 sources...';
         var wrap = document.getElementById('s2'); wrap.classList.add('coding');
         var cards = [].slice.call(wrap.querySelectorAll('.rule-card'));
         cards.forEach(function (c, i) {
@@ -1253,8 +1347,8 @@
             if (i === cards.length - 1) {
               wrap.classList.remove('coding');
               codeBtn.textContent = '✓ Coded in'; codeBtn.classList.remove('solid'); codeBtn.classList.add('done');
-              document.getElementById('s2-status').textContent = '16 rules coded in.';
-              document.getElementById('s2-foot').innerHTML = '<b>16 rules coded in.</b> If it isn\'t in here, bower won\'t say it.';
+              document.getElementById('s2-status').textContent = '12 rules coded in.';
+              document.getElementById('s2-foot').innerHTML = '<b>12 rules coded in.</b> If it isn\'t in here, bower won\'t say it.';
               document.getElementById('s2-pill').hidden = false;
             }
           }, 600 + i * 550);
@@ -1361,11 +1455,11 @@
       // Step 6: close the loop
       document.getElementById('close-loop').addEventListener('click', function () {
         document.getElementById('idea-fresh').hidden = false;
-        show(3, true);
+        show(4, true);
       });
 
       // Guided tour: one bubble at a time. Enter or the right arrow moves forward.
-      var names = ['Assets', 'Brand', 'Ideas', 'Create', 'Approve', 'Schedule', 'Results'];
+      var names = ['Assets', 'Brand', 'Products', 'Ideas', 'Create', 'Approve', 'Schedule', 'Results'];
       function clickAll(sel, gap) {
         [].slice.call(document.querySelectorAll(sel)).forEach(function (b, i) {
           setTimeout(function () { if (b.isConnected) b.click(); }, i * gap);
@@ -1378,22 +1472,24 @@
         { step: 1, at: '#newtag', text: 'bower tags every new file and suggests where it goes. You confirm with one click.', act: function () { clickAll('#newtag [data-confirm]:not(.done)', 350); } },
         { step: 1, at: '.cats', text: 'Everything has its place: logos, fonts, brand colours, photos and videos.', act: function () { filter('all'); } },
         { step: 1, at: '.shelf[data-shelf="photos"]', text: 'Photos and videos are sorted by what they show, so the right shot is one click away.', act: function () { filter('photos'); } },
-        { step: 2, at: '#s2 > .card:first-child', text: 'Drop in your brand book, site and best posts, plus your products, ingredients, price points and where each one is sold. bower reads it all.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
-        { step: 2, at: '.rules', text: 'Out come the rules: your brand voice, banned words, brand facts, and every product with its prices and retailers. <em>If it isn\'t in here, bower won\'t say it.</em>' },
-        { step: 3, at: '.focus', text: 'Tell bower what you\'re working toward. For Asanagi, it\'s the launch of Yuki, a winter roast.' },
-        { step: 3, at: '#ideas', text: 'bower finds ideas in trends, in brands like yours and in files you haven\'t used yet.' },
-        { step: 3, at: '.campaign', text: 'Then it lays out the whole campaign, in order.' },
-        { step: 4, at: '.stage', text: 'It writes and designs the newsletter from your template, in your voice.', act: function () { tab('nl'); } },
-        { step: 4, at: '#passes', text: 'Every piece is checked against your rules before you ever see it.', act: function () { tab('nl'); } },
-        { step: 4, at: '.stage', text: 'The same story becomes a six slide carousel. No starting over.', act: function () { tab('car'); } },
-        { step: 4, at: '.stage', text: 'And three teaser stories. One of them broke a rule: <b>"bold"</b> is on Asanagi\'s never say list.', act: function () { tab('st'); } },
-        { step: 5, at: '.piece[data-piece="st"]', text: 'Nothing goes out without a yes. bower flags the problem and suggests the fix.' },
-        { step: 5, at: '.piece[data-piece="st"]', text: 'One click and it\'s fixed. Still on brand, still in your voice.', act: function () { var f = document.getElementById('fix-it'); if (f) f.click(); } },
-        { step: 5, at: '#col-done', text: 'Approve, and it\'s scheduled.', act: function () { clickAll('#col-wait [data-approve]', 300); } },
-        { step: 6, at: '.cal', text: 'Everything lands on one calendar, colour coded by pillar. Launch week is ready to go.' },
-        { step: 6, at: '.side6', text: 'See what needs you, the balance of your content and the open slots, at a glance.' },
-        { step: 7, at: '.lessons', text: 'After each send, bower turns the numbers into lessons.' },
-        { step: 7, at: '#close-loop', text: 'Each lesson shapes the next idea, and the loop starts again. <em>Sharper every week.</em>' },
+        { step: 2, at: '#s2 > .card:first-child', text: 'Drop in your brand book, your site and your best posts. bower reads them all.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
+        { step: 2, at: '.rules', text: 'Out come the rules: your brand voice, banned words, how you write and your brand facts. <em>If it isn\'t in here, bower won\'t say it.</em>' },
+        { step: 3, at: '#prod-list', text: 'Add each product line once: sizes, prices and what\'s in it. Sync it from Shopify or a spreadsheet and bower keeps it current.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); } },
+        { step: 3, at: '.prod-detail:not([hidden]) .pd-claims', text: 'bower also knows what you\'re allowed to claim. Anything else, like <em>"boosts energy"</em>, gets flagged before it goes out.' },
+        { step: 4, at: '.focus', text: 'Tell bower what you\'re working toward. For Asanagi, it\'s the launch of Yuki, a winter roast.' },
+        { step: 4, at: '#ideas', text: 'bower finds ideas in trends, in brands like yours and in files you haven\'t used yet.' },
+        { step: 4, at: '.campaign', text: 'Then it lays out the whole campaign, in order.' },
+        { step: 5, at: '.stage', text: 'It writes and designs the newsletter from your template, in your voice.', act: function () { tab('nl'); } },
+        { step: 5, at: '#passes', text: 'Every piece is checked against your rules before you ever see it.', act: function () { tab('nl'); } },
+        { step: 5, at: '.stage', text: 'The same story becomes a six slide carousel. No starting over.', act: function () { tab('car'); } },
+        { step: 5, at: '.stage', text: 'And three teaser stories. One of them broke a rule: <b>"bold"</b> is on Asanagi\'s never say list.', act: function () { tab('st'); } },
+        { step: 6, at: '.piece[data-piece="st"]', text: 'Nothing goes out without a yes. bower flags the problem and suggests the fix.' },
+        { step: 6, at: '.piece[data-piece="st"]', text: 'One click and it\'s fixed. Still on brand, still in your voice.', act: function () { var f = document.getElementById('fix-it'); if (f) f.click(); } },
+        { step: 6, at: '#col-done', text: 'Approve, and it\'s scheduled.', act: function () { clickAll('#col-wait [data-approve]', 300); } },
+        { step: 7, at: '.cal', text: 'Everything lands on one calendar, colour coded by pillar. Launch week is ready to go.' },
+        { step: 7, at: '.side6', text: 'See what needs you, the balance of your content and the open slots, at a glance.' },
+        { step: 8, at: '.lessons', text: 'After each send, bower turns the numbers into lessons.' },
+        { step: 8, at: '#close-loop', text: 'Each lesson shapes the next idea, and the loop starts again. <em>Sharper every week.</em>' },
         { step: 0, at: '#early-access .wrap', text: 'That\'s bower. Want it for your brand? Get early access and we\'ll set it up with your assets, your rules and your voice.', label: 'Your turn' }
       ];
       var spot = document.getElementById('tour-spot'), bub = document.getElementById('tour-bubble');
@@ -1537,7 +1633,7 @@
       }, true);
 
       // Arrows from the "Try it" line into the screen (Ideas and Create).
-      var ARROWS = [{ step: 3, to: '#build-campaign', hint: 3, side: 'right' }, { step: 4, to: '.tabs', hint: 4, side: 'top' }];
+      var ARROWS = [{ step: 4, to: '#build-campaign', hint: 3, side: 'right' }, { step: 5, to: '.tabs', hint: 4, side: 'top' }];
       function drawArrows() {
         ARROWS.forEach(function (a) {
           var step = document.getElementById('step-' + a.step);
