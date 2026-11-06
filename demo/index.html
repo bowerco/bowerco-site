@@ -595,12 +595,15 @@
     body.touring { overflow-x: clip; }
     .touring .app { transform-origin: 0 0; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
     .app.zoomed { z-index: 5; }
-    #tour-spot.zooming, #tour-bubble.zooming { opacity: 0; transition: none; }
+    /* While the laptop zooms, keep the page dimmed (no flash); only the highlight and bubble fade */
+    #tour-spot.zooming { background: rgba(24, 29, 48, .46); box-shadow: 0 0 0 3px transparent, 0 0 0 200vmax rgba(24, 29, 48, .46); transition: top .35s ease, left .35s ease, width .35s ease, height .35s ease; }
+    #tour-bubble { transition: opacity .25s ease, top .35s ease, left .35s ease; }
+    #tour-bubble.zooming { opacity: 0; pointer-events: none; }
     #tour-exit { display: none; position: fixed; z-index: 42; top: 16px; right: 20px; align-items: center; gap: 8px; background: var(--cream); color: var(--ink); border: 0; border-radius: 100px; padding: 10px 16px 10px 18px; font: 600 15px/1 var(--ui); cursor: pointer; box-shadow: 0 8px 24px -8px rgba(20, 24, 40, .6); }
     #tour-exit span { font-size: 20px; line-height: 0; font-weight: 400; }
     #tour-exit:hover { background: #fff; }
     .touring #tour-exit { display: inline-flex; }
-    #tour-spot { position: fixed; z-index: 40; pointer-events: none; border-radius: 16px; box-shadow: 0 0 0 3px var(--light-blue), 0 0 0 200vmax rgba(24, 29, 48, .46); transition: top .35s ease, left .35s ease, width .35s ease, height .35s ease; }
+    #tour-spot { position: fixed; z-index: 40; pointer-events: none; border-radius: 16px; box-shadow: 0 0 0 3px var(--light-blue), 0 0 0 200vmax rgba(24, 29, 48, .46); transition: top .35s ease, left .35s ease, width .35s ease, height .35s ease, background .3s ease, box-shadow .3s ease; }
     #tour-bubble { position: fixed; z-index: 41; width: 320px; background: var(--ink); color: var(--cream); border-radius: 16px; padding: 16px 18px 14px; font: 400 15px/1.5 var(--ui); box-shadow: 0 18px 40px -12px rgba(0,0,0,.45); transition: top .35s ease, left .35s ease; }
     #tour-bubble.pop { animation: pop .3s ease both; }
     @keyframes pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
@@ -1648,7 +1651,7 @@
           a.style.transform = ''; a._z = null; a.classList.remove('zoomed');
         });
       }
-      function zoomDone() { spot.classList.remove('zooming'); bub.classList.remove('zooming'); place(); }
+      function zoomDone() { place(); requestAnimationFrame(function () { spot.classList.remove('zooming'); bub.classList.remove('zooming'); }); }
       function zoomTo(el) {
         var app = el && el.closest('.app');
         unzoom(app);
