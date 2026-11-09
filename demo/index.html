@@ -379,6 +379,44 @@
     @media (max-width: 760px) { .tpls { grid-template-columns: 1fr 1fr; } }
     .shelf[hidden] { display: none; }
 
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    /* Step 1: clip finder and licensed stock */
+    .finder { background: var(--ui-soft); border-radius: 14px; padding: 14px; margin-bottom: 16px; }
+    .finder-src { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .finder-src .thumb { width: 64px; height: 40px; flex: none; border-radius: 8px; }
+    .finder-src b { display: block; font-size: 13px; font-weight: 600; color: var(--ui-dark); }
+    .finder-src span { font-size: 12px; color: var(--ui-muted); }
+    .finder-q { display: flex; gap: 8px; align-items: center; }
+    .finder-q input { flex: 1; min-width: 0; border: 1.5px solid var(--light-blue); background: #fff; border-radius: 100px; padding: 9px 16px; font: 500 13px/1.2 var(--ui); color: var(--ui-dark); }
+    .finder-q .ubtn.solid:not(:disabled) { animation: nudge 1.8s ease-in-out infinite; }
+    .timeline { position: relative; height: 26px; margin: 14px 0 4px; border-radius: 6px; background: repeating-linear-gradient(90deg, #d5dcea 0 2px, #e6ebf5 2px 5.4%); overflow: hidden; }
+    .timeline i { position: absolute; top: 0; bottom: 0; background: var(--blue); border-radius: 3px; opacity: 0; transform: scaleY(.4); transition: opacity .4s, transform .4s; }
+    .timeline.found i { opacity: 1; transform: none; }
+    .timeline i.weak { background: var(--light-blue); }
+    .timeline-lbl { display: flex; justify-content: space-between; font-size: 11px; color: var(--ui-muted); font-variant-numeric: tabular-nums; }
+    .clips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+    .clip { background: #fff; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+    .clip[hidden] { display: none; }
+    .clip.in { animation: rise .4s ease both; }
+    .clip .art { aspect-ratio: 4 / 5; }
+    .clip .art .tc { position: absolute; left: 6px; bottom: 6px; z-index: 2; font: 600 10px/1 var(--ui); color: #fbf7ee; background: rgba(20,18,16,.6); border-radius: 100px; padding: 4px 7px; font-variant-numeric: tabular-nums; }
+    .clip .art .match { position: absolute; right: 6px; top: 6px; z-index: 2; font: 600 10px/1 var(--ui); background: rgba(251,247,238,.92); color: var(--sumi); border-radius: 100px; padding: 4px 7px; }
+    .clip b { font-size: 12px; font-weight: 600; color: var(--ui-dark); line-height: 1.3; }
+    .clip .chips em { background: var(--ui-soft); }
+    .clip .ubtn { width: 100%; padding: 7px 10px; margin-top: auto; }
+    .moving img { animation: drift 9s ease-in-out infinite alternate; }
+    @keyframes drift { from { transform: scale(1); } to { transform: scale(1.1) translateY(-3%); } }
+    .sources { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .src-pill { display: inline-flex; align-items: center; gap: 7px; font: 500 12px/1 var(--ui); background: #fff; border: 1px solid var(--ui-line); border-radius: 100px; padding: 7px 12px; color: var(--ui-dark); }
+    .src-pill i { width: 7px; height: 7px; border-radius: 50%; background: #5c8a3a; }
+    .src-pill.add { border-style: dashed; color: var(--blue); background: transparent; }
+    .lic { position: absolute; left: 8px; bottom: 8px; z-index: 2; font: 600 10px/1 var(--ui); border-radius: 100px; padding: 4px 7px; background: rgba(251,247,238,.92); color: var(--sumi); }
+    .lic.no { background: #f6e4dc; color: #8a3f22; }
+    .tile .lic-note { display: block; font-size: 11px; }
+    .tile .lic-note.no { color: #8a3f22; }
+    @media (max-width: 760px) { .clips { grid-template-columns: 1fr 1fr; } .finder-q { flex-wrap: wrap; } .finder-q .ubtn { width: 100%; } }
+    @media (prefers-reduced-motion: reduce) { .moving img, .finder-q .ubtn.solid { animation: none; } }
+
     /* Step 6 schedule */
     .s6c { grid-template-columns: 1fr; }
     .side6 { display: grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
@@ -773,17 +811,17 @@
           <div class="step-copy">
             <p class="eyebrow">Step 1 of 8 · Assets</p>
             <h2 id="h-1">Drop in all your assets.<br>bower sorts them.</h2>
-            <p>Your brand's photos, videos, logos and fonts go in one place, sorted and tagged, each with a rule for how it can be used. Save the templates you love, like your newsletter or an Instagram carousel, and bower codes them so every piece keeps the same look. You just confirm.</p>
+            <p>Your brand's photos, videos, logos and fonts go in one place, sorted and tagged, each with a rule for how it can be used. Long videos become a library of clips you can search by what's in the shot. Connect the stock libraries you already pay for, and bower checks the licence before anything posts. You just confirm.</p>
             <div class="step-controls"><button class="btn tour-start" type="button" data-tour-start>Take the 2-minute guided tour</button><button class="btn ghost" type="button" data-go="2">Or explore on your own</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Assets screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/assets</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s1-status">212 sorted.</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s1-status">250 sorted.</span></div>
             <div class="app-title">Your assets, sorted.</div>
             <div class="grid s1">
               <div class="card drop">
                 <span class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg></span>
-                <div><b id="drop-title">Drop new files here</b><span class="muted" id="drop-sub">or connect a Google Drive folder.</span></div>
+                <div><b id="drop-title">Drop new files here</b><span class="muted" id="drop-sub">or connect Google Drive or a licensed stock library.</span></div>
                 <button class="ubtn solid" type="button" id="drop-yuki">Drop in the Yuki files</button>
                 <p class="callout left" data-hint="0" data-hint-for="#drop-yuki"><b>Click here</b> to drop in Asanagi's new photos and product sheet for its Yuki roast.</p>
                 <div class="ctx">
@@ -804,12 +842,13 @@
               </div>
               <div class="card lib" style="grid-column:1/-1">
                 <nav class="cats" aria-label="Asset categories">
-                  <button type="button" class="cat on" data-cat="all">All assets <span data-count="all">212</span></button>
+                  <button type="button" class="cat on" data-cat="all">All assets <span data-count="all">250</span></button>
                   <button type="button" class="cat" data-cat="logos">Logos <span data-count="logos">3</span></button>
                   <button type="button" class="cat" data-cat="fonts">Fonts <span data-count="fonts">2</span></button>
                   <button type="button" class="cat" data-cat="colours">Brand colours <span data-count="colours">5</span></button>
                   <button type="button" class="cat" data-cat="photos">Photos <span data-count="photos">146</span></button>
                   <button type="button" class="cat" data-cat="videos">Videos <span data-count="videos">22</span></button>
+                  <button type="button" class="cat" data-cat="stock">Licensed stock <span data-count="stock">38</span></button>
                   <button type="button" class="cat" data-cat="docs">Documents <span data-count="docs">29</span></button>
                   <button type="button" class="cat" data-cat="templates">Templates <span data-count="templates">5</span></button>
                   <p class="callout" data-hint="1" data-hint-for=".cat" hidden id="cat-hint"><b>Click a category</b> to see everything bower sorted.</p>
@@ -858,12 +897,40 @@
                     </div>
                   </section>
                   <section class="shelf" data-shelf="videos" data-hidden-in-all>
-                    <div class="shelf-head"><h4>Videos</h4><span>Sorted by what they show.</span></div>
+                    <div class="shelf-head"><h4>Videos</h4><span>Every shot indexed. Search by what's in it.</span><em class="coded">✓ Searchable</em></div>
+                    <div class="finder" id="finder">
+                      <div class="finder-src"><span class="thumb art ph"><img src="../assets/demo/espresso-steel.jpg" alt="" loading="lazy" style="object-position:center 70%"></span><div><b>asanagi-brand-film.mp4</b><span>2:46 · 34 shots indexed · Never cut down</span></div></div>
+                      <div class="finder-q">
+                        <label for="clip-q" class="sr-only">Find clips about</label>
+                        <input id="clip-q" type="text" value="Coffee being poured into a cup">
+                        <button class="ubtn solid" type="button" id="find-clips">Find clips</button>
+                      </div>
+                      <p class="callout inline" data-hint="1v" data-hint-for="#find-clips" id="clip-hint"><b>Click Find clips</b> to pull every pour from Asanagi's brand film.</p>
+                      <div class="timeline" id="clip-line" aria-hidden="true"><i style="left:25.3%;width:3.6%"></i><i style="left:71.1%;width:3%"></i><i class="weak" style="left:84.3%;width:2.4%"></i></div>
+                      <div class="timeline-lbl" aria-hidden="true"><span>0:00</span><span id="clip-found">Brand film timeline</span><span>2:46</span></div>
+                      <div class="clips" id="clips">
+                        <div class="clip" hidden><div class="art ph moving"><img src="../assets/demo/lib-espresso.jpg" alt="" loading="lazy" style="object-position:center 55%"><span class="match">97% match</span><span class="tc">0:42 to 0:48</span></div><b>Espresso pours into a speckled cup.</b><span class="chips"><em>4:5 crop</em><em>No sound</em><em>Carousel background</em></span><button class="ubtn" type="button" data-save-clip>Save clip</button></div>
+                        <div class="clip" hidden><div class="art ph moving"><img src="../assets/demo/lib-espresso-crop.jpg" alt="" loading="lazy" style="object-position:center"><span class="match">91% match</span><span class="tc">1:58 to 2:03</span></div><b>Close up. The cup fills slowly.</b><span class="chips"><em>4:5 crop</em><em>Slowed 50%</em><em>Stories</em></span><button class="ubtn" type="button" data-save-clip>Save clip</button></div>
+                        <div class="clip" hidden><div class="art ph moving"><img src="../assets/demo/the-stir.jpg" alt="" loading="lazy" style="object-position:center 70%"><span class="match">74% match</span><span class="tc">2:20 to 2:24</span></div><b>Close, not exact: a stir after the pour.</b><span class="chips"><em>9:16 crop</em><em>Reels</em></span><button class="ubtn" type="button" data-save-clip>Save clip</button></div>
+                      </div>
+                    </div>
                     <div class="subtags"><span class="pill blue">All 22</span><span class="pill">Ritual 9</span><span class="pill">Roastery 8</span><span class="pill">Founder 5</span></div>
-                    <div class="grid tiles">
+                    <div class="grid tiles" id="video-tiles">
+                      <div class="tile video" data-clip-tile hidden><div class="art ph moving"><img src="../assets/demo/lib-espresso.jpg" alt="" loading="lazy" style="object-position:center 55%"><svg viewBox="0 0 40 40" style="color:#fbf7ee"><use href="#i-play"/></svg><span class="tag">New · Clip</span><span class="dur">0:06</span></div><b>pour-into-cup.mp4</b><span>Cut from the brand film.</span></div>
                       <div class="tile video"><div class="art ph"><img src="../assets/demo/the-stir.jpg" alt="" loading="lazy" style="object-position:center 70%"><svg viewBox="0 0 40 40" style="color:#fbf7ee"><use href="#i-play"/></svg><span class="tag">Ritual</span><span class="dur">0:38</span></div><b>the-stir.mp4</b><span>Never posted. Reels.</span></div>
                       <div class="tile video"><div class="art ph"><img src="../assets/demo/espresso-steel.jpg" alt="" loading="lazy" style="object-position:center 85%"><svg viewBox="0 0 40 40" style="color:#fbf7ee"><use href="#i-play"/></svg><span class="tag">Roastery</span><span class="dur">1:12</span></div><b>espresso-pull.mp4</b><span>Stories, cut to 15s.</span></div>
                       <div class="tile video"><div class="art ph"><img src="../assets/demo/stacked-mugs.jpg" alt="" loading="lazy" style="object-position:center 40%"><svg viewBox="0 0 40 40" style="color:#fbf7ee"><use href="#i-play"/></svg><span class="tag">Ritual</span><span class="dur">0:21</span></div><b>morning-light.mp4</b><span>Ad backgrounds.</span></div>
+                    </div>
+                  </section>
+                  <section class="shelf" data-shelf="stock" data-hidden-in-all>
+                    <div class="shelf-head"><h4>Licensed stock</h4><span>From libraries you already pay for.</span><em class="coded">✓ Licence checked</em></div>
+                    <div class="sources"><span class="src-pill"><i></i>Stock subscription · Connected</span><span class="src-pill"><i></i>Free photo library · Connected</span><span class="src-pill add">+ Connect a library</span></div>
+                    <div class="subtags"><span class="pill blue">Saved 38</span><span class="pill">Winter 12</span><span class="pill">Texture 14</span><span class="pill">Hands 12</span></div>
+                    <div class="grid tiles">
+                      <div class="tile"><div class="art tone-washi"><svg viewBox="0 0 100 40" style="width:58%;color:#b9b2a3"><use href="#i-wave"/></svg><span class="tag">Winter</span><span class="lic">Licensed</span></div><b>snow-window.jpg</b><span class="lic-note">Social, email and ads.</span></div>
+                      <div class="tile"><div class="art tone-hinoki"><svg viewBox="0 0 100 100" style="width:40%;color:#7a6a58"><use href="#i-beans"/></svg><span class="tag">Texture</span><span class="lic">Licensed</span></div><b>roasted-texture.jpg</b><span class="lic-note">Social, email and ads.</span></div>
+                      <div class="tile"><div class="art tone-sumi" style="color:#ddd5c6"><svg viewBox="0 0 100 100" style="width:40%"><use href="#i-cup"/></svg><span class="tag">Hands</span><span class="lic">Licensed</span></div><b>warm-hands-cup.jpg</b><span class="lic-note">Social and email.</span></div>
+                      <div class="tile"><div class="art tone-kaki"><svg viewBox="0 0 100 120" style="width:30%;color:#8a5a3c"><use href="#i-dripper"/></svg><span class="tag">Winter</span><span class="lic no">Not for ads</span></div><b>cafe-street.jpg</b><span class="lic-note no">Editorial only. Kept out of ads.</span></div>
                     </div>
                   </section>
                   <section class="shelf" data-shelf="docs" data-hidden-in-all>
@@ -1089,7 +1156,7 @@
                       <div class="slide ph"><img src="../assets/demo/yuki-shelf.jpg" alt="" loading="lazy" style="object-position:center 40%"><span class="badge">New</span><span class="n">01 / 06</span><h5>How Yuki is made.</h5></div>
                       <div class="slide ph"><img src="../assets/demo/lib-bag-cup.jpg" alt="" loading="lazy" style="object-position:center 55%"><span class="badge">From library</span><span class="n">02 / 06</span><div><h5>The beans.</h5><p>Huila, Colombia and Sidama, Ethiopia.</p></div></div>
                       <div class="slide ph"><img src="../assets/demo/yuki-beans.jpg" alt="" loading="lazy" style="object-position:center 65%"><span class="badge">New</span><span class="n">03 / 06</span><div><h5>The roast.</h5><p>Twelve minutes, taken slow.</p></div></div>
-                      <div class="slide tone-moss" style="color:var(--washi)"><span class="n" style="color:var(--hinoki)">04 / 06</span><div><h5>The rest.</h5><p>Five days before it ships.</p></div></div>
+                      <div class="slide ph moving"><img src="../assets/demo/lib-espresso.jpg" alt="" loading="lazy" style="object-position:center 88%"><span class="badge">Clip · Brand film</span><span class="n">04 / 06</span><div><h5>The rest.</h5><p>Five days before it ships.</p></div></div>
                       <div class="slide ph"><img src="../assets/demo/lib-espresso-crop.jpg" alt="" loading="lazy" style="object-position:center"><span class="badge">Reworked</span><span class="n">05 / 06</span><div><h5>The pour.</h5><p>15 g coffee. 250 g water. 3 minutes.</p></div></div>
                       <div class="slide dark"><span class="n">06 / 06</span><div><h5>Two hundred bags.</h5><p>Then it's gone until next winter.</p></div></div>
                     </div>
@@ -1387,8 +1454,8 @@
             zone.classList.remove('dropping');
             dropBtn.textContent = '✓ 4 files added'; dropBtn.classList.remove('solid'); dropBtn.classList.add('done');
             document.getElementById('drop-title').textContent = 'Drop new files here';
-            document.getElementById('drop-sub').textContent = 'or connect a Google Drive folder.';
-            document.getElementById('s1-status').textContent = '212 sorted. 4 new to tag.';
+            document.getElementById('drop-sub').textContent = 'or connect Google Drive or a licensed stock library.';
+            document.getElementById('s1-status').textContent = '250 sorted. 4 new to tag.';
           }, items.length * 260 + 100);
         }, 700);
       }
@@ -1416,6 +1483,31 @@
       }
       document.querySelectorAll('.cat').forEach(function (c) { c.addEventListener('click', function () { filter(c.dataset.cat); }); });
       filter('all');
+
+      // Step 1: find clips inside a long video, save one to the library
+      var findBtn = document.getElementById('find-clips');
+      function findClips() {
+        if (findBtn.disabled) return;
+        findBtn.disabled = true; findBtn.textContent = 'Watching 2:46...';
+        var ch = document.getElementById('clip-hint'); if (ch) ch.hidden = true;
+        setTimeout(function () {
+          document.getElementById('clip-line').classList.add('found');
+          document.getElementById('clip-found').textContent = '3 moments found';
+          [].slice.call(document.querySelectorAll('#clips .clip')).forEach(function (c, i) {
+            setTimeout(function () { c.hidden = false; c.classList.add('in'); }, i * 220);
+          });
+          findBtn.textContent = '✓ 3 clips found'; findBtn.classList.remove('solid'); findBtn.classList.add('done');
+        }, 900);
+      }
+      findBtn.addEventListener('click', findClips);
+      document.querySelectorAll('[data-save-clip]').forEach(function (b, i) {
+        b.addEventListener('click', function () {
+          if (b.classList.contains('done')) return;
+          b.classList.add('done'); b.textContent = '✓ Saved to Videos';
+          bump('videos');
+          if (i === 0) { var t = document.querySelector('[data-clip-tile]'); if (t) { t.hidden = false; t.classList.add('in'); } }
+        });
+      });
 
       // Step 3: add Yuki
       var addYuki = document.getElementById('add-yuki');
@@ -1465,7 +1557,7 @@
       // Step 4: format tabs
       var meta = {
         nl:  { note: 'Draft 1. Built from your Master newsletter template.', pillar: 'Product launch', tpl: 'Master newsletter', when: 'Wed 18, 8:00', ok: true },
-        car: { note: 'Draft 1. 2 new Yuki photos, 1 from your library and 1 reworked.', pillar: 'Craft', tpl: 'Six slide carousel', when: 'Thu 19', ok: true },
+        car: { note: 'Draft 1. 2 new Yuki photos, 1 from your library, 1 reworked and 1 clip cut from your brand film.', pillar: 'Craft', tpl: 'Six slide carousel', when: 'Thu 19', ok: true },
         st:  { note: 'Three teaser stories, one detail a day.', pillar: 'Product launch', tpl: 'Countdown stories', when: 'Mon 16 to Wed 18', ok: false },
         ad:  { note: 'One ad for launch week, sized for the feed.', pillar: 'Product launch', tpl: 'Feed ad, 4:5', when: 'Thu 19 to Sun 22', ok: true }
       };
@@ -1573,6 +1665,9 @@
         { step: 1, at: '.cats', text: 'Now the Yuki photos sit with everything else, sorted into logos, fonts, colours, photos, videos and templates.', act: function () { filter('all'); } },
         { step: 1, at: '.shelves', text: 'Logos, fonts, brand colours and templates aren\'t just stored here. Each one is a <b>coded rule</b>: logos never recoloured, two fonts with two jobs, washi and sumi leading. bower pulls from them every time it designs, so every Yuki piece looks like Asanagi.', act: function () { filter('all'); } },
         { step: 1, at: '.shelf[data-shelf="photos"]', text: 'Photos are sorted by what they show, and the new Yuki shots are already in. When it\'s time to post, the right one is one click away.', act: function () { filter('photos'); } },
+        { step: 1, at: '#finder', text: 'Videos work the same way, shot by shot. Asanagi has a 2:46 brand film it only ever posted once. It asks bower for <b>coffee being poured into a cup</b>.', act: function () { filter('videos'); } },
+        { step: 1, at: '#clips', text: 'bower watches the whole film and finds three pours, with timestamps. It cuts the best one, crops it to 4:5 and saves it as its own clip, ready to sit behind a carousel. <em>One film, a library of new shots.</em>', act: function () { filter('videos'); findClips(); setTimeout(function () { var b = document.querySelector('[data-save-clip]'); if (b) b.click(); }, 1700); } },
+        { step: 1, at: '.shelf[data-shelf="stock"]', text: 'Need more than your own shots? Connect the <b>stock libraries</b> you already pay for. bower reads each licence and keeps editorial only images out of ads, so nothing goes out that you aren\'t allowed to use.', act: function () { filter('stock'); } },
         { step: 2, at: '#s2 > .card:first-child', text: '<b>Brand</b> is where Asanagi\'s voice lives. bower reads its brand book, site and best posts once, so Yuki sounds like Asanagi from the very first post.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
         { step: 2, at: '.rules', text: 'Out come the rules every Yuki post will follow: voice, banned words, how Asanagi writes and its brand facts. <em>If it isn\'t in here, bower won\'t say it.</em>' },
         { step: 3, at: '#prod-list', text: '<b>Products</b> holds every product Asanagi sells. Yuki is new, so bower drafts its entry from the product sheet Asanagi added in Assets: origins, tasting notes, sizes and prices. The photos show what Yuki looks like; the sheet tells bower the facts.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); } },
@@ -1583,7 +1678,7 @@
         { step: 4, at: '.campaign', text: 'Then it lays out the whole Yuki campaign, in order: teasers, newsletter, carousel and ad.' },
         { step: 5, at: '.stage', text: '<b>Create</b>: bower writes and designs the Yuki newsletter from Asanagi\'s template, in its voice.', act: function () { tab('nl'); } },
         { step: 5, at: '#passes', text: 'Every piece is checked against Asanagi\'s rules and product facts before anyone sees it.', act: function () { tab('nl'); } },
-        { step: 5, at: '.stage', text: 'The same Yuki story becomes a six slide carousel: the new Yuki photos alongside the reworked library shots. No starting over.', act: function () { tab('car'); } },
+        { step: 5, at: '.stage', text: 'The same Yuki story becomes a six slide carousel: the new Yuki photos, the reworked library shots, and the pour clip from the brand film moving behind slide four. No starting over.', act: function () { tab('car'); } },
         { step: 5, at: '.stage', text: 'And three teaser stories. One of them broke a rule: <b>"bold"</b> is on Asanagi\'s never say list.', act: function () { tab('st'); } },
         { step: 6, at: '.piece[data-piece="st"]', text: '<b>Approve</b>: nothing goes out without a yes. bower flags the problem and suggests the fix.' },
         { step: 6, at: '.piece[data-piece="st"]', text: 'One click and it\'s fixed. Still on brand, still in your voice.', act: function () { var f = document.getElementById('fix-it'); if (f) f.click(); } },
