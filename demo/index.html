@@ -192,6 +192,10 @@
     @media (max-width: 760px) { .rules { grid-template-columns: 1fr; } .facts thead { display: none; } .facts tr { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 10px; padding: 8px 0; border-top: 1px solid #e3e7f0; } .facts td { border: 0; padding: 0; } }
     .rule-card { position: relative; min-height: 172px; }
     .rule-card .fill { transition: opacity .5s; }
+    .pillar-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .pillar-list li { background: var(--pt); border-left: 4px solid var(--pc); border-radius: 4px 10px 10px 4px; padding: 10px 12px; font-size: 12px; color: var(--ui-ink); line-height: 1.4; }
+    .pillar-list b { display: block; font: 600 13px/1.3 var(--ui); color: var(--pc); margin-bottom: 2px; }
+    @media (max-width: 760px) { .pillar-list { grid-template-columns: 1fr 1fr; } }
     .rule-card .skel { position: absolute; inset: 52px 18px 18px; display: grid; gap: 10px; align-content: start; transition: opacity .3s; }
     .rule-card .skel i { display: block; height: 10px; border-radius: 6px; background: var(--ui-soft); }
     .rule-card .skel i:nth-child(2) { width: 80%; } .rule-card .skel i:nth-child(3) { width: 60%; }
@@ -429,23 +433,27 @@
     .cday.today { box-shadow: inset 0 0 0 2px var(--blue); }
     .cd { font-size: 12px; font-weight: 600; color: var(--ui-dark); }
     .cd em { font-style: normal; font-weight: 500; font-size: 10px; color: var(--blue); margin-left: 2px; }
-    .cday .chipx { display: block; position: relative; padding: 4px 6px 4px 14px; font-size: 10.5px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .cday .chipx b { font-weight: 600; display: block; }
-    .cday .chipx::before { content: ""; position: absolute; left: 5px; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--pc); }
-    .chipx[data-pillar="ritual"] { --pc: var(--moss); }
-    .chipx[data-pillar="origin"] { --pc: var(--hinoki); }
-    .chipx[data-pillar="launch"] { --pc: var(--crema); }
-    .chipx[data-pillar="craft"] { --pc: var(--kaki); }
-    .chipx.sched::before { box-shadow: 0 0 0 1.5px #fff; }
-    .chipx.posted { background: transparent; color: var(--ui-muted); box-shadow: inset 0 0 0 1px var(--ui-line); }
-    .chipx.draft { background: #fff; box-shadow: inset 0 0 0 1px #b7c3de; }
+    [data-pillar="ritual"], .pl-ritual { --pc: #3f6a24; --pt: #dfe9d4; }
+    [data-pillar="origin"], .pl-origin { --pc: #6b4f8f; --pt: #e8e0f1; }
+    [data-pillar="craft"], .pl-craft { --pc: #b5573a; --pt: #f5ddd3; }
+    [data-pillar="launch"], .pl-launch { --pc: #b07a1c; --pt: #f6e6c6; }
+    .cday .chipx { display: block; position: relative; padding: 4px 16px 4px 7px; font-size: 10.5px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: var(--pt); color: var(--ui-dark); border-left: 3px solid var(--pc); border-radius: 4px 6px 6px 4px; box-shadow: inset 0 0 0 1.5px var(--ui-dark); }
+    .cday .chipx b { font-weight: 600; display: block; color: var(--pc); }
+    .cday .chipx.sched { background: var(--pt); color: var(--ui-dark); box-shadow: none; }
+    .cday .chipx.sched::after { content: "✓"; position: absolute; right: 5px; top: 4px; font-weight: 700; font-size: 10px; color: var(--pc); }
+    .cday .chipx.posted { opacity: .5; box-shadow: none; }
+    .cday .chipx.draft { background: #fff; box-shadow: inset 0 0 0 1px var(--pt); border-left-style: dashed; }
+    .legends { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+    .legend.pillars { gap: 10px; font-weight: 500; color: var(--ui-dark); }
+    .legend.pillars i { width: 12px; height: 12px; background: var(--pt); border-left: 3px solid var(--pc); border-radius: 2px; }
     .open-slot { border: 1.5px dashed #b7c3de; background: #fff; border-radius: 6px; padding: 5px 6px; font: 500 10.5px/1.25 var(--ui); color: var(--blue); text-align: left; text-decoration: underline; }
-    .lg-posted { box-shadow: inset 0 0 0 1px var(--ui-line); background: transparent; }
-    .lg-sched { background: var(--ui-dark); }
-    .lg-need { background: var(--light-blue); }
-    .lg-draft { background: #fff; box-shadow: inset 0 0 0 1px #b7c3de; }
+    .lg-posted { background: #d9dce3; opacity: .7; }
+    .lg-sched { background: #d9dce3; position: relative; }
+    .lg-sched::after { content: "✓"; position: absolute; left: 1px; top: -3px; font-size: 10px; font-weight: 700; color: var(--ui-dark); font-style: normal; }
+    .lg-need { background: #fff; box-shadow: inset 0 0 0 1.5px var(--ui-dark); }
+    .lg-draft { background: #fff; box-shadow: inset 0 0 0 1px #b7c3de; border: 1px dashed #8a93a8; }
     .bars { display: grid; gap: 10px; }
-    .bar { display: grid; grid-template-columns: 62px 1fr 22px; gap: 8px; align-items: center; font-size: 12px; }
+    .bar { display: grid; grid-template-columns: 84px 1fr 22px; gap: 8px; align-items: center; font-size: 12px; }
     .bar i { height: 8px; border-radius: 100px; background: var(--ui-soft); position: relative; overflow: hidden; }
     .bar i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); background: var(--pc); border-radius: 100px; }
     .bar b { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -1016,6 +1024,16 @@
                     <li>Never claim "best" or "authentic."</li>
                   </ul>
                 </div>
+                <div class="card rule-card wide pillars-card">
+                  <h3>Content pillars <span class="status-tag">Waiting</span></h3>
+                  <div class="skel"><i></i><i></i><i></i></div>
+                  <ul class="fill pillar-list">
+                    <li class="pl-ritual"><b>Ritual</b><span>How people brew and enjoy Kumo at home.</span></li>
+                    <li class="pl-origin"><b>Origin</b><span>Where the beans come from and who grows them.</span></li>
+                    <li class="pl-craft"><b>Craft</b><span>How Kumo roasts, and why slow matters.</span></li>
+                    <li class="pl-launch"><b>New product</b><span>Releases like Yuki.</span></li>
+                  </ul>
+                </div>
               </div>
               <div class="card s2-foot">
                 <p id="s2-foot">Rules appear here once Bower reads your sources.</p>
@@ -1287,7 +1305,7 @@
             <div class="grid s6c">
               <div class="card cal-card">
                 <div class="row split" style="margin-bottom:12px;flex-wrap:wrap;gap:8px"><h3 style="margin:0">November <span class="muted" style="font-weight:400;font-size:13px">Nov 2 to Nov 29</span></h3>
-                  <div class="legend"><span><i class="lg-posted"></i>Posted</span><span><i class="lg-sched"></i>Scheduled</span><span><i class="lg-need"></i>Needs you</span><span><i class="lg-draft"></i>Draft</span></div></div>
+                  <div class="legends"><div class="legend pillars"><span class="pl-ritual"><i></i>Ritual</span><span class="pl-origin"><i></i>Origin</span><span class="pl-craft"><i></i>Craft</span><span class="pl-launch"><i></i>New product</span></div><div class="legend"><span><i class="lg-posted"></i>Posted</span><span><i class="lg-sched"></i>Scheduled</span><span><i class="lg-need"></i>Needs you</span><span><i class="lg-draft"></i>Draft</span></div></div></div>
                 <div class="cal-scroll">
                   <div class="cal">
                     <span class="dow">Mon</span><span class="dow">Tue</span><span class="dow">Wed</span><span class="dow">Thu</span><span class="dow">Fri</span><span class="dow">Sat</span><span class="dow">Sun</span>
@@ -1563,7 +1581,7 @@
             if (i === cards.length - 1) {
               wrap.classList.remove('coding');
               codeBtn.textContent = '✓ Coded in'; codeBtn.classList.remove('solid'); codeBtn.classList.add('done');
-              document.getElementById('s2-status').textContent = '12 rules coded in.';
+              document.getElementById('s2-status').textContent = '12 rules and 4 pillars coded in.';
               document.getElementById('s2-foot').innerHTML = '<b>12 rules coded in.</b> If it isn\'t in here, Bower won\'t say it.';
               document.getElementById('s2-pill').hidden = false;
             }
@@ -1693,6 +1711,7 @@
         { step: 1, at: '.shelf[data-shelf="stock"]', text: 'Connect the stock libraries you already pay for. Bower checks every licence.', act: function () { filter('stock'); } },
         { step: 2, at: '#s2 > .card:first-child', text: '<b>Step 2: Brand.</b> Drop in anything that shows how your brand talks: your brand book, website, past newsletters, social posts and founder notes. Bower learns your voice from them.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
         { step: 2, at: '.rules', text: 'Then Bower turns that into rules. For Kumo, that means a quiet, unhurried voice, never saying words like "bold" or "hustle," no exclamation marks, and only stating facts it can back up, like "roasted in 12 kg batches."' },
+        { step: 2, at: '.pillars-card', text: 'Bower also sets Kumo\'s <b>content pillars</b>, the main topics it posts about. Every piece gets one, so the calendar stays balanced instead of all product posts.' },
         { step: 3, at: '.prod-detail:not([hidden])', text: '<b>Step 3: Products.</b> Drop in your product facts: ingredients, benefits, sizes, prices, and which retailers sell which version. Bower remembers every detail, so you never have to re-explain your products or remind anyone of a price again.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); setTimeout(function () { var y = document.getElementById('add-yuki'); if (y) y.click(); }, 900); } },
         { step: 4, at: '.focus', text: '<b>Step 4: Ideas.</b> Now that Kumo\'s brand is set up, it\'s time to plan content. Kumo tells Bower what it wants to post about: the release of Yuki, its new winter roast, on sale November 19.' },
         { step: 4, at: '#ideas', text: 'Bower suggests ideas for every format you post in: a newsletter, a carousel, teaser stories, ads and more. Some come from what\'s trending, some from what brands like Kumo are doing.' },
@@ -1706,7 +1725,7 @@
         { step: 6, at: '.piece[data-piece="st"]', text: '<b>Step 6: Approve.</b> Nothing goes out until someone on your team says yes. Before approving, a teammate edits one of the stories and adds the word "bold," which is on Kumo\'s list of words it never uses. Bower flags it right away and suggests a fix.' },
         { step: 6, at: '.piece[data-piece="st"]', text: 'One click accepts the fix, and the story is back on brand.', act: function () { var f = document.getElementById('fix-it'); if (f) f.click(); } },
         { step: 6, at: '#col-done', text: 'Once a piece is approved, it\'s added to the calendar automatically.', act: function () { clickAll('#col-wait [data-approve]', 300); } },
-        { step: 7, at: '.cal', text: '<b>Step 7: Schedule.</b> Every approved post is placed on one calendar, timed around Yuki\'s on-sale date and mixed in with Kumo\'s regular posts. Each post is colour coded by topic, so you can see the balance at a glance.' },
+        { step: 7, at: '.cal', text: '<b>Step 7: Schedule.</b> Every approved post is placed on one calendar, timed around Yuki\'s on-sale date and mixed in with Kumo\'s regular posts. Each post is colour coded by the pillars set up in Step 2, so you can see the balance at a glance.' },
         { step: 7, at: '.side6', text: 'The side panel shows what still needs your approval and any open days that could use a post.' },
         { step: 8, at: '.lessons', text: '<b>Step 8: Results.</b> After the week, Bower pulls in the numbers. Yuki sold 120 of its 200 bags in the first week, and Bower shows how each post performed.' },
         { step: 8, at: '#close-loop', text: 'Bower turns what worked into lessons, like "short subject lines get opened more," and uses them to suggest the next round of content.' },
