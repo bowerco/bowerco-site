@@ -29,7 +29,7 @@
       --ui-line: #dfe5f1;
       --ui-dark: #444f6d;
 
-      /* Asanagi, the made-up demo brand */
+      /* Kumo, the made-up demo brand */
       --washi: #f3efe6;
       --sumi: #262422;
       --hinoki: #c9a77c;
@@ -122,7 +122,7 @@
     .row.split { justify-content: space-between; }
     .list > * + * { border-top: 1px solid var(--ui-line); }
 
-    /* Asanagi art */
+    /* Kumo art */
     .art { display: grid; place-items: center; border-radius: 10px; overflow: hidden; position: relative; }
     .art svg { width: 62%; height: auto; }
     .tone-washi { background: var(--washi); }
@@ -248,7 +248,7 @@
     .stage > [hidden] { display: none; }
     .stage-note { font-size: 12px; color: var(--ui-muted); text-align: center; margin-top: 10px; }
 
-    /* Asanagi newsletter */
+    /* Kumo newsletter */
     .nl { background: #fbf9f4; max-width: 420px; margin: 0 auto; color: var(--sumi); font: 400 14px/1.7 Georgia, serif; box-shadow: 0 1px 2px rgba(38,36,34,.08); }
     .nl-head { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 22px; border-bottom: 1px solid #e6dfd1; font: 500 15px/1 var(--mincho); letter-spacing: .06em; }
     .nl-head small { font-size: 11px; color: var(--moss); letter-spacing: .3em; }
@@ -261,7 +261,7 @@
     .nl-recipe b { display: block; font: 500 17px/1.3 var(--mincho); color: var(--sumi); letter-spacing: 0; text-transform: none; }
     .nl-cta { display: inline-block; background: var(--sumi); color: var(--washi); font: 500 13px/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; padding: 13px 22px; }
 
-    /* Asanagi carousel / stories / ad */
+    /* Kumo carousel / stories / ad */
     .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .slide { aspect-ratio: 1; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; color: var(--sumi); font: 500 12px/1.4 var(--ui); position: relative; overflow: hidden; }
     .slide .n { font-size: 10px; letter-spacing: .14em; color: var(--moss); }
@@ -740,7 +740,7 @@
 </head>
 <body>
 
-  <!-- Line drawings for the Asanagi demo brand -->
+  <!-- Line drawings for the Kumo demo brand -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-bag" viewBox="0 0 100 120">
       <path d="M26 18h48l4 92H22z" fill="#fbf9f4" stroke="#262422" stroke-width="1.6"/>
@@ -815,15 +815,15 @@
             <div class="step-controls"><button class="btn tour-start" type="button" data-tour-start>Take the 2-minute guided tour</button><button class="btn ghost" type="button" data-go="2">Or explore on your own</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Assets screen, demo">
-            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/assets</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s1-status">250 sorted.</span></div>
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/assets</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status" id="s1-status">250 sorted.</span></div>
             <div class="app-title">Your assets, sorted.</div>
             <div class="grid s1">
               <div class="card drop">
                 <span class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg></span>
                 <div><b id="drop-title">Drop new files here</b><span class="muted" id="drop-sub">or connect Google Drive or a licensed stock library.</span></div>
                 <button class="ubtn solid" type="button" id="drop-yuki">Drop in the Yuki files</button>
-                <p class="callout left" data-hint="0" data-hint-for="#drop-yuki"><b>Click here</b> to drop in Asanagi's new photos and product sheet for its Yuki roast.</p>
+                <p class="callout left" data-hint="0" data-hint-for="#drop-yuki"><b>Click here</b> to drop in Kumo's new photos and product sheet for its Yuki roast.</p>
                 <div class="ctx">
                   <label for="ctx-in">Add context <span>(optional)</span></label>
                   <input id="ctx-in" type="text" value="New product: Yuki winter roast. Launch photos." placeholder="e.g. new product, launch photos, holiday party, ingredients">
@@ -832,7 +832,7 @@
               </div>
               <div class="card newtag">
                 <h3>New for the Yuki launch <small>Confirm each one to add it to your library</small></h3>
-                <p class="newtag-empty" id="newtag-empty">Nothing new yet. Drop in Asanagi's Yuki launch files and bower will tag them here.</p>
+                <p class="newtag-empty" id="newtag-empty">Nothing new yet. Drop in Kumo's Yuki launch files and bower will tag them here.</p>
                 <div class="list" id="newtag">
                   <div class="item" hidden><span class="thumb art ph"><img src="../assets/demo/yuki-shelf.jpg" alt="" loading="lazy" style="object-position:center 60%"></span><div><b>yuki-shelf.jpg</b><span class="chips"><em>Yuki</em><em>Launch</em><em>Retail</em></span></div><button class="ubtn" type="button" data-confirm="photos">Confirm</button></div>
                   <div class="item" hidden><span class="thumb art ph"><img src="../assets/demo/yuki-beans.jpg" alt="" loading="lazy" style="object-position:center 65%"></span><div><b>yuki-beans.jpg</b><span class="chips"><em>Yuki</em><em>Launch</em><em>Product</em></span></div><button class="ubtn" type="button" data-confirm="photos">Confirm</button></div>
@@ -857,9 +857,9 @@
                   <section class="shelf" data-shelf="logos">
                     <div class="shelf-head"><h4>Logos</h4><span>Use as supplied. Never recoloured.</span><em class="coded">✓ Coded rule</em></div>
                     <div class="grid tiles">
-                      <div class="tile"><div class="art tone-washi"><div class="asa-wm">asanagi<small>朝凪</small></div></div><b>Wordmark</b><span>On washi or white.</span></div>
-                      <div class="tile"><div class="art tone-sumi"><div class="asa-wm" style="color:var(--washi)">asanagi<small style="color:var(--hinoki)">朝凪</small></div></div><b>Wordmark, reversed</b><span>On sumi black or photos.</span></div>
-                      <div class="tile"><div class="art tone-washi"><span class="seal">朝</span></div><b>Seal mark</b><span>Small sizes and avatars.</span></div>
+                      <div class="tile"><div class="art tone-washi"><div class="asa-wm">kumo<small>雲</small></div></div><b>Wordmark</b><span>On washi or white.</span></div>
+                      <div class="tile"><div class="art tone-sumi"><div class="asa-wm" style="color:var(--washi)">kumo<small style="color:var(--hinoki)">雲</small></div></div><b>Wordmark, reversed</b><span>On sumi black or photos.</span></div>
+                      <div class="tile"><div class="art tone-washi"><span class="seal">雲</span></div><b>Seal mark</b><span>Small sizes and avatars.</span></div>
                     </div>
                   </section>
                   <section class="shelf" data-shelf="templates">
@@ -899,13 +899,13 @@
                   <section class="shelf" data-shelf="videos" data-hidden-in-all>
                     <div class="shelf-head"><h4>Videos</h4><span>Every shot indexed. Search by what's in it.</span><em class="coded">✓ Searchable</em></div>
                     <div class="finder" id="finder">
-                      <div class="finder-src"><span class="thumb art ph"><img src="../assets/demo/espresso-steel.jpg" alt="" loading="lazy" style="object-position:center 70%"></span><div><b>asanagi-brand-film.mp4</b><span>2:46 · 34 shots indexed · Never cut down</span></div></div>
+                      <div class="finder-src"><span class="thumb art ph"><img src="../assets/demo/espresso-steel.jpg" alt="" loading="lazy" style="object-position:center 70%"></span><div><b>kumo-brand-film.mp4</b><span>2:46 · 34 shots indexed · Never cut down</span></div></div>
                       <div class="finder-q">
                         <label for="clip-q" class="sr-only">Find clips about</label>
                         <input id="clip-q" type="text" value="Coffee being poured into a cup">
                         <button class="ubtn solid" type="button" id="find-clips">Find clips</button>
                       </div>
-                      <p class="callout inline" data-hint="1v" data-hint-for="#find-clips" id="clip-hint"><b>Click Find clips</b> to pull every pour from Asanagi's brand film.</p>
+                      <p class="callout inline" data-hint="1v" data-hint-for="#find-clips" id="clip-hint"><b>Click Find clips</b> to pull every pour from Kumo's brand film.</p>
                       <div class="timeline" id="clip-line" aria-hidden="true"><i style="left:25.3%;width:3.6%"></i><i style="left:71.1%;width:3%"></i><i class="weak" style="left:84.3%;width:2.4%"></i></div>
                       <div class="timeline-lbl" aria-hidden="true"><span>0:00</span><span id="clip-found">Brand film timeline</span><span>2:46</span></div>
                       <div class="clips" id="clips">
@@ -935,7 +935,7 @@
                   </section>
                   <section class="shelf" data-shelf="docs" data-hidden-in-all>
                     <div class="shelf-head"><h4>Documents</h4><span>Read by bower, not posted.</span></div>
-                    <ul class="doclist"><li><b>asanagi-brand-book.pdf</b><span>Brand book, 14 pages</span></li><li><b>yuki-product-sheet.pdf</b><span>Origins, tasting notes, sizes, Yuki</span></li><li><b>founder-notes.docx</b><span>Story and origin</span></li></ul>
+                    <ul class="doclist"><li><b>kumo-brand-book.pdf</b><span>Brand book, 14 pages</span></li><li><b>yuki-product-sheet.pdf</b><span>Origins, tasting notes, sizes, Yuki</span></li><li><b>founder-notes.docx</b><span>Story and origin</span></li></ul>
                   </section>
                 </div>
               </div>
@@ -954,20 +954,20 @@
             <div class="step-controls"><button class="btn ghost" type="button" data-go="1">Back</button><button class="btn" type="button" data-go="3">Next: Products</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Brand screen, demo">
-            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/brand</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s2-status">4 sources ready.</span></div>
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/brand</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status" id="s2-status">4 sources ready.</span></div>
             <div class="app-title">Your brand, on record.</div>
             <div class="grid s2" id="s2">
               <div class="card">
                 <h3>What bower read</h3>
                 <div class="list">
-                  <div class="source"><span class="ic">PDF</span><div><b>asanagi-brand-book.pdf</b><span>14 pages</span></div></div>
-                  <div class="source"><span class="ic">WEB</span><div><b>asanagi.co</b><span>Shop, about, journal</span></div></div>
+                  <div class="source"><span class="ic">PDF</span><div><b>kumo-brand-book.pdf</b><span>14 pages</span></div></div>
+                  <div class="source"><span class="ic">WEB</span><div><b>kumo.co</b><span>Shop, about, journal</span></div></div>
                   <div class="source"><span class="ic">IG</span><div><b>Last 40 Instagram posts</b><span>Captions and results</span></div></div>
                   <div class="source"><span class="ic">DOC</span><div><b>founder-notes.docx</b><span>Story and origin</span></div></div>
                 </div>
                 <button class="ubtn solid" type="button" id="code-it" style="width:100%;margin-top:14px;padding:14px;font-size:17px">Code it in</button>
-                <p class="callout" id="code-hint" data-hint="2" data-hint-for="#code-it"><b>Click here</b> to watch bower read Asanagi's brand and write its rules.</p>
+                <p class="callout" id="code-hint" data-hint="2" data-hint-for="#code-it"><b>Click here</b> to watch bower read Kumo's brand and write its rules.</p>
               </div>
               <div class="grid rules">
                 <div class="card rule-card">
@@ -995,7 +995,7 @@
                   <ul class="fill ticks">
                     <li>Founded 2023 in Montreal.</li>
                     <li>Roasted in 12 kg batches.</li>
-                    <li>Asanagi (朝凪) means morning calm.</li>
+                    <li>Kumo (雲) means cloud.</li>
                     <li>Never claim "best" or "authentic."</li>
                   </ul>
                 </div>
@@ -1019,8 +1019,8 @@
             <div class="step-controls"><button class="btn ghost" type="button" data-go="2">Back</button><button class="btn" type="button" data-go="4">Next: Ideas</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Products screen, demo">
-            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/products</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status">3 lines · 6 formats · 17 places sold</span></div>
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/products</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status">3 lines · 6 formats · 17 places sold</span></div>
             <div class="app-title">Your products, on record.</div>
             <div class="grid s3p">
               <div class="card prod-list">
@@ -1071,8 +1071,8 @@
             <div class="step-controls"><button class="btn ghost" type="button" data-go="3">Back</button><button class="btn" type="button" data-go="5">Next: Create</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Ideas screen, demo">
-            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/ideas</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status">4 new ideas</span></div>
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/ideas</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status">4 new ideas</span></div>
             <div class="app-title">Ideas worth making.</div>
             <div class="grid s3">
               <div class="card focus">
@@ -1124,8 +1124,8 @@
             <div class="step-controls"><button class="btn ghost" type="button" data-go="4">Back</button><button class="btn" type="button" data-go="6">Next: Approve</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Create screen, demo">
-            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/create</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status">Yuki launch. 4 drafts.</span></div>
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/create</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status">Yuki launch. 4 drafts.</span></div>
             <div class="app-title">Create, on brand.</div>
             <div class="grid s4">
               <div class="card">
@@ -1140,7 +1140,7 @@
                 <div class="stage" style="margin-top:14px">
                   <div role="tabpanel" id="f-nl" aria-labelledby="t-nl">
                     <div class="nl">
-                      <div class="nl-head">asanagi <small>朝凪</small></div>
+                      <div class="nl-head">kumo <small>雲</small></div>
                       <div class="art hero-art ph" style="aspect-ratio:4/3"><img src="../assets/demo/yuki-pour.jpg" alt="" loading="lazy" style="object-position:center 45%"></div>
                       <div class="nl-body">
                         <h4>Yuki is here.</h4>
@@ -1163,14 +1163,14 @@
                   </div>
                   <div role="tabpanel" id="f-st" aria-labelledby="t-st" hidden>
                     <div class="stories">
-                      <div class="story ph"><img src="../assets/demo/yuki-pour.jpg" alt="" loading="lazy" style="object-position:center 45%"><div class="bars"><i class="on"></i><i></i><i></i></div><div><small>Asanagi</small><h5>Something quiet is coming.</h5></div></div>
-                      <div class="story ph"><img src="../assets/demo/yuki-beans.jpg" alt="" loading="lazy" style="object-position:center 65%"><div class="bars"><i class="on"></i><i class="on"></i><i></i></div><div><small>Asanagi</small><h5><span class="hl" data-fixme>Bold</span> and warm, gone by spring.</h5></div></div>
-                      <div class="story ph"><img src="../assets/demo/yuki-shelf.jpg" alt="" loading="lazy" style="object-position:center 40%"><div class="bars"><i class="on"></i><i class="on"></i><i class="on"></i></div><div><small>Asanagi</small><h5>Wednesday, 8:00. Subscribers first.</h5></div></div>
+                      <div class="story ph"><img src="../assets/demo/yuki-pour.jpg" alt="" loading="lazy" style="object-position:center 45%"><div class="bars"><i class="on"></i><i></i><i></i></div><div><small>Kumo</small><h5>Something quiet is coming.</h5></div></div>
+                      <div class="story ph"><img src="../assets/demo/yuki-beans.jpg" alt="" loading="lazy" style="object-position:center 65%"><div class="bars"><i class="on"></i><i class="on"></i><i></i></div><div><small>Kumo</small><h5><span class="hl" data-fixme>Bold</span> and warm, gone by spring.</h5></div></div>
+                      <div class="story ph"><img src="../assets/demo/yuki-shelf.jpg" alt="" loading="lazy" style="object-position:center 40%"><div class="bars"><i class="on"></i><i class="on"></i><i class="on"></i></div><div><small>Kumo</small><h5>Wednesday, 8:00. Subscribers first.</h5></div></div>
                     </div>
                   </div>
                   <div role="tabpanel" id="f-ad" aria-labelledby="t-ad" hidden>
                     <div class="ad">
-                      <div class="ad-head"><i>朝</i>asanagi.co<span>Sponsored</span></div>
+                      <div class="ad-head"><i>雲</i>kumo.co<span>Sponsored</span></div>
                       <div class="ad-img ph"><img src="../assets/demo/yuki-beans.jpg" alt="" loading="lazy" style="object-position:center 60%"><h5>Snow,<br>roasted.</h5><p>Yuki winter roast · 200 bags</p></div>
                       <div class="ad-foot">Yuki, $26<span>SHOP NOW</span></div>
                     </div>
@@ -1204,8 +1204,8 @@
             <div class="step-controls"><button class="btn ghost" type="button" data-go="5">Back</button><button class="btn" type="button" data-go="7">Next: Schedule</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Approve screen, demo">
-            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/approve</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s5-status">3 waiting on you.</span></div>
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/approve</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status" id="s5-status">3 waiting on you.</span></div>
             <div class="app-title">Nothing goes out without a yes.</div>
             <div class="grid s5">
               <div class="col" id="col-wait">
@@ -1257,8 +1257,8 @@
             <div class="step-controls"><button class="btn ghost" type="button" data-go="6">Back</button><button class="btn" type="button" data-go="8">Next: Results</button></div>
           </div>
           <div class="app" role="group" aria-label="bower Schedule screen, demo">
-            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/schedule</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status" id="s6-status">November</span></div>
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/schedule</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status" id="s6-status">November</span></div>
             <div class="app-title">The month ahead.</div>
             <div class="grid s6c">
               <div class="card cal-card">
@@ -1268,7 +1268,7 @@
                   <div class="cal">
                     <span class="dow">Mon</span><span class="dow">Tue</span><span class="dow">Wed</span><span class="dow">Thu</span><span class="dow">Fri</span><span class="dow">Sat</span><span class="dow">Sun</span>
                     <div class="cday past"><span class="cd">2</span><span class="chipx posted" data-pillar="ritual"><b>Carousel</b> The 3 minute pour</span></div>
-                    <div class="cday past"><span class="cd">3</span><span class="chipx posted" data-pillar="craft"><b>Newsletter</b> November at Asanagi</span></div>
+                    <div class="cday past"><span class="cd">3</span><span class="chipx posted" data-pillar="craft"><b>Newsletter</b> November at Kumo</span></div>
                     <div class="cday past"><span class="cd">4</span></div>
                     <div class="cday past"><span class="cd">5</span><span class="chipx posted" data-pillar="craft"><b>Stories</b> Roast day</span></div>
                     <div class="cday past"><span class="cd">6</span></div>
@@ -1330,8 +1330,8 @@
             <div class="step-controls"><button class="btn ghost" type="button" data-go="7">Back</button><a class="btn" href="#early-access">Get early access</a></div>
           </div>
           <div class="app" role="group" aria-label="bower Results screen, demo">
-            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/asanagi/results</span></div>
-            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Asanagi</b></span><span class="status">Yuki launch week</span></div>
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/results</span></div>
+            <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status">Yuki launch week</span></div>
             <div class="app-title">What worked. What comes next.</div>
             <div class="grid s6">
               <div class="card kpi"><div class="label">Newsletter open rate</div><div class="big">52%</div><div class="sub">Up from 41% on the last send.</div></div>
@@ -1347,7 +1347,7 @@
                 </div>
               </div>
               <div class="card loop">
-                <p>These lessons are now part of how bower writes for Asanagi.</p>
+                <p>These lessons are now part of how bower writes for Kumo.</p>
                 <button class="ubtn solid" type="button" id="close-loop">See the next ideas</button>
                 <p class="callout left" data-hint="7" data-hint-for="#close-loop"><b>Click here</b> to see how these results shape the next ideas.</p>
               </div>
@@ -1355,7 +1355,7 @@
           </div>
           <div class="step-controls bottom"><button class="btn ghost" type="button" data-go="7">Back</button><a class="btn" href="#early-access">Get early access</a></div>
         </section>
-        <p class="sample-note">Asanagi is a sample coffee brand. All content and numbers are made up.</p>
+        <p class="sample-note">Kumo is a sample coffee brand. All content and numbers are made up.</p>
 
       </div>
     </div>
@@ -1659,27 +1659,27 @@
       }
       function tab(f) { selectTab(document.querySelector('[data-fmt="' + f + '"]')); }
       var stops = [
-        { step: 1, at: '#step-1 .app', label: 'Welcome', text: 'Meet Asanagi, a Japanese coffee brand we made up. It\'s launching <b>Yuki</b>, a limited winter roast. Follow the launch through bower, start to finish.' },
-        { step: 1, at: '.drop', text: '<b>Assets</b> is where every brand file lives: photos, videos, logos, colours and fonts. Asanagi drops in the new Yuki photos and its product sheet, with a quick note so bower knows what they\'re for.', act: function () { filter('all'); dropYuki(); } },
-        { step: 1, at: '#newtag', text: 'bower tags each file: the photos by what they show, the product sheet as a document. Asanagi confirms with one click.', act: function () { dropYuki(); setTimeout(function () { clickAll('#newtag [data-confirm]:not(.done)', 350); }, 1700); } },
+        { step: 1, at: '#step-1 .app', label: 'Welcome', text: 'Meet Kumo, a Japanese coffee brand we made up. It\'s launching <b>Yuki</b>, a limited winter roast. Follow the launch through bower, start to finish.' },
+        { step: 1, at: '.drop', text: '<b>Assets</b> is where every brand file lives: photos, videos, logos, colours and fonts. Kumo drops in the new Yuki photos and its product sheet, with a quick note so bower knows what they\'re for.', act: function () { filter('all'); dropYuki(); } },
+        { step: 1, at: '#newtag', text: 'bower tags each file: the photos by what they show, the product sheet as a document. Kumo confirms with one click.', act: function () { dropYuki(); setTimeout(function () { clickAll('#newtag [data-confirm]:not(.done)', 350); }, 1700); } },
         { step: 1, at: '.cats', text: 'Now the Yuki photos sit with everything else, sorted into logos, fonts, colours, photos, videos and templates.', act: function () { filter('all'); } },
-        { step: 1, at: '.shelves', text: 'Logos, fonts, brand colours and templates aren\'t just stored here. Each one is a <b>coded rule</b>: logos never recoloured, two fonts with two jobs, washi and sumi leading. bower pulls from them every time it designs, so every Yuki piece looks like Asanagi.', act: function () { filter('all'); } },
+        { step: 1, at: '.shelves', text: 'Logos, fonts, brand colours and templates aren\'t just stored here. Each one is a <b>coded rule</b>: logos never recoloured, two fonts with two jobs, washi and sumi leading. bower pulls from them every time it designs, so every Yuki piece looks like Kumo.', act: function () { filter('all'); } },
         { step: 1, at: '.shelf[data-shelf="photos"]', text: 'Photos are sorted by what they show, and the new Yuki shots are already in. When it\'s time to post, the right one is one click away.', act: function () { filter('photos'); } },
-        { step: 1, at: '#finder', text: 'Videos work the same way, shot by shot. Asanagi has a 2:46 brand film it only ever posted once. It asks bower for <b>coffee being poured into a cup</b>.', act: function () { filter('videos'); } },
+        { step: 1, at: '#finder', text: 'Videos work the same way, shot by shot. Kumo has a 2:46 brand film it only ever posted once. It asks bower for <b>coffee being poured into a cup</b>.', act: function () { filter('videos'); } },
         { step: 1, at: '#clips', text: 'bower watches the whole film and finds three pours, with timestamps. It cuts the best one, crops it to 4:5 and saves it as its own clip, ready to sit behind a carousel. <em>One film, a library of new shots.</em>', act: function () { filter('videos'); findClips(); setTimeout(function () { var b = document.querySelector('[data-save-clip]'); if (b) b.click(); }, 1700); } },
         { step: 1, at: '.shelf[data-shelf="stock"]', text: 'Need more than your own shots? Connect the <b>stock libraries</b> you already pay for. bower reads each licence and keeps editorial only images out of ads, so nothing goes out that you aren\'t allowed to use.', act: function () { filter('stock'); } },
-        { step: 2, at: '#s2 > .card:first-child', text: '<b>Brand</b> is where Asanagi\'s voice lives. bower reads its brand book, site and best posts once, so Yuki sounds like Asanagi from the very first post.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
-        { step: 2, at: '.rules', text: 'Out come the rules every Yuki post will follow: voice, banned words, how Asanagi writes and its brand facts. <em>If it isn\'t in here, bower won\'t say it.</em>' },
-        { step: 3, at: '#prod-list', text: '<b>Products</b> holds every product Asanagi sells. Yuki is new, so bower drafts its entry from the product sheet Asanagi added in Assets: origins, tasting notes, sizes and prices. The photos show what Yuki looks like; the sheet tells bower the facts.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); } },
-        { step: 3, at: '.prod-detail:not([hidden]) .pd-claims', act: function () { document.getElementById('add-yuki').click(); }, text: 'Asanagi checks the claims and adds Yuki. Now every Yuki post uses the right price, and never says things like <em>"boosts energy"</em>.' },
-        { step: 4, at: '.focus', text: '<b>Ideas</b>: Asanagi tells bower what it\'s working toward. This month, it\'s the Yuki launch.' },
-        { step: 4, at: '#ideas', text: 'bower suggests Yuki ideas from trends and brands like Asanagi.' },
+        { step: 2, at: '#s2 > .card:first-child', text: '<b>Brand</b> is where Kumo\'s voice lives. bower reads its brand book, site and best posts once, so Yuki sounds like Kumo from the very first post.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
+        { step: 2, at: '.rules', text: 'Out come the rules every Yuki post will follow: voice, banned words, how Kumo writes and its brand facts. <em>If it isn\'t in here, bower won\'t say it.</em>' },
+        { step: 3, at: '#prod-list', text: '<b>Products</b> holds every product Kumo sells. Yuki is new, so bower drafts its entry from the product sheet Kumo added in Assets: origins, tasting notes, sizes and prices. The photos show what Yuki looks like; the sheet tells bower the facts.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); } },
+        { step: 3, at: '.prod-detail:not([hidden]) .pd-claims', act: function () { document.getElementById('add-yuki').click(); }, text: 'Kumo checks the claims and adds Yuki. Now every Yuki post uses the right price, and never says things like <em>"boosts energy"</em>.' },
+        { step: 4, at: '.focus', text: '<b>Ideas</b>: Kumo tells bower what it\'s working toward. This month, it\'s the Yuki launch.' },
+        { step: 4, at: '#ideas', text: 'bower suggests Yuki ideas from trends and brands like Kumo.' },
         { step: 4, at: '#idea-lib', text: 'It digs through the library too: a photo not used in five months, and one used twice that, cropped in, reads like a brand new shot.' },
         { step: 4, at: '.campaign', text: 'Then it lays out the whole Yuki campaign, in order: teasers, newsletter, carousel and ad.' },
-        { step: 5, at: '.stage', text: '<b>Create</b>: bower writes and designs the Yuki newsletter from Asanagi\'s template, in its voice.', act: function () { tab('nl'); } },
-        { step: 5, at: '#passes', text: 'Every piece is checked against Asanagi\'s rules and product facts before anyone sees it.', act: function () { tab('nl'); } },
+        { step: 5, at: '.stage', text: '<b>Create</b>: bower writes and designs the Yuki newsletter from Kumo\'s template, in its voice.', act: function () { tab('nl'); } },
+        { step: 5, at: '#passes', text: 'Every piece is checked against Kumo\'s rules and product facts before anyone sees it.', act: function () { tab('nl'); } },
         { step: 5, at: '.stage', text: 'The same Yuki story becomes a six slide carousel: the new Yuki photos, the reworked library shots, and the pour clip from the brand film moving behind slide four. No starting over.', act: function () { tab('car'); } },
-        { step: 5, at: '.stage', text: 'And three teaser stories. One of them broke a rule: <b>"bold"</b> is on Asanagi\'s never say list.', act: function () { tab('st'); } },
+        { step: 5, at: '.stage', text: 'And three teaser stories. One of them broke a rule: <b>"bold"</b> is on Kumo\'s never say list.', act: function () { tab('st'); } },
         { step: 6, at: '.piece[data-piece="st"]', text: '<b>Approve</b>: nothing goes out without a yes. bower flags the problem and suggests the fix.' },
         { step: 6, at: '.piece[data-piece="st"]', text: 'One click and it\'s fixed. Still on brand, still in your voice.', act: function () { var f = document.getElementById('fix-it'); if (f) f.click(); } },
         { step: 6, at: '#col-done', text: 'Approve, and it\'s scheduled.', act: function () { clickAll('#col-wait [data-approve]', 300); } },
