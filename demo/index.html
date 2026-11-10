@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>See how it works · bower</title>
-  <meta name="description" content="Follow one coffee brand through bower, from a folder of files to content that sold. Eight steps, start to finish.">
+  <title>See how it works · Bower</title>
+  <meta name="description" content="Follow one coffee brand through Bower, from a folder of files to content that sold. Eight steps, start to finish.">
   <link rel="icon" type="image/png" href="../assets/bird.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
       --serif: "Droid Serif", Georgia, serif;
       --accent: "Lora", Georgia, serif;
 
-      /* bower app interface (from the dashboard concept) */
+      /* Bower app interface (from the dashboard concept) */
       --ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
       --ui-bg: #e9eef8;
       --ui-card: #ffffff;
@@ -602,6 +602,10 @@
     .pd-ing li:first-child { border-top: 0; }
     .pd-notes { font-size: 14px; margin: 8px 0 0; }
     .pd-sold { display: flex; flex-wrap: wrap; gap: 6px; }
+    .prod-drop { border: 1.5px dashed #b7c3de; background: var(--ui-soft); border-radius: 12px; padding: 12px; margin: 14px 0 4px; }
+    .prod-drop b { display: block; font: 600 13px/1.3 var(--ui); color: var(--ui-dark); margin-bottom: 2px; }
+    .prod-drop span { font-size: 12px; color: var(--ui-muted); line-height: 1.4; }
+    .prod-read { font: 500 10px/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--ui-muted); margin: 12px 0 2px; }
     .pd-retail { width: 100%; border-collapse: collapse; font: 400 13px/1.4 var(--ui); }
     .pd-retail th { text-align: left; font: 500 10px/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--ui-muted); padding: 0 8px 6px 0; }
     .pd-retail td { padding: 7px 8px 7px 0; border-top: 1px solid var(--ui-line); color: var(--ui-dark); vertical-align: top; }
@@ -793,7 +797,7 @@
   <header>
     <div class="wrap">
       <a class="logo" href="../"><img class="bird" src="../assets/bird.png" alt="" width="45" height="36"><img src="../assets/wordmark-blue.png" alt="bower" width="150" height="40"></a>
-      <a class="navlink" href="../">&larr; Back to bower</a>
+      <a class="navlink" href="../">&larr; Back to Bower</a>
     </div>
   </header>
 
@@ -822,11 +826,11 @@
         <section class="step" id="step-1" data-step="1" aria-labelledby="h-1">
           <div class="step-copy">
             <p class="eyebrow">Step 1 of 8 · Assets</p>
-            <h2 id="h-1">Drop in all your assets.<br>bower sorts them.</h2>
-            <p>Your brand's photos, videos, logos and fonts go in one place, sorted and tagged, each with a rule for how it can be used. Long videos become a library of clips you can search by what's in the shot. Connect the stock libraries you already pay for, and bower checks the licence before anything posts. You just confirm.</p>
+            <h2 id="h-1">Drop in all your assets.<br>Bower sorts them.</h2>
+            <p>Your brand's photos, videos, logos and fonts go in one place, sorted and tagged, each with a rule for how it can be used. Long videos become a library of clips you can search by what's in the shot. Connect the stock libraries you already pay for, and Bower checks the licence before anything posts. You just confirm.</p>
             <div class="step-controls"><button class="btn tour-start" type="button" data-tour-start>Take the 2-minute guided tour</button><button class="btn ghost" type="button" data-go="2">Or explore on your own</button></div>
           </div>
-          <div class="app" role="group" aria-label="bower Assets screen, demo">
+          <div class="app" role="group" aria-label="Bower Assets screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/assets</span></div>
             <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status" id="s1-status">250 sorted.</span></div>
             <div class="app-title">Your assets, sorted.</div>
@@ -844,7 +848,7 @@
               </div>
               <div class="card newtag">
                 <h3>New for Yuki <small>Confirm each one to add it to your library</small></h3>
-                <p class="newtag-empty" id="newtag-empty">Nothing new yet. Drop in Kumo's new Yuki files and bower will tag them here.</p>
+                <p class="newtag-empty" id="newtag-empty">Nothing new yet. Drop in Kumo's new Yuki files and Bower will tag them here.</p>
                 <div class="list" id="newtag">
                   <div class="item" hidden><span class="thumb art ph"><img src="../assets/demo/yuki-shelf.jpg" alt="" loading="lazy" style="object-position:center 60%"></span><div><b>yuki-shelf.jpg</b><span class="chips"><em>Yuki</em><em>New</em><em>Retail</em></span></div><button class="ubtn" type="button" data-confirm="photos">Confirm</button></div>
                   <div class="item" hidden><span class="thumb art ph"><img src="../assets/demo/yuki-beans.jpg" alt="" loading="lazy" style="object-position:center 65%"></span><div><b>yuki-beans.jpg</b><span class="chips"><em>Yuki</em><em>New</em><em>Product</em></span></div><button class="ubtn" type="button" data-confirm="photos">Confirm</button></div>
@@ -863,7 +867,7 @@
                   <button type="button" class="cat" data-cat="stock">Licensed stock <span data-count="stock">38</span></button>
                   <button type="button" class="cat" data-cat="docs">Documents <span data-count="docs">29</span></button>
                   <button type="button" class="cat" data-cat="templates">Templates <span data-count="templates">5</span></button>
-                  <p class="callout" data-hint="1" data-hint-for=".cat" hidden id="cat-hint"><b>Click a category</b> to see everything bower sorted.</p>
+                  <p class="callout" data-hint="1" data-hint-for=".cat" hidden id="cat-hint"><b>Click a category</b> to see everything Bower sorted.</p>
                 </nav>
                 <div class="shelves">
                   <section class="shelf" data-shelf="logos">
@@ -946,7 +950,7 @@
                     </div>
                   </section>
                   <section class="shelf" data-shelf="docs" data-hidden-in-all>
-                    <div class="shelf-head"><h4>Documents</h4><span>Read by bower, not posted.</span></div>
+                    <div class="shelf-head"><h4>Documents</h4><span>Read by Bower, not posted.</span></div>
                     <ul class="doclist"><li><b>kumo-brand-book.pdf</b><span>Brand book, 14 pages</span></li><li><b>yuki-product-sheet.pdf</b><span>Origins, tasting notes, sizes, Yuki</span></li><li><b>founder-notes.docx</b><span>Story and origin</span></li></ul>
                   </section>
                 </div>
@@ -961,17 +965,17 @@
           <div class="step-copy">
             <p class="eyebrow">Step 2 of 8 · Brand</p>
             <h2 id="h-2">Your brand, coded in.</h2>
-            <p>bower reads your brand book, your site and your best posts, then turns them into rules: your voice, the words you never use, how you write and the facts about your brand. If it isn't in here, bower won't say it.</p>
+            <p>Bower reads your brand book, your site and your best posts, then turns them into rules: your voice, the words you never use, how you write and the facts about your brand. If it isn't in here, Bower won't say it.</p>
             <p class="try">Press "Code it in" and watch the rules fill.</p>
             <div class="step-controls"><button class="btn ghost" type="button" data-go="1">Back</button><button class="btn" type="button" data-go="3">Next: Products</button></div>
           </div>
-          <div class="app" role="group" aria-label="bower Brand screen, demo">
+          <div class="app" role="group" aria-label="Bower Brand screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/brand</span></div>
             <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status" id="s2-status">5 sources ready.</span></div>
             <div class="app-title">Your brand, on record.</div>
             <div class="grid s2" id="s2">
               <div class="card">
-                <h3>What bower read</h3>
+                <h3>What Bower read</h3>
                 <div class="list">
                   <div class="source"><span class="ic">PDF</span><div><b>kumo-brand-book.pdf</b><span>14 pages</span></div></div>
                   <div class="source"><span class="ic">WEB</span><div><b>kumo.co</b><span>Shop, about, journal</span></div></div>
@@ -980,7 +984,7 @@
                   <div class="source"><span class="ic">DOC</span><div><b>founder-notes.docx</b><span>Story and origin</span></div></div>
                 </div>
                 <button class="ubtn solid" type="button" id="code-it" style="width:100%;margin-top:14px;padding:14px;font-size:17px">Code it in</button>
-                <p class="callout" id="code-hint" data-hint="2" data-hint-for="#code-it"><b>Click here</b> to watch bower read Kumo's brand and write its rules.</p>
+                <p class="callout" id="code-hint" data-hint="2" data-hint-for="#code-it"><b>Click here</b> to watch Bower read Kumo's brand and write its rules.</p>
               </div>
               <div class="grid rules">
                 <div class="card rule-card">
@@ -1014,7 +1018,7 @@
                 </div>
               </div>
               <div class="card s2-foot">
-                <p id="s2-foot">Rules appear here once bower reads your sources.</p>
+                <p id="s2-foot">Rules appear here once Bower reads your sources.</p>
                 <span class="pill blue" id="s2-pill" hidden>Every piece is checked against these</span>
               </div>
             </div>
@@ -1027,11 +1031,11 @@
           <div class="step-copy">
             <p class="eyebrow">Step 3 of 8 · Products</p>
             <h2 id="h-3">Every product,<br>exactly right.</h2>
-            <p>Add each product line once: its sizes and prices, what's in it, the claims you're allowed to make, and where it's sold, down to which retailer carries which size, case pack or special edition, at what price. Sync it from Shopify or a spreadsheet and bower keeps it current, so a price or a claim is never wrong.</p>
-            <p class="try">Click a product to see everything bower knows about it.</p>
+            <p>Drop in your product facts once: ingredients, benefits, sizes and prices, the claims you're allowed to make, and which retailer carries which size, case pack or special edition, at what price. Sync it from Shopify or a spreadsheet and Bower keeps it current, so a price or a claim is never wrong.</p>
+            <p class="try">Click a product to see everything Bower knows about it.</p>
             <div class="step-controls"><button class="btn ghost" type="button" data-go="2">Back</button><button class="btn" type="button" data-go="4">Next: Ideas</button></div>
           </div>
-          <div class="app" role="group" aria-label="bower Products screen, demo">
+          <div class="app" role="group" aria-label="Bower Products screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/products</span></div>
             <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status">3 lines · 9 formats · 23 places sold</span></div>
             <div class="app-title">Your products, on record.</div>
@@ -1044,8 +1048,10 @@
                   <button type="button" class="prod" data-show-prod="drip"><b>Drip Bags</b><span>Coffee on the go · 1 format</span></button>
                 </div>
                 <p class="callout" data-hint="8" data-hint-for="[data-show-prod], #add-yuki"><b>Check Yuki's details</b>, then confirm to add it. Click any product to see its facts.</p>
+                <div class="prod-drop"><b>Drop in product facts</b><span>Product sheets, ingredient lists, benefits, nutrition panels, spec sheets.</span></div>
+                <p class="prod-read">Read so far</p>
                 <div class="prod-sync"><span class="ic">SYNC</span><div><b>Shopify</b><span>Prices and stock update daily</span></div></div>
-                <div class="prod-sync"><span class="ic">XLS</span><div><b>product-facts.xlsx</b><span>Ingredients, claims, retailers</span></div></div>
+                <div class="prod-sync"><span class="ic">XLS</span><div><b>product-facts.xlsx</b><span>Ingredients, benefits, claims, retailers</span></div></div>
                 <div class="prod-sync"><span class="ic">PDF</span><div><b>yuki-product-sheet.pdf</b><span>Added in Assets. Used to draft Yuki</span></div></div>
               </div>
               <div class="prod-detail" data-prod="yuki">
@@ -1053,21 +1059,21 @@
                 <div class="card"><h4>Formats and prices</h4><table class="pd-table"><tr><td>250 g whole bean</td><td>$26</td></tr><tr><td>250 g ground</td><td>$26</td></tr></table></div>
                 <div class="card"><h4>What's in it</h4><ul class="pd-ing"><li><span>Colombia, Huila</span><b>60%</b></li><li><span>Ethiopia, Sidama</span><b>40%</b></li></ul><p class="muted pd-notes">Dark chocolate, roasted chestnut, orange peel. Medium roast.</p></div>
                 <div class="card"><h4>Where it's sold</h4><table class="pd-retail"><tr><th>Where</th><th>What's sold there</th><th>Pack</th><th>Price</th></tr><tr><td>Online shop</td><td>250 g whole bean or ground</td><td>Single</td><td>$26</td></tr><tr><td>4 partner cafés, Montreal</td><td>250 g whole bean</td><td>Case of 6</td><td>$26</td></tr><tr><td>Holiday pop-up, Dec 6 to 8</td><td>Yuki + mug <span class="ed">Gift edition</span></td><td>Single</td><td>$42</td></tr></table></div>
-                <div class="card pd-claims"><h4>Claims</h4><p class="pd-label">bower can say</p><ul class="ticks"><li>Limited to 200 bags.</li><li>Roasted in Montreal in 12 kg batches.</li><li>Notes of dark chocolate, chestnut and orange peel.</li></ul><p class="pd-label">bower will never say</p><ul class="crosses"><li>"Boosts energy and focus"</li><li>"The best coffee in Montreal"</li></ul></div>
+                <div class="card pd-claims"><h4>Claims</h4><p class="pd-label">Bower can say</p><ul class="ticks"><li>Limited to 200 bags.</li><li>Roasted in Montreal in 12 kg batches.</li><li>Notes of dark chocolate, chestnut and orange peel.</li></ul><p class="pd-label">Bower will never say</p><ul class="crosses"><li>"Boosts energy and focus"</li><li>"The best coffee in Montreal"</li></ul></div>
               </div>
               <div class="prod-detail" data-prod="house" hidden>
                 <div class="card pd-head"><div><h3>House Blend</h3><span class="muted">Everyday coffee</span></div><span class="pill blue">Core line</span></div>
                 <div class="card"><h4>Formats and prices</h4><table class="pd-table"><tr><td>250 g whole bean</td><td>$24</td></tr><tr><td>250 g ground</td><td>$24</td></tr><tr><td>1 kg whole bean</td><td>$78</td></tr></table></div>
                 <div class="card"><h4>What's in it</h4><ul class="pd-ing"><li><span>Brazil, Cerrado</span><b>70%</b></li><li><span>Guatemala, Huehuetenango</span><b>30%</b></li></ul><p class="muted pd-notes">Hazelnut, brown sugar. Medium roast.</p></div>
                 <div class="card"><h4>Where it's sold</h4><table class="pd-retail"><tr><th>Where</th><th>What's sold there</th><th>Pack</th><th>Price</th></tr><tr><td>Online shop</td><td>250 g and 1 kg</td><td>Single</td><td>$24 · $78</td></tr><tr><td>12 grocers in Quebec</td><td>250 g whole bean</td><td>Case of 6</td><td>$24</td></tr><tr><td>Café wholesale</td><td>2 kg bag <span class="ed">Café only</span></td><td>Single</td><td>$58</td></tr></table></div>
-                <div class="card pd-claims"><h4>Claims</h4><p class="pd-label">bower can say</p><ul class="ticks"><li>Roasted every Tuesday.</li><li>Notes of hazelnut and brown sugar.</li><li>Made for every day.</li></ul><p class="pd-label">bower will never say</p><ul class="crosses"><li>"Low acid"</li><li>"Organic" (not certified)</li></ul></div>
+                <div class="card pd-claims"><h4>Claims</h4><p class="pd-label">Bower can say</p><ul class="ticks"><li>Roasted every Tuesday.</li><li>Notes of hazelnut and brown sugar.</li><li>Made for every day.</li></ul><p class="pd-label">Bower will never say</p><ul class="crosses"><li>"Low acid"</li><li>"Organic" (not certified)</li></ul></div>
               </div>
               <div class="prod-detail" data-prod="drip" hidden>
                 <div class="card pd-head"><div><h3>Drip Bags</h3><span class="muted">Coffee on the go</span></div><span class="pill blue">Core line</span></div>
                 <div class="card"><h4>Formats and prices</h4><table class="pd-table"><tr><td>Box of 10</td><td>$19</td></tr></table></div>
                 <div class="card"><h4>What's in it</h4><ul class="pd-ing"><li><span>House Blend, pre-ground</span><b>100%</b></li><li><span>Compostable filter</span><b></b></li></ul><p class="muted pd-notes">Brews in 4 minutes with hot water.</p></div>
                 <div class="card"><h4>Where it's sold</h4><table class="pd-retail"><tr><th>Where</th><th>What's sold there</th><th>Pack</th><th>Price</th></tr><tr><td>Online shop</td><td>Box of 10</td><td>Single</td><td>$19</td></tr><tr><td>6 grocers in Quebec</td><td>Box of 10</td><td>Case of 12</td><td>$19</td></tr></table></div>
-                <div class="card pd-claims"><h4>Claims</h4><p class="pd-label">bower can say</p><ul class="ticks"><li>Brews in 4 minutes, just add hot water.</li><li>Filters are compostable.</li></ul><p class="pd-label">bower will never say</p><ul class="crosses"><li>"Zero waste"</li><li>"Café quality anywhere"</li></ul></div>
+                <div class="card pd-claims"><h4>Claims</h4><p class="pd-label">Bower can say</p><ul class="ticks"><li>Brews in 4 minutes, just add hot water.</li><li>Filters are compostable.</li></ul><p class="pd-label">Bower will never say</p><ul class="crosses"><li>"Zero waste"</li><li>"Café quality anywhere"</li></ul></div>
               </div>
             </div>
           </div>
@@ -1079,11 +1085,11 @@
           <div class="step-copy">
             <p class="eyebrow">Step 4 of 8 · Ideas</p>
             <h2 id="h-4">Ideas worth making.</h2>
-            <p>Tell bower what you're working toward, and when. It pulls ideas from trends, brands like yours, gaps nobody else is filling, and the photos you already have, even ones you've used before, reworked so they feel new. Then it plans the whole campaign, timed back from your date.</p>
+            <p>Tell Bower what you're working toward, and when. It pulls ideas from trends, brands like yours, gaps nobody else is filling, and the photos you already have, even ones you've used before, reworked so they feel new. Then it plans the whole campaign, timed back from your date.</p>
             <p class="try">Press "Build this campaign."</p>
             <div class="step-controls"><button class="btn ghost" type="button" data-go="3">Back</button><button class="btn" type="button" data-go="5">Next: Create</button></div>
           </div>
-          <div class="app" role="group" aria-label="bower Ideas screen, demo">
+          <div class="app" role="group" aria-label="Bower Ideas screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/ideas</span></div>
             <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status">5 new ideas</span></div>
             <div class="app-title">Ideas worth making.</div>
@@ -1102,11 +1108,12 @@
                   <div class="idea"><span class="src">Trend</span><div><b>"How it's made" carousels are the most saved new product posts.</b><span>The Yuki story in six slides.</span></div><div class="acts"><span class="pill">Carousel</span><button class="ubtn" type="button" data-make>Make this</button></div></div>
                   <div class="idea"><span class="src">Trend</span><div><b>Early access for subscribers drives first day sales.</b><span>A newsletter that opens Yuki a day early.</span></div><div class="acts"><span class="pill">Newsletter</span><button class="ubtn" type="button" data-make>Make this</button></div></div>
                   <div class="idea gap" id="idea-gap"><span class="src">Gap in the market</span><div><b>A "brew it at home" series for winter roasts.</b><span>Other roasters post winter blends as product shots. Almost none show how to brew them. Kumo can own it.</span></div><div class="acts"><span class="pill">Series</span><button class="ubtn" type="button" data-make>Make this</button></div></div>
-                  <div class="idea lib" id="idea-lib"><span class="src">Your library</span><div><b>Three saved pieces for the Yuki campaign.</b><span>Paired with the new photos, they look like nothing you've posted before.</span></div><div class="acts"><span class="pill">Carousel</span><button class="ubtn" type="button" data-make>Use all</button></div>
+                  <div class="idea lib" id="idea-lib"><span class="src">Your library</span><div><b>Four library pieces, used in new ways.</b><span>Paired with the new photos, they look like nothing you've posted before.</span></div><div class="acts"><span class="pill">Mixed</span><button class="ubtn" type="button" data-make>Use all</button></div>
                     <div class="lib-pics">
                       <div class="lib-pic"><div class="lib-thumbs"><img src="../assets/demo/lib-bag-cup.jpg" alt=""></div><div><b>bag-and-cup.jpg</b><br>Not used in 5 months. Use as is.</div></div>
                       <div class="lib-pic"><div class="lib-thumbs"><img src="../assets/demo/lib-espresso.jpg" alt=""><i>&rarr;</i><img src="../assets/demo/lib-espresso-crop.jpg" alt=""></div><div><b>espresso-pour.jpg</b><br>Used twice. Cropped in, it reads as new.</div></div>
                       <div class="lib-pic"><div class="lib-thumbs"><img src="../assets/demo/the-stir.jpg" alt=""></div><div><b>the-stir.mp4</b><br>Video. Never posted. Works as a Reel.</div></div>
+                      <div class="lib-pic"><div class="lib-thumbs"><img src="../assets/demo/espresso-steel.jpg" alt="" style="object-position:center 70%"></div><div><b>kumo-brand-film.mp4</b><br>Only ever posted as one full video. Cut into three 6-second Stories.</div></div>
                     </div>
                   </div>
                 </div>
@@ -1136,11 +1143,11 @@
           <div class="step-copy">
             <p class="eyebrow">Step 5 of 8 · Create</p>
             <h2 id="h-5">One idea. Every format.</h2>
-            <p>bower writes and designs from your rules and templates, then checks every piece before you see it. The newsletter becomes a carousel, stories and an ad without starting over.</p>
+            <p>Bower writes and designs from your rules and templates, then checks every piece before you see it. The newsletter becomes a carousel, stories and an ad without starting over.</p>
             <p class="try">Switch between the four formats.</p>
             <div class="step-controls"><button class="btn ghost" type="button" data-go="4">Back</button><button class="btn" type="button" data-go="6">Next: Approve</button></div>
           </div>
-          <div class="app" role="group" aria-label="bower Create screen, demo">
+          <div class="app" role="group" aria-label="Bower Create screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/create</span></div>
             <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status">Yuki campaign. 4 drafts.</span></div>
             <div class="app-title">Create, on brand.</div>
@@ -1203,7 +1210,7 @@
                 <div class="kv"><span class="muted">Goes out</span><b id="m-when">Wed 18, 8:00</b></div>
                 <div class="stack">
                   <button class="ubtn solid" type="button" data-go="6">Send for approval</button>
-                  <button class="ubtn" type="button" disabled>Tell bower what to change</button>
+                  <button class="ubtn" type="button" disabled>Tell Bower what to change</button>
                 </div>
               </div>
             </div>
@@ -1216,11 +1223,11 @@
           <div class="step-copy">
             <p class="eyebrow">Step 6 of 8 · Approve</p>
             <h2 id="h-6">Nothing goes out without a yes.</h2>
-            <p>Every piece waits for a person on your team. If anyone's edit breaks a rule, bower flags it and suggests the fix. Approved pieces go straight onto the content calendar.</p>
+            <p>Every piece waits for a person on your team. If anyone's edit breaks a rule, Bower flags it and suggests the fix. Approved pieces go straight onto the content calendar.</p>
             <p class="try">Fix the flagged story, then approve all three.</p>
             <div class="step-controls"><button class="btn ghost" type="button" data-go="5">Back</button><button class="btn" type="button" data-go="7">Next: Schedule</button></div>
           </div>
-          <div class="app" role="group" aria-label="bower Approve screen, demo">
+          <div class="app" role="group" aria-label="Bower Approve screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/approve</span></div>
             <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status" id="s5-status">3 waiting on you.</span></div>
             <div class="app-title">Nothing goes out without a yes.</div>
@@ -1273,7 +1280,7 @@
             <p class="try">Approve pieces in step 5 and watch them turn dark here.</p>
             <div class="step-controls"><button class="btn ghost" type="button" data-go="6">Back</button><button class="btn" type="button" data-go="8">Next: Results</button></div>
           </div>
-          <div class="app" role="group" aria-label="bower Schedule screen, demo">
+          <div class="app" role="group" aria-label="Bower Schedule screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/schedule</span></div>
             <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status" id="s6-status">November</span></div>
             <div class="app-title">The month ahead.</div>
@@ -1327,7 +1334,7 @@
                 </div>
                 <div class="card">
                   <h3>Open slots <span class="count-pill" id="open-count">0</span></h3>
-                  <p class="muted" style="font-size:13px;margin-bottom:12px">bower has an idea ready for each one.</p>
+                  <p class="muted" style="font-size:13px;margin-bottom:12px">Bower has an idea ready for each one.</p>
                   <button class="ubtn" type="button" data-go="4" style="width:100%;padding:11px">See ideas</button>
                   <p class="callout left float6" data-hint="6" data-hint-for=".s6c .ubtn, .open-slot"><b>Click here</b> or on an open slot to fill it with a ready idea.</p>
                 </div>
@@ -1342,11 +1349,11 @@
           <div class="step-copy">
             <p class="eyebrow">Step 8 of 8 · Results</p>
             <h2 id="h-8">What worked. What comes next.</h2>
-            <p>After every send, bower reads the numbers and turns them into lessons. Each lesson shapes the next idea and the next draft, so the system gets sharper every week.</p>
+            <p>After every send, Bower reads the numbers and turns them into lessons. Each lesson shapes the next idea and the next draft, so the system gets sharper every week.</p>
             <p class="try">Press "See the next ideas" to close the loop.</p>
             <div class="step-controls"><button class="btn ghost" type="button" data-go="7">Back</button><a class="btn" href="#early-access">Get early access</a></div>
           </div>
-          <div class="app" role="group" aria-label="bower Results screen, demo">
+          <div class="app" role="group" aria-label="Bower Results screen, demo">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>bowerco.app/kumo/results</span></div>
             <div class="app-top"><span class="wm">bower</span><span class="brandchip">Brand <b>Kumo</b></span><span class="status">Yuki, first week</span></div>
             <div class="app-title">What worked. What comes next.</div>
@@ -1356,7 +1363,7 @@
               <div class="card kpi"><div class="label">Yuki sales, first week</div><div class="big">$3,120</div><div class="sub">120 of 200 bags sold.</div></div>
               <div class="card kpi"><div class="label">Carousel saves</div><div class="big">418</div><div class="sub">Your most saved post so far.</div></div>
               <div class="card lessons">
-                <h3>What bower learned <span class="muted" style="font-weight:400;font-size:13px">Three lessons. Each one shapes the next piece.</span></h3>
+                <h3>What Bower learned <span class="muted" style="font-weight:400;font-size:13px">Three lessons. Each one shapes the next piece.</span></h3>
                 <div class="grid">
                   <div class="lesson"><div class="big">52%<span>against 41%</span></div><h4>Three words beat ten.</h4><p>"Yuki is here." out-opened the longer subject line from your last new product email.</p><div class="next">Next: subject lines stay under four words.</div></div>
                   <div class="lesson"><div class="big">2x<span>the clicks</span></div><h4>Rituals beat products.</h4><p>Brewing pieces earned twice the clicks of product shots.</p><div class="next">Next: one brewing piece every week.</div></div>
@@ -1364,7 +1371,7 @@
                 </div>
               </div>
               <div class="card loop">
-                <p>These lessons are now part of how bower writes for Kumo.</p>
+                <p>These lessons are now part of how Bower writes for Kumo.</p>
                 <button class="ubtn solid" type="button" id="close-loop">See the next ideas</button>
                 <p class="callout left" data-hint="7" data-hint-for="#close-loop"><b>Click here</b> to see how these results shape the next ideas.</p>
               </div>
@@ -1380,7 +1387,7 @@
     <section class="signup" id="early-access">
       <div class="wrap">
         <h2>Want this for your brand?</h2>
-        <p>We're taking a small group of founding brands. Get early access and we'll set bower up with your assets, your rules and your voice. It's <span class="accent">your brand, coded in.</span></p>
+        <p>We're taking a small group of founding brands. Get early access and we'll set Bower up with your assets, your rules and your voice. It's <span class="accent">your brand, coded in.</span></p>
         <!-- Same waitlist as the homepage: Apps Script web app in apps-script/Code.gs -->
         <form id="signup-form" data-endpoint="https://script.google.com/macros/s/AKfycbwRQuviVaf9C7uYrOdquQYgExdBY_5mkeAZFM9YWt5Uhsil3NbdQVrPUGLlrFjqkWcu3A/exec" novalidate>
           <label for="email" class="hp">Email address</label>
@@ -1388,7 +1395,7 @@
           <div class="hp" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off" value=""></div>
           <button class="btn" type="submit">Get early access</button>
         </form>
-        <p class="consent">You'll get emails from bower about early access. Unsubscribe anytime.</p>
+        <p class="consent">You'll get emails from Bower about early access. Unsubscribe anytime.</p>
         <p class="msg" id="signup-msg" role="status" aria-live="polite"></p>
       </div>
     </section>
@@ -1557,7 +1564,7 @@
               wrap.classList.remove('coding');
               codeBtn.textContent = '✓ Coded in'; codeBtn.classList.remove('solid'); codeBtn.classList.add('done');
               document.getElementById('s2-status').textContent = '12 rules coded in.';
-              document.getElementById('s2-foot').innerHTML = '<b>12 rules coded in.</b> If it isn\'t in here, bower won\'t say it.';
+              document.getElementById('s2-foot').innerHTML = '<b>12 rules coded in.</b> If it isn\'t in here, Bower won\'t say it.';
               document.getElementById('s2-pill').hidden = false;
             }
           }, 600 + i * 550);
@@ -1676,34 +1683,34 @@
       }
       function tab(f) { selectTab(document.querySelector('[data-fmt="' + f + '"]')); }
       var stops = [
-        { step: 1, at: '#step-1 .app', label: 'Welcome', text: 'This is a quick tour of bower, using <b>Kumo</b>, a Japanese coffee brand we made up. This month, Kumo is introducing <b>Yuki</b>, a limited winter roast.' },
+        { step: 1, at: '#step-1 .app', label: 'Welcome', text: 'This is a quick tour of Bower, using <b>Kumo</b>, a Japanese coffee brand we made up. This month, Kumo is introducing <b>Yuki</b>, a limited winter roast.' },
         { step: 1, at: '.drop', text: '<b>Step 1: Assets.</b> Drop in every brand file: photos, videos, logos, fonts, colours and templates you love.', act: function () { filter('all'); dropYuki(); } },
-        { step: 1, at: '#newtag', text: 'bower tags each file by what\'s in it, so it can find the right one later.', act: function () { dropYuki(); setTimeout(function () { clickAll('#newtag [data-confirm]:not(.done)', 350); }, 1700); } },
-        { step: 1, at: '.shelves', text: '<b>bower codes all of your assets, along with rules on how and when to use them.</b> For example, the logo is never recoloured, and the orange accent colour is only used for new products.', act: function () { filter('all'); } },
+        { step: 1, at: '#newtag', text: 'Bower tags each file by what\'s in it, so it can find the right one later.', act: function () { dropYuki(); setTimeout(function () { clickAll('#newtag [data-confirm]:not(.done)', 350); }, 1700); } },
+        { step: 1, at: '.shelves', text: '<b>Bower codes all of your assets, along with rules on how and when to use them.</b> For example, the logo is never recoloured, and the orange accent colour is only used for new products.', act: function () { filter('all'); } },
         { step: 1, at: '.shelf[data-shelf="photos"]', text: 'Every photo and video is categorized, tagged and ready to use. No more digging through folders.', act: function () { filter('photos'); } },
-        { step: 1, at: '#finder', text: 'You can search inside your videos. Kumo types <b>"coffee being poured into a cup,"</b> and bower looks through its 3-minute brand film for that shot.', act: function () { filter('videos'); } },
-        { step: 1, at: '#clips', text: 'bower finds every pour and cuts the best one into its own clip.', act: function () { filter('videos'); findClips(); setTimeout(function () { var b = document.querySelector('[data-save-clip]'); if (b) b.click(); }, 1700); } },
-        { step: 1, at: '.shelf[data-shelf="stock"]', text: 'Connect the stock libraries you already pay for. bower checks every licence.', act: function () { filter('stock'); } },
-        { step: 2, at: '#s2 > .card:first-child', text: '<b>Step 2: Brand.</b> Drop in anything that shows how your brand talks: your brand book, website, past newsletters, social posts and founder notes. bower learns your voice from them.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
-        { step: 2, at: '.rules', text: 'Then bower turns that into rules. For Kumo, that means a quiet, unhurried voice, never saying words like "bold" or "hustle," no exclamation marks, and only stating facts it can back up, like "roasted in 12 kg batches."' },
-        { step: 3, at: '.prod-detail:not([hidden])', text: '<b>Step 3: Products.</b> Add every product once: sizes, prices, ingredients, and which retailers sell which version at what price. bower remembers every detail, so you never have to re-explain your products or remind anyone of a price again.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); setTimeout(function () { var y = document.getElementById('add-yuki'); if (y) y.click(); }, 900); } },
-        { step: 4, at: '.focus', text: '<b>Step 4: Ideas.</b> Now that Kumo\'s brand is set up, it\'s time to plan content. Kumo tells bower what it wants to post about: the release of Yuki, its new winter roast, on sale November 19.' },
-        { step: 4, at: '#ideas', text: 'bower suggests ideas for every format you post in: a newsletter, a carousel, teaser stories, ads and more. Some come from what\'s trending, some from what brands like Kumo are doing.' },
+        { step: 1, at: '#finder', text: 'You can search inside your videos. Kumo types <b>"coffee being poured into a cup,"</b> and Bower looks through its 3-minute brand film for that shot.', act: function () { filter('videos'); } },
+        { step: 1, at: '#clips', text: 'Bower finds every pour and cuts the best one into its own clip.', act: function () { filter('videos'); findClips(); setTimeout(function () { var b = document.querySelector('[data-save-clip]'); if (b) b.click(); }, 1700); } },
+        { step: 1, at: '.shelf[data-shelf="stock"]', text: 'Connect the stock libraries you already pay for. Bower checks every licence.', act: function () { filter('stock'); } },
+        { step: 2, at: '#s2 > .card:first-child', text: '<b>Step 2: Brand.</b> Drop in anything that shows how your brand talks: your brand book, website, past newsletters, social posts and founder notes. Bower learns your voice from them.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
+        { step: 2, at: '.rules', text: 'Then Bower turns that into rules. For Kumo, that means a quiet, unhurried voice, never saying words like "bold" or "hustle," no exclamation marks, and only stating facts it can back up, like "roasted in 12 kg batches."' },
+        { step: 3, at: '.prod-detail:not([hidden])', text: '<b>Step 3: Products.</b> Drop in your product facts: ingredients, benefits, sizes, prices, and which retailers sell which version. Bower remembers every detail, so you never have to re-explain your products or remind anyone of a price again.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); setTimeout(function () { var y = document.getElementById('add-yuki'); if (y) y.click(); }, 900); } },
+        { step: 4, at: '.focus', text: '<b>Step 4: Ideas.</b> Now that Kumo\'s brand is set up, it\'s time to plan content. Kumo tells Bower what it wants to post about: the release of Yuki, its new winter roast, on sale November 19.' },
+        { step: 4, at: '#ideas', text: 'Bower suggests ideas for every format you post in: a newsletter, a carousel, teaser stories, ads and more. Some come from what\'s trending, some from what brands like Kumo are doing.' },
         { step: 4, at: '#idea-gap', text: 'It also looks for topics competitors aren\'t covering. Here, nobody shows how to brew a winter roast at home.' },
-        { step: 4, at: '#idea-lib', text: 'It finds great photos and videos you haven\'t used in a while, too.' },
+        { step: 4, at: '#idea-lib', text: 'It finds great photos and videos you haven\'t used in a while, or never used this way, like a brand film that\'s never been cut into Stories.' },
         { step: 4, at: '.campaign', text: 'Then it plans every piece, timed back from Yuki\'s date.' },
-        { step: 5, at: '.stage', text: '<b>Step 5: Create.</b> bower writes and designs each piece using Kumo\'s templates, voice and product facts. First up is the newsletter announcing Yuki.', act: function () { tab('nl'); } },
-        { step: 5, at: '#passes', text: 'Before anyone sees it, bower checks the draft against every rule Kumo set up: banned words, how headlines are written, correct prices.', act: function () { tab('nl'); } },
-        { step: 5, at: '.stage', text: 'bower then turns the same story into a carousel, using the pour clip it cut earlier on slide 4.', act: function () { tab('car'); } },
+        { step: 5, at: '.stage', text: '<b>Step 5: Create.</b> Bower writes and designs each piece using Kumo\'s templates, voice and product facts. First up is the newsletter announcing Yuki.', act: function () { tab('nl'); } },
+        { step: 5, at: '#passes', text: 'Before anyone sees it, Bower checks the draft against every rule Kumo set up: banned words, how headlines are written, correct prices.', act: function () { tab('nl'); } },
+        { step: 5, at: '.stage', text: 'Bower then turns the same story into a carousel, using the pour clip it cut earlier on slide 4.', act: function () { tab('car'); } },
         { step: 5, at: '.stage', text: 'And into three teaser stories for the days before Yuki goes on sale.', act: function () { tab('st'); } },
-        { step: 6, at: '.piece[data-piece="st"]', text: '<b>Step 6: Approve.</b> Nothing goes out until someone on your team says yes. Before approving, a teammate edits one of the stories and adds the word "bold," which is on Kumo\'s list of words it never uses. bower flags it right away and suggests a fix.' },
+        { step: 6, at: '.piece[data-piece="st"]', text: '<b>Step 6: Approve.</b> Nothing goes out until someone on your team says yes. Before approving, a teammate edits one of the stories and adds the word "bold," which is on Kumo\'s list of words it never uses. Bower flags it right away and suggests a fix.' },
         { step: 6, at: '.piece[data-piece="st"]', text: 'One click accepts the fix, and the story is back on brand.', act: function () { var f = document.getElementById('fix-it'); if (f) f.click(); } },
         { step: 6, at: '#col-done', text: 'Once a piece is approved, it\'s added to the calendar automatically.', act: function () { clickAll('#col-wait [data-approve]', 300); } },
         { step: 7, at: '.cal', text: '<b>Step 7: Schedule.</b> Every approved post is placed on one calendar, timed around Yuki\'s on-sale date and mixed in with Kumo\'s regular posts. Each post is colour coded by topic, so you can see the balance at a glance.' },
         { step: 7, at: '.side6', text: 'The side panel shows what still needs your approval and any open days that could use a post.' },
-        { step: 8, at: '.lessons', text: '<b>Step 8: Results.</b> After the week, bower pulls in the numbers. Yuki sold 120 of its 200 bags in the first week, and bower shows how each post performed.' },
-        { step: 8, at: '#close-loop', text: 'bower turns what worked into lessons, like "short subject lines get opened more," and uses them to suggest the next round of content.' },
-        { step: 0, at: '#early-access .wrap', text: 'That\'s bower. Want it for your brand? Get early access and we\'ll set it up with your files, your rules and your voice.', label: 'Your turn' }
+        { step: 8, at: '.lessons', text: '<b>Step 8: Results.</b> After the week, Bower pulls in the numbers. Yuki sold 120 of its 200 bags in the first week, and Bower shows how each post performed.' },
+        { step: 8, at: '#close-loop', text: 'Bower turns what worked into lessons, like "short subject lines get opened more," and uses them to suggest the next round of content.' },
+        { step: 0, at: '#early-access .wrap', text: 'That\'s Bower. Want it for your brand? Get early access and we\'ll set it up with your files, your rules and your voice.', label: 'Your turn' }
       ];
       var spot = document.getElementById('tour-spot'), bub = document.getElementById('tour-bubble');
       var arrow = bub.querySelector('.tour-arrow');
