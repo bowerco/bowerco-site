@@ -192,11 +192,21 @@
     @media (max-width: 760px) { .rules { grid-template-columns: 1fr; } .facts thead { display: none; } .facts tr { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 10px; padding: 8px 0; border-top: 1px solid #e3e7f0; } .facts td { border: 0; padding: 0; } }
     .rule-card { position: relative; min-height: 172px; }
     .rule-card .fill { transition: opacity .5s; }
+    .pl-switch { display: inline-flex; background: var(--ui-soft); border-radius: 100px; padding: 3px; margin-bottom: 12px; }
+    .pl-switch button { border: 0; background: transparent; border-radius: 100px; padding: 6px 12px; font: 500 12px/1 var(--ui); color: var(--ui-muted); }
+    .pl-switch button[aria-checked="true"] { background: #fff; color: var(--ui-dark); box-shadow: 0 1px 3px rgba(35,40,58,.12); }
+    .pl-switch button[aria-checked="true"]::before { content: "✓ "; color: var(--blue); }
+    .pillar-list .blank { display: none; font-style: normal; }
+    .pillar-list .blank i { display: block; font-style: normal; border: 1px dashed #b7c3de; background: #fff; border-radius: 6px; padding: 5px 8px; color: var(--ui-muted); margin-top: 4px; font-size: 11px; }
+    .pillars-card.own .pillar-list li { background: var(--ui-soft); border-left-color: #c9cfdc; }
+    .pillars-card.own .pillar-list b, .pillars-card.own .pillar-list span { display: none; }
+    .pillars-card.own .pillar-list .blank { display: block; }
+    .pl-note { font-size: 12px; color: var(--ui-muted); margin-top: 10px; }
     .pillar-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
     .pillar-list li { background: var(--pt); border-left: 4px solid var(--pc); border-radius: 4px 10px 10px 4px; padding: 10px 12px; font-size: 12px; color: var(--ui-ink); line-height: 1.4; }
     .pillar-list b { display: block; font: 600 13px/1.3 var(--ui); color: var(--pc); margin-bottom: 2px; }
     @media (max-width: 760px) { .pillar-list { grid-template-columns: 1fr 1fr; } }
-    .rule-card .skel { position: absolute; inset: 52px 18px 18px; display: grid; gap: 10px; align-content: start; transition: opacity .3s; }
+    .rule-card .skel { pointer-events: none; position: absolute; inset: 52px 18px 18px; display: grid; gap: 10px; align-content: start; transition: opacity .3s; }
     .rule-card .skel i { display: block; height: 10px; border-radius: 6px; background: var(--ui-soft); }
     .rule-card .skel i:nth-child(2) { width: 80%; } .rule-card .skel i:nth-child(3) { width: 60%; }
     .coding .rule-card .skel i { animation: shimmer 1s ease-in-out infinite alternate; }
@@ -1027,12 +1037,16 @@
                 <div class="card rule-card wide pillars-card">
                   <h3>Content pillars <span class="status-tag">Waiting</span></h3>
                   <div class="skel"><i></i><i></i><i></i></div>
-                  <ul class="fill pillar-list">
-                    <li class="pl-ritual"><b>Ritual</b><span>How people brew and enjoy Kumo at home.</span></li>
-                    <li class="pl-origin"><b>Origin</b><span>Where the beans come from and who grows them.</span></li>
-                    <li class="pl-craft"><b>Craft</b><span>How Kumo roasts, and why slow matters.</span></li>
-                    <li class="pl-launch"><b>New product</b><span>Releases like Yuki.</span></li>
-                  </ul>
+                  <div class="fill">
+                    <div class="pl-switch" role="radiogroup" aria-label="How to set pillars"><button type="button" role="radio" aria-checked="false" data-pl="own">Set my own</button><button type="button" role="radio" aria-checked="true" data-pl="suggest">Suggest them for me</button></div>
+                    <ul class="pillar-list">
+                      <li class="pl-ritual"><b>Ritual</b><span>How people brew and enjoy Kumo at home.</span><em class="blank"><i>Pillar name</i><i>What it covers</i></em></li>
+                      <li class="pl-origin"><b>Origin</b><span>Where the beans come from and who grows them.</span><em class="blank"><i>Pillar name</i><i>What it covers</i></em></li>
+                      <li class="pl-craft"><b>Craft</b><span>How Kumo roasts, and why slow matters.</span><em class="blank"><i>Pillar name</i><i>What it covers</i></em></li>
+                      <li class="pl-launch"><b>New product</b><span>Releases like Yuki.</span><em class="blank"><i>Pillar name</i><i>What it covers</i></em></li>
+                    </ul>
+                    <p class="pl-note" id="pl-note">Suggested from your top posts. Edit anytime.</p>
+                  </div>
                 </div>
               </div>
               <div class="card s2-foot">
@@ -1551,6 +1565,16 @@
         });
       });
 
+      // Step 2: pillars, set your own or let Bower suggest
+      document.querySelectorAll('[data-pl]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var own = b.dataset.pl === 'own';
+          document.querySelector('.pillars-card').classList.toggle('own', own);
+          document.querySelectorAll('[data-pl]').forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+          document.getElementById('pl-note').textContent = own ? 'Name up to five pillars and say what each one covers.' : 'Suggested from your top posts. Edit anytime.';
+        });
+      });
+
       // Step 3: add Yuki
       var addYuki = document.getElementById('add-yuki');
       addYuki.addEventListener('click', function () {
@@ -1711,7 +1735,7 @@
         { step: 1, at: '.shelf[data-shelf="stock"]', text: 'Connect the stock libraries you already pay for. Bower checks every licence.', act: function () { filter('stock'); } },
         { step: 2, at: '#s2 > .card:first-child', text: '<b>Step 2: Brand.</b> Drop in anything that shows how your brand talks: your brand book, website, past newsletters, social posts and founder notes. Bower learns your voice from them.', act: function () { filter('all'); document.getElementById('code-it').click(); } },
         { step: 2, at: '.rules', text: 'Then Bower turns that into rules. For Kumo, that means a quiet, unhurried voice, never saying words like "bold" or "hustle," no exclamation marks, and only stating facts it can back up, like "roasted in 12 kg batches."' },
-        { step: 2, at: '.pillars-card', text: 'Bower also sets Kumo\'s <b>content pillars</b>, the main topics it posts about. Every piece gets one, so the calendar stays balanced instead of all product posts.' },
+        { step: 2, at: '.pillars-card', text: 'Next come Kumo\'s <b>content pillars</b>, the main topics it posts about. You can set your own, or let Bower suggest them from what\'s worked in your past posts. Kumo let Bower suggest them, then approved.' },
         { step: 3, at: '.prod-detail:not([hidden])', text: '<b>Step 3: Products.</b> Drop in your product facts: ingredients, benefits, sizes, prices, and which retailers sell which version. Bower remembers every detail, so you never have to re-explain your products or remind anyone of a price again.', act: function () { var b = document.querySelector('[data-show-prod="yuki"]'); if (b) b.click(); setTimeout(function () { var y = document.getElementById('add-yuki'); if (y) y.click(); }, 900); } },
         { step: 4, at: '.focus', text: '<b>Step 4: Ideas.</b> Now that Kumo\'s brand is set up, it\'s time to plan content. Kumo tells Bower what it wants to post about: the release of Yuki, its new winter roast, on sale November 19.' },
         { step: 4, at: '#ideas', text: 'Bower suggests ideas for every format you post in: a newsletter, a carousel, teaser stories, ads and more. Some come from what\'s trending, some from what brands like Kumo are doing.' },
