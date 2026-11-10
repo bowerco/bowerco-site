@@ -7,20 +7,27 @@
   <meta name="description" content="bower builds the system behind your brand's content, so everything you put out stays consistent. Newsletters, carousels, stories and ads, made from your own photos, fonts, colours and voice.">
   <meta property="og:title" content="bower · your brand, coded in.">
   <meta property="og:description" content="bower builds the system behind your brand's content, so everything you put out stays consistent. It's your brand, coded in.">
-  <link rel="icon" type="image/png" href="assets/bird.png">
+  <meta property="og:image" content="https://bowerco.app/assets/bower-og.png">
+  <meta name="theme-color" content="#262a5c">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Droid+Serif:wght@400;700&family=Lora:ital@1&family=Inter:wght@400;500;600&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
   <style>
     /* Brand rules: brand-bower/brand/rules.yaml */
     :root {
-      --blue: #7284b7;        /* primary */
-      --light-blue: #c2d5f5;  /* secondary */
+      --indigo: #262a5c;      /* primary: logo, type, covers */
+      --blue: #7284b7;        /* secondary: type 24px+ only */
+      --light-blue: #c2d5f5;  /* accent: fills, never text on cream */
       --cream: #fffcf4;       /* background */
-      --ink: #2b3350;         /* text: deep shade of brand blue, for readable body copy */
-      --soft: #eef2fa;        /* light blue wash for panels */
-      --serif: "Droid Serif", Georgia, serif;
-      --accent: "Lora", Georgia, serif;
+      --paper: #f4efe4;       /* second background: panels and cards */
+      --ink: var(--indigo);
+      --soft: var(--paper);
+      --serif: "Fraunces", Georgia, serif;
+      --accent: "Fraunces", Georgia, serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
       --ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     }
     * { box-sizing: border-box; margin: 0; }
@@ -29,20 +36,22 @@
       background: var(--cream);
       color: var(--ink);
       font: 400 18px/1.6 var(--serif);
+      font-variation-settings: "SOFT" 100, "WONK" 0;
       -webkit-font-smoothing: antialiased;
     }
-    h1, h2, h3 { font-weight: 700; line-height: 1.15; text-wrap: balance; }
-    .tagline { font-family: var(--accent); font-style: italic; color: var(--blue); }
-    .accent { font-family: var(--accent); font-style: italic; }
+    h1, h2 { font-weight: 400; line-height: 1.1; letter-spacing: -.015em; text-wrap: balance; }
+    h3 { font-weight: 600; line-height: 1.2; }
+    .tagline { font-family: var(--accent); font-style: italic; font-weight: 300; color: var(--indigo); }
+    .accent { font-family: var(--accent); font-style: italic; font-weight: 300; }
     .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-    .eyebrow { font: italic 400 20px/1.4 var(--accent); color: var(--blue); margin-bottom: 10px; }
+    .eyebrow { font: 400 13px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 16px; }
     section { padding: 88px 0; }
     .lede { font-size: 21px; max-width: 640px; }
 
     /* Header */
-    header { padding: 18px 0; }
+    header { padding: 22px 0; background: var(--indigo); }
     header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    header img { height: 34px; width: auto; display: block; }
+    header img { height: 40px; width: auto; display: block; }
     header .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     header .logo .bird { height: 30px; }
     header nav { display: flex; align-items: center; gap: 22px; }
@@ -51,28 +60,32 @@
 
     .btn {
       display: inline-block;
-      background: var(--blue);
+      background: var(--indigo);
       color: var(--cream);
-      font: 700 19px/1 var(--serif);
-      padding: 18px 28px;
+      font: 500 14px/1 var(--mono);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 19px 28px;
       border: 0;
-      border-radius: 4px;
+      border-radius: 100px;
       text-decoration: none;
       cursor: pointer;
     }
-    .btn:hover { background: var(--ink); }
-    .btn.small { font-size: 16px; padding: 12px 18px; }
+    .btn:hover { background: var(--cream); color: var(--indigo); box-shadow: inset 0 0 0 1.5px var(--indigo); }
+    .btn.small { font-size: 13px; padding: 13px 18px; }
     .btn.ghost { background: transparent; color: var(--blue); box-shadow: inset 0 0 0 2px var(--light-blue); }
     .btn.ghost:hover { color: var(--ink); box-shadow: inset 0 0 0 2px var(--blue); }
 
     /* Hero */
-    .hero { padding: 48px 0 96px; }
+    .hero { padding: 48px 0 104px; background: var(--indigo); color: var(--cream); }
+    .hero .btn { background: var(--cream); color: var(--indigo); }
+    .hero .btn:hover { background: var(--light-blue); box-shadow: none; }
     .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
-    .hero h1 { font-size: clamp(46px, 6.4vw, 84px); line-height: 1.04; margin-bottom: 28px; letter-spacing: -.01em; }
-    .hero h1 .accent { color: var(--ink); font-weight: 400; }
+    .hero h1 { font-size: clamp(48px, 6.8vw, 92px); line-height: 1.02; margin-bottom: 28px; letter-spacing: -.025em; }
+    .hero h1 .accent { color: var(--cream); }
     .hero .lede { margin-bottom: 32px; }
     .ctas { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .hero .note { font: italic 16px/1.5 var(--accent); color: #525b7a; margin-top: 16px; }
+    .hero .note { font: italic 300 16px/1.5 var(--accent); color: var(--cream); margin-top: 16px; }
 
     /* Hero visual: a piece of content, checked against the rules */
     .stack { position: relative; min-height: 470px; margin-top: 28px; }
@@ -87,15 +100,15 @@
     .story { width: 150px; right: 0; top: 60px; transform: rotate(1.5deg); aspect-ratio: 9 / 16; }
     .story img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .story p { position: absolute; left: 12px; right: 12px; bottom: 14px; color: #fbf7ee; font: 700 15px/1.3 "Shippori Mincho", Georgia, serif; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
-    .check { position: absolute; right: 4%; bottom: 0; background: var(--ink); color: var(--cream); border-radius: 14px; padding: 18px 22px; font: 400 16px/1.55 var(--serif); width: 270px; box-shadow: 0 20px 40px -18px rgba(0,0,0,.45); }
-    .check b { display: block; font-weight: 700; font-size: 18px; color: var(--light-blue); margin-bottom: 6px; }
+    .check { position: absolute; right: 4%; bottom: 0; background: var(--cream); color: var(--indigo); border-radius: 14px; padding: 18px 22px; font: 400 16px/1.55 var(--serif); width: 270px; box-shadow: 0 20px 40px -18px rgba(0,0,0,.45); }
+    .check b { display: block; font-weight: 600; font-size: 18px; color: var(--indigo); margin-bottom: 6px; }
     .check ul { list-style: none; padding: 0; display: grid; gap: 2px; }
-    .example-tag { position: absolute; left: 14px; top: -28px; z-index: 2; transform: rotate(-1deg); background: var(--light-blue); color: var(--ink); font: italic 400 15px/1 var(--accent); padding: 9px 14px; border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(43,51,80,.4); white-space: nowrap; }
-    .demo-link { display: inline-block; margin-top: 18px; color: var(--blue); font-size: 18px; text-decoration: none; border-bottom: 1px solid var(--light-blue); padding-bottom: 2px; }
+    .example-tag { position: absolute; left: 14px; top: -28px; z-index: 2; transform: rotate(-1deg); background: var(--light-blue); color: var(--ink); font: italic 400 15px/1 var(--accent); padding: 9px 14px; color: var(--indigo); border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(43,51,80,.4); white-space: nowrap; }
+    .demo-link { display: inline-block; margin-top: 22px; color: var(--cream); font-size: 18px; text-decoration: none; border-bottom: 1px solid var(--light-blue); padding-bottom: 2px; }
     .demo-link span { display: inline-block; transition: transform .15s; }
-    .demo-link:hover { color: var(--ink); border-color: var(--ink); }
+    .demo-link:hover { color: var(--light-blue); border-color: var(--cream); }
     .demo-link:hover span { transform: translateX(3px); }
-    .check li::before { content: "✓"; color: var(--light-blue); margin-right: 8px; }
+    .check li::before { content: "✓"; color: var(--indigo); margin-right: 8px; }
 
     /* Problem */
     .problem { background: var(--ink); color: var(--cream); }
@@ -146,12 +159,13 @@
     .bowerbird { padding: 104px 0; }
     .bowerbird .wrap { display: grid; grid-template-columns: 160px minmax(0, 720px); gap: 48px; align-items: center; justify-content: center; }
     .bowerbird img { width: 160px; height: auto; }
+    .bowerbird .eyebrow { color: var(--indigo); }
     .bowerbird h2 { font-size: clamp(32px, 4vw, 46px); margin-bottom: 18px; }
     .bowerbird h2 .accent { font-weight: 400; }
     @media (max-width: 720px) { .bowerbird { padding: 64px 0; } .bowerbird .wrap { grid-template-columns: 1fr; gap: 20px; } .bowerbird img { width: 96px; } }
 
     /* Signup */
-    .signup { background: var(--blue); color: var(--cream); padding: 112px 0; }
+    .signup { background: var(--indigo); color: var(--cream); padding: 112px 0; }
     .signup .wrap { max-width: 680px; text-align: center; }
     .signup h2 { font-size: clamp(34px, 5vw, 52px); margin-bottom: 20px; }
     .signup p { font-size: 24px; line-height: 1.5; margin-bottom: 40px; }
@@ -163,8 +177,8 @@
       color: var(--ink);
       background: var(--cream);
       border: 2px solid var(--cream);
-      border-radius: 4px;
-      padding: 16px 18px;
+      border-radius: 100px;
+      padding: 16px 22px;
     }
     .signup input[type="email"]:focus { outline: none; border-color: var(--light-blue); }
     .signup .btn { background: var(--light-blue); color: var(--ink); }
@@ -179,10 +193,11 @@
     footer .wrap { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
     footer img { height: 36px; width: auto; }
     footer .tagline { font-size: 18px; }
-    footer .legal { margin-left: auto; font: 400 14px/1.5 var(--serif); color: #6c7593; }
+    footer .legal { margin-left: auto; font: 400 12px/1.5 var(--mono); letter-spacing: .08em; color: var(--indigo); }
     footer .legal a { color: inherit; }
 
     :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    header :focus-visible, .hero :focus-visible, .signup :focus-visible { outline-color: var(--light-blue); }
 
     @media (max-width: 960px) {
       .hero .wrap, .diff .wrap, .founding .wrap { grid-template-columns: 1fr; gap: 40px; }
@@ -217,7 +232,7 @@
 
   <header>
     <div class="wrap">
-      <a class="logo" href="/"><img class="bird" src="assets/bird.png" alt="" width="45" height="36"><img src="assets/wordmark-blue.png" alt="bower" width="150" height="40"></a>
+      <a class="logo" href="/"><img src="assets/bower-lockup-cream.svg" alt="bower" width="152" height="40"></a>
     </div>
   </header>
 
@@ -252,7 +267,7 @@
 
     <section class="bowerbird" id="why">
       <div class="wrap">
-        <img src="assets/bird.png" alt="" width="120" height="96">
+        <img src="assets/bower-thread-deepening.svg" alt="" width="160" height="160">
         <div>
           <p class="eyebrow">Why bower</p>
           <h2>Named after the <span class="accent">bowerbird.</span></h2>
@@ -282,7 +297,7 @@
 
   <footer>
     <div class="wrap">
-      <img src="assets/bird.png" alt="" width="45" height="36">
+      <img src="assets/bower-thread-indigo.svg" alt="" width="36" height="36">
       <span class="tagline">your brand, coded in.</span>
       <!-- CASL: name the sender and give a way to reach them. Add a contact email here once bower has one. -->
       <p class="legal">bower · Montreal, Quebec</p>
