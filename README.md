@@ -4,7 +4,8 @@ The bowerco.app landing page. One static page, built from the rules in
 `bowerco/brand-bower` (colors, fonts, wordmark, voice).
 
 - `index.html`: the page.
-- `assets/`: wordmark and bird mark, copied from the brand book.
+- `assets/`: logos (the thread, lockups, favicons, social image), copied from
+  `brand-bower/assets/logos/`.
 - `apps-script/Code.gs`: the Google Apps Script that adds waitlist signups to
   the "bower waitlist" Google Sheet. It is deployed from that sheet
   (Extensions > Apps Script); its web app URL is in the form's `data-endpoint`.
